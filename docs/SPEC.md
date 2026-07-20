@@ -1,4 +1,4 @@
-# Tunz, AI Artist Studio
+# AFAR Music, AI Artist Studio
 
 **Build an AI artist, not just a track**
 
@@ -8,7 +8,7 @@ AI music sites like Suno and Udio allow users to generate songs with a prompt. M
 2. Music fans get obsessed with backstory, and AI music superfans (listeners who would have repeat streams and deep engagement) would therefore want fully fleshed out AI artists to engage with.
 3. AI music creators are already doing this. We see AI music creators over and over again building full AI artist profiles and pages, uploading them to streaming sites like Spotify.
 
-Tunz closes that gap by giving users creative control to build an AI artist and shape their Creative DNA, which in turn generates a backstory, artist page and profile, and accompanying tracks.
+AFAR Music closes that gap by giving users creative control to build an AI artist and shape their Creative DNA, which in turn generates a backstory, artist page and profile, and accompanying tracks.
 
 ## Prototype
 
