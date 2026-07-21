@@ -1,26 +1,37 @@
 @import "tailwindcss";
+@import "./design-system.css";
 
+/* Fonts load via next/font in layout.tsx; map them onto the design system's
+   token names so every design-system rule picks them up. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-heading: var(--font-cormorant), Georgia, serif;
+  --font-body: var(--font-lora), Georgia, serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.kicker {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-8);
+  width: 100%;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.fade-up {
+  animation: fadeUp 0.5s ease both;
 }
