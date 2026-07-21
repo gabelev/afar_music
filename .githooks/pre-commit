@@ -1,0 +1,7 @@
+#!/bin/sh
+# Pre-commit check required by CLAUDE.md: keep main deployable at every commit.
+set -e
+npx tsc --noEmit
+npm run lint
+npm test
+npm run build
