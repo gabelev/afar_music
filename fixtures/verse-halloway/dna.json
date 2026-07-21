@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "A grime-adjacent London MC who quotes Victorian poetry between bars",
+  "era": 8,
+  "influences": [
+    {
+      "genre": "grime",
+      "weight": 0.45000000000000007
+    },
+    {
+      "genre": "UK hip-hop",
+      "weight": 0.25000000000000006
+    },
+    {
+      "genre": "spoken word poetry",
+      "weight": 0.18000000000000002
+    },
+    {
+      "genre": "dubstep",
+      "weight": 0.12000000000000001
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": -0.2,
+    "sparseDense": 0.4,
+    "coldWarm": -0.4,
+    "improvisedStructured": -0.1,
+    "loudQuiet": -0.6,
+    "organicSynthetic": 0.6,
+    "darkHopeful": -0.3
+  },
+  "vocalCharacter": {
+    "whispersScreams": 0.5,
+    "cleanDamaged": 0.2
+  },
+  "lyricalObsessions": [
+    "fog over the Thames",
+    "tower block dreams",
+    "gilded-age decay",
+    "tongue between two centuries"
+  ],
+  "visualStyle": [
+    "grimy neon estate at dusk",
+    "gothic ornamental typography"
+  ]
+}

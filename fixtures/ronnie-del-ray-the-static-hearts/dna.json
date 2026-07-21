@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "A 1960s girl-group revivalist singing about very modern loneliness",
+  "era": 2,
+  "influences": [
+    {
+      "genre": "1960s girl-group pop",
+      "weight": 0.4
+    },
+    {
+      "genre": "Wall of Sound orchestral pop",
+      "weight": 0.25
+    },
+    {
+      "genre": "doo-wop",
+      "weight": 0.2
+    },
+    {
+      "genre": "indie retro-soul",
+      "weight": 0.15
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": 0.3,
+    "sparseDense": 0.5,
+    "coldWarm": 0.6,
+    "improvisedStructured": 0.7,
+    "loudQuiet": -0.2,
+    "organicSynthetic": -0.5,
+    "darkHopeful": -0.1
+  },
+  "vocalCharacter": {
+    "whispersScreams": -0.4,
+    "cleanDamaged": -0.5
+  },
+  "lyricalObsessions": [
+    "blue-lit phone screens",
+    "empty group chats",
+    "longing across a crowded room",
+    "the ache of read receipts"
+  ],
+  "visualStyle": [
+    "beehive-and-tulle retro glamour",
+    "faded Kodachrome melancholy"
+  ]
+}

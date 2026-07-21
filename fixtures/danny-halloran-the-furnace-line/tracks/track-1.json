@@ -1,0 +1,78 @@
+{
+  "title": "Mill Gate Anthem",
+  "lyricSeed": "Chains on the gate but the fire's still in me, whoa-oh! We built this town with our hands and our sweat—they won't take that yet!",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "118 BPM",
+      "1980s production",
+      "gated reverb drums",
+      "analog synths",
+      "arena rock",
+      "arena rock instrumentation",
+      "heartland rock",
+      "hard rock",
+      "pristine production",
+      "dense arrangement",
+      "layered instrumentation",
+      "warm tone",
+      "analog warmth",
+      "structured songwriting",
+      "tight arrangement",
+      "loud",
+      "aggressive dynamics",
+      "in-the-red energy",
+      "organic instrumentation",
+      "acoustic instruments",
+      "hopeful mood",
+      "uplifting",
+      "screamed vocals",
+      "throat-shredding intensity",
+      "damaged vocal texture"
+    ],
+    "negative_global_styles": [
+      "lo-fi",
+      "sparse arrangement",
+      "minimal instrumentation",
+      "cold tone",
+      "icy digital timbre",
+      "improvised feel",
+      "loose performance",
+      "quiet",
+      "hushed dynamics",
+      "intimate",
+      "synthetic textures",
+      "electronic synthesis",
+      "dark mood",
+      "brooding",
+      "whispered vocals",
+      "breathy delivery",
+      "clean vocals"
+    ],
+    "chunks": [
+      {
+        "text": "Chains on the gate but the fire's still in me, whoa-oh! We built this town with our hands and our sweat—they won't take that yet!",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "high",
+  "provenance": [
+    "era",
+    "influences.arena rock",
+    "influences.heartland rock",
+    "influences.hard rock",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.darkHopeful",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": null
+}

@@ -1,0 +1,76 @@
+{
+  "title": "False Salvation",
+  "lyricSeed": "I called your love my savior, laid my burden at your door, but you were never holy, baby, just a man I was prayin' for, and I need more.",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "105 BPM",
+      "1970s studio production",
+      "analog tape sound",
+      "gospel",
+      "soul",
+      "rhythm and blues",
+      "southern funk",
+      "pristine production",
+      "polished",
+      "dense arrangement",
+      "warm tone",
+      "analog warmth",
+      "cozy timbre",
+      "improvised feel",
+      "loud",
+      "aggressive dynamics",
+      "organic instrumentation",
+      "acoustic instruments",
+      "live drums",
+      "screamed vocals",
+      "throat-shredding intensity",
+      "clean vocals"
+    ],
+    "negative_global_styles": [
+      "lo-fi",
+      "tape saturation",
+      "sparse arrangement",
+      "cold tone",
+      "icy digital timbre",
+      "detached",
+      "structured songwriting",
+      "quiet",
+      "hushed dynamics",
+      "synthetic textures",
+      "electronic synthesis",
+      "drum machines",
+      "whispered vocals",
+      "breathy delivery",
+      "damaged vocal texture"
+    ],
+    "chunks": [
+      {
+        "text": "I called your love my savior, laid my burden at your door, but you were never holy, baby, just a man I was prayin' for, and I need more.",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "medium",
+  "provenance": [
+    "era",
+    "influences.gospel",
+    "influences.soul",
+    "influences.rhythm and blues",
+    "influences.southern funk",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": {
+    "x-region": "us-central1",
+    "x-trace-id": "7af5e516d8ff07295b8d288ff7094278"
+  }
+}

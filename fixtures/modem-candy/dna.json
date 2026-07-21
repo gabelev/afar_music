@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "A hyperpop shut-in obsessed with dial-up internet and expired candy",
+  "era": 8,
+  "influences": [
+    {
+      "genre": "hyperpop",
+      "weight": 0.45000000000000007
+    },
+    {
+      "genre": "glitch pop",
+      "weight": 0.25000000000000006
+    },
+    {
+      "genre": "bubblegum bass",
+      "weight": 0.20000000000000004
+    },
+    {
+      "genre": "vaporwave",
+      "weight": 0.10000000000000002
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": 0.3,
+    "sparseDense": 0.6,
+    "coldWarm": 0.1,
+    "improvisedStructured": 0.4,
+    "loudQuiet": -0.5,
+    "organicSynthetic": 0.9,
+    "darkHopeful": 0.2
+  },
+  "vocalCharacter": {
+    "whispersScreams": 0.3,
+    "cleanDamaged": 0.6
+  },
+  "lyricalObsessions": [
+    "dial-up handshake tones",
+    "expired candy sweetness",
+    "blue-lit bedroom isolation",
+    "corrupted childhood nostalgia"
+  ],
+  "visualStyle": [
+    "Y2K digital decay",
+    "sugar-rush neon glitch"
+  ]
+}

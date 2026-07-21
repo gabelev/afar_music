@@ -20,5 +20,11 @@ Gabe's directive: latency is a UX risk. Wave 1 fires 3 candidate tracks concurre
 ## 2026-07-20 — tsx (dev dependency) for CLI scripts
 Node 25 strips TS types natively but can't resolve the `@/` path alias the app code uses. `node --import tsx` runs the CLI scripts with full tsconfig resolution; zero impact on the deployed app (devDependency only).
 
+## 2026-07-20 — ElevenLabs concurrency is capped at 2 by the subscription
+A third concurrent music call returns 429 concurrent_limit_exceeded. The music client now carries a 2-slot semaphore plus one retry, so waves still fire with Promise.all and the overflow queues transparently. Note: the semaphore is per-process — on serverless, parallel instances could still collide, which the retry absorbs.
+
+## 2026-07-20 — Seed media served from public/, not Blob
+The linked Vercel Blob store is configured private, so public uploads fail. The spec wants seed assets committed to the repo anyway: the seed script copies media into public/artists/<slug>/ and stores root-relative URLs in the same blob_url column live generation uses — components stay uniform, no demo branching. Live generation still targets Blob; the store needs flipping to public access (or a small authenticated proxy route) before the create flow ships.
+
 ## 2026-07-20 — Tests with Vitest
 Standard, fast, zero-config with TS. Business-logic tests target the DNA schema and the DNA→composition-plan mapping, per the working agreement.

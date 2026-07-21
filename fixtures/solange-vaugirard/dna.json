@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "A French-touch disco producer who samples her grandmother's jazz records",
+  "era": 6,
+  "influences": [
+    {
+      "genre": "French house",
+      "weight": 0.4000000000000001
+    },
+    {
+      "genre": "disco",
+      "weight": 0.30000000000000004
+    },
+    {
+      "genre": "vintage jazz",
+      "weight": 0.20000000000000004
+    },
+    {
+      "genre": "nu-disco",
+      "weight": 0.10000000000000002
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": 0.2,
+    "sparseDense": 0.5,
+    "coldWarm": 0.6,
+    "improvisedStructured": 0.4,
+    "loudQuiet": -0.3,
+    "organicSynthetic": 0.3,
+    "darkHopeful": 0.7
+  },
+  "vocalCharacter": {
+    "whispersScreams": -0.4,
+    "cleanDamaged": 0.3
+  },
+  "lyricalObsessions": [
+    "inherited memory",
+    "dancefloor midnight",
+    "crackling vinyl ghosts",
+    "golden family summers"
+  ],
+  "visualStyle": [
+    "warm sepia film grain",
+    "mirrorball glow"
+  ]
+}

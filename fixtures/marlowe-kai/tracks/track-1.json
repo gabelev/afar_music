@@ -1,0 +1,77 @@
+{
+  "title": "Saltwater Goodbye",
+  "lyricSeed": "You left with the tide but I'm dancing on the shore, saltwater goodbye tastes sweeter than before, sun on my skin, I don't need you anymore",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "120 BPM",
+      "2010s production",
+      "sidechained pads",
+      "trap hi-hats",
+      "indie pop",
+      "surf rock",
+      "tropical house",
+      "synth-pop",
+      "pristine production",
+      "polished",
+      "dense arrangement",
+      "warm tone",
+      "analog warmth",
+      "cozy timbre",
+      "structured songwriting",
+      "tight arrangement",
+      "loud",
+      "hopeful mood",
+      "uplifting",
+      "radiant",
+      "whispered vocals",
+      "clean vocals",
+      "pure vocal tone"
+    ],
+    "negative_global_styles": [
+      "lo-fi",
+      "tape saturation",
+      "sparse arrangement",
+      "cold tone",
+      "icy digital timbre",
+      "detached",
+      "improvised feel",
+      "loose performance",
+      "quiet",
+      "dark mood",
+      "brooding",
+      "ominous undertow",
+      "screamed vocals",
+      "damaged vocal texture",
+      "distorted vocals"
+    ],
+    "chunks": [
+      {
+        "text": "You left with the tide but I'm dancing on the shore, saltwater goodbye tastes sweeter than before, sun on my skin, I don't need you anymore",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "high",
+  "provenance": [
+    "era",
+    "influences.indie pop",
+    "influences.surf rock",
+    "influences.tropical house",
+    "influences.synth-pop",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.darkHopeful",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": {
+    "x-region": "us-central1",
+    "x-trace-id": "90746ad611ae3b43cfe033f846b6f08e"
+  }
+}

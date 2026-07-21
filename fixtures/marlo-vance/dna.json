@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "A bedroom-pop documentarian chronicling one small town's last summer",
+  "era": 7,
+  "influences": [
+    {
+      "genre": "bedroom pop",
+      "weight": 0.4
+    },
+    {
+      "genre": "indie folk",
+      "weight": 0.25
+    },
+    {
+      "genre": "lo-fi dream pop",
+      "weight": 0.2
+    },
+    {
+      "genre": "slowcore",
+      "weight": 0.15
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": 0.6,
+    "sparseDense": -0.3,
+    "coldWarm": 0.5,
+    "improvisedStructured": -0.2,
+    "loudQuiet": 0.5,
+    "organicSynthetic": -0.2,
+    "darkHopeful": 0.1
+  },
+  "vocalCharacter": {
+    "whispersScreams": -0.6,
+    "cleanDamaged": 0.3
+  },
+  "lyricalObsessions": [
+    "empty parking lots at dusk",
+    "the last day before everyone leaves",
+    "faded polaroids in a shoebox",
+    "the closing of the corner diner"
+  ],
+  "visualStyle": [
+    "sun-bleached super-8 footage",
+    "hand-labeled cassette collage"
+  ]
+}

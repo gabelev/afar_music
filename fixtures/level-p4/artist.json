@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "name": "LEVEL P4",
+    "bio": "LEVEL P4 is the recording alias of a Detroit singer who discovered her sound in the emptiest place she could find: the fourth floor of a downtown parking structure, deserted after the last shift left. She'd worked the night desk at a hotel across the street, and on the nights the guilt of things unsaid kept her awake, she'd carry a battery pack, a condenser mic, and a laptop up the concrete ramps and sing until the sun threatened the sodium lamps. The garage answered her back — its long reverb tail turning every whispered confession into something cathedral-sized, every hum of the fluorescents into a drone she'd learn to sing against.\n\nThe project began as voice memos never meant to leave the phone. Friends who heard them described the effect as claustrophobia turned tender — hushed vocals sitting on beds of low, breathing synths, trip-hop drums that arrive like distant footsteps, and space, endless space, where a chorus should be. She refuses to record before midnight and refuses to record anywhere with walls that don't ring. The concrete is an instrument; the silence between echoes is the second voice.\n\nHer debut collects those hours: songs about the exact minute after you've already made the mistake, about love that flickers like a failing tube light, about calling out and getting only your own sound back. LEVEL P4 keeps her identity soft-focus and half-lit on purpose. The point was never the singer. The point was the room, and what the room does to a person who has stayed too long inside it.",
+    "coverTitle": "The Hour After",
+    "coverDescription": "A single long-exposure photograph shot from the mouth of an empty parking level: bare concrete pillars receding into sodium-orange haze, one lone figure standing small at the far end beneath a flickering fluorescent strip. Ribbons of red taillight streak across the foreground where a car once passed, frozen into glowing lines. The title sits in thin, condensed lowercase type in the lower corner, almost swallowed by the dark. Everything feels hushed, over-warm, and vast — the loneliness of a space built for machines, occupied by one human voice.",
+    "portraitPrompt": "Cinematic night portrait of a young Black woman standing alone on an empty concrete parking level, lit only by overhead sodium-vapor lamps casting warm amber-orange haze, one buzzing fluorescent tube flickering above her. She wears an oversized dark hoodie, hood down, hair pulled back, holding a condenser microphone loosely at her side. Soft grain, shallow depth of field, long exposure ambience, muted teal shadows against orange highlights, contemplative downward gaze, cold-warm color tension, 2010s alternative R&B mood, intimate and isolated, photorealistic 35mm film aesthetic.",
+    "coverPrompt": "Long-exposure photograph inside a deserted multi-level parking garage at night, bare concrete pillars receding in perspective into thick sodium-orange atmospheric haze, one distant small human silhouette standing beneath a flickering fluorescent light strip, glowing red and white taillight trails streaking as luminous ribbons across the empty foreground floor, heavy grain, warm amber and deep shadow palette, vast lonely cinematic composition, moody atmospheric 2010s album cover aesthetic, no text."
+  },
+  "referenceNotes": [],
+  "portraitProvenance": [
+    "era",
+    "visualStyle"
+  ],
+  "coverProvenance": [
+    "era",
+    "visualStyle"
+  ]
+}

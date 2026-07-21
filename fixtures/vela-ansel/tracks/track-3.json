@@ -1,0 +1,79 @@
+{
+  "title": "Frozen in the Void",
+  "lyricSeed": "Cold silver arms of nothing hold me close tonight, I broadcast all my longing to the dark, come find me in the neon light, still yours.",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "132 BPM",
+      "far-future sound design",
+      "post-human textures",
+      "synthpop",
+      "ambient",
+      "space disco",
+      "dream pop",
+      "pristine production",
+      "polished",
+      "hi-fi clarity",
+      "dense arrangement",
+      "warm tone",
+      "structured songwriting",
+      "tight arrangement",
+      "quiet",
+      "synthetic textures",
+      "electronic synthesis",
+      "drum machines",
+      "hopeful mood",
+      "uplifting",
+      "whispered vocals",
+      "clean vocals",
+      "pure vocal tone"
+    ],
+    "negative_global_styles": [
+      "lo-fi",
+      "tape saturation",
+      "cassette hiss",
+      "sparse arrangement",
+      "cold tone",
+      "improvised feel",
+      "loose performance",
+      "loud",
+      "organic instrumentation",
+      "acoustic instruments",
+      "live drums",
+      "dark mood",
+      "brooding",
+      "screamed vocals",
+      "damaged vocal texture",
+      "distorted vocals"
+    ],
+    "chunks": [
+      {
+        "text": "Cold silver arms of nothing hold me close tonight, I broadcast all my longing to the dark, come find me in the neon light, still yours.",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "high",
+  "provenance": [
+    "era",
+    "influences.synthpop",
+    "influences.ambient",
+    "influences.space disco",
+    "influences.dream pop",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.darkHopeful",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": {
+    "x-region": "us-central1",
+    "x-trace-id": "59d847e30b47e127236d2d8378469dae"
+  }
+}

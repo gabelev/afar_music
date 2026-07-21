@@ -1,0 +1,69 @@
+{
+  "title": "The Diner Closes Tonight",
+  "lyricSeed": "Last coffee, flickering sign, the corner booth was mine. Everybody's leaving town before the morning light, so hold me one more night.",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "120 BPM",
+      "2010s production",
+      "sidechained pads",
+      "trap hi-hats",
+      "bedroom pop",
+      "bedroom pop instrumentation",
+      "indie folk",
+      "lo-fi dream pop",
+      "slowcore",
+      "lo-fi",
+      "tape saturation",
+      "sparse arrangement",
+      "warm tone",
+      "analog warmth",
+      "improvised feel",
+      "quiet",
+      "hushed dynamics",
+      "organic instrumentation",
+      "whispered vocals",
+      "breathy delivery",
+      "damaged vocal texture"
+    ],
+    "negative_global_styles": [
+      "pristine production",
+      "polished",
+      "dense arrangement",
+      "cold tone",
+      "icy digital timbre",
+      "structured songwriting",
+      "loud",
+      "aggressive dynamics",
+      "synthetic textures",
+      "screamed vocals",
+      "throat-shredding intensity",
+      "clean vocals"
+    ],
+    "chunks": [
+      {
+        "text": "Last coffee, flickering sign, the corner booth was mine. Everybody's leaving town before the morning light, so hold me one more night.",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "medium",
+  "provenance": [
+    "era",
+    "influences.bedroom pop",
+    "influences.indie folk",
+    "influences.lo-fi dream pop",
+    "influences.slowcore",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": null
+}

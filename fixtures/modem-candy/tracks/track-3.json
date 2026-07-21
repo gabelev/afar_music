@@ -1,0 +1,73 @@
+{
+  "title": "Blue Room Forever",
+  "lyricSeed": "blue light on my empty walls / nobody knocks, nobody calls / I glitch inside my little screen / the safest place I've ever been",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "122 BPM",
+      "2020s contemporary production",
+      "hyper-detailed mix",
+      "hyperpop",
+      "hyperpop instrumentation",
+      "glitch pop",
+      "bubblegum bass",
+      "lo-fi",
+      "dense arrangement",
+      "layered instrumentation",
+      "structured songwriting",
+      "tight arrangement",
+      "loud",
+      "aggressive dynamics",
+      "synthetic textures",
+      "electronic synthesis",
+      "drum machines",
+      "hopeful mood",
+      "screamed vocals",
+      "damaged vocal texture",
+      "distorted vocals"
+    ],
+    "negative_global_styles": [
+      "pristine production",
+      "sparse arrangement",
+      "minimal instrumentation",
+      "improvised feel",
+      "loose performance",
+      "quiet",
+      "hushed dynamics",
+      "organic instrumentation",
+      "acoustic instruments",
+      "live drums",
+      "dark mood",
+      "whispered vocals",
+      "clean vocals",
+      "pure vocal tone"
+    ],
+    "chunks": [
+      {
+        "text": "blue light on my empty walls / nobody knocks, nobody calls / I glitch inside my little screen / the safest place I've ever been",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "high",
+  "provenance": [
+    "era",
+    "influences.hyperpop",
+    "influences.glitch pop",
+    "influences.bubblegum bass",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.darkHopeful",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": {
+    "x-region": "us-central1",
+    "x-trace-id": "2c2b06b0e2368e9ee4967d1de2cf06e8"
+  }
+}

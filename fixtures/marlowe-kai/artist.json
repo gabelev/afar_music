@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "name": "Marlowe Kai",
+    "bio": "Marlowe Kai grew up in a faded pastel bungalow on the California coast, the kind of place where the paint peeled a little more each summer and the screen door never fully closed. She learned guitar on a warped surf-shop acoustic her older brother left behind when he moved inland, and she taught herself to sing over the sound of waves, developing that clean, easy voice that always seems on the verge of laughing even when the words are breaking your heart. By her late teens she was writing songs on the boardwalk, trading verses for spare change and iced coffee, chasing the last hour of daylight like it owed her something.\n\nHer breakthrough came from a batch of demos she posted in the mid-2010s, recorded on a phone propped against a cooler at golden hour. Something about the collision of bright, jangling surf guitar, warm synth swells, and lyrics about leaving people you still love struck a nerve. Fans called it 'crying in a swimsuit' music. Marlowe leaned in, building songs that felt like the exact moment a perfect summer starts to end, where the light is impossibly gold and you already know it can't last.\n\nToday she works out of a converted beach garage, blending indie-pop melodies with tropical-house pulse and the salt-warped ache of surf rock. She writes almost exclusively about goodbyes that happen in daylight, arguing that heartbreak is easier to hold when it's warm. Her music is optimism that has been to the funeral and decided to keep dancing anyway.",
+    "coverTitle": "Saltwater Goodbye",
+    "coverDescription": "The cover looks like a sun-bleached postcard someone kept in a glovebox for a decade: a pastel-toned beach at golden hour with long amber light stretching across wet sand. A single pair of footprints leads toward the water and simply stops, half-erased by an incoming tide. The palette is peach, faded coral, and washed teal, with a soft grainy haze over everything and a thin white postcard border framing the image. Hand-lettered script in the lower corner reads 'Saltwater Goodbye,' curling like it was written with a fingertip in the sand.",
+    "portraitPrompt": "Golden-hour portrait of a young woman with sun-lightened wavy hair, freckled skin, and a soft half-smile that hints at bittersweetness, standing on a windswept beach as warm amber light wraps around her. She wears a faded pastel sundress; loose strands of hair catch the breeze. Shot on 35mm film with visible grain, dreamy haze, and lens flare from the low sun. Soft focus background of blurred waves and pale coral sky. Warm, nostalgic color grade, pastel retro-postcard tones, intimate and candid framing.",
+    "coverPrompt": "Vintage pastel postcard illustration blended with grainy film photography: a wide empty beach at golden hour, long shadows across wet reflective sand, a single set of footprints trailing toward the sea and disappearing into an incoming tide. Faded peach, coral, and washed-teal color palette, heavy sun haze, soft light leaks. Thin white postcard border framing the scene. Hand-lettered flowing script reading 'Saltwater Goodbye' in the lower corner. Nostalgic 2010s indie-pop aesthetic, warm and hopeful yet wistful."
+  },
+  "referenceNotes": [],
+  "portraitProvenance": [
+    "era",
+    "visualStyle"
+  ],
+  "coverProvenance": [
+    "era",
+    "visualStyle"
+  ]
+}

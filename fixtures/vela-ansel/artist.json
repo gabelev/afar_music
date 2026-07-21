@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "name": "Vela Ansel",
+    "bio": "Vela Ansel was born in transit—the first child conceived aboard the generation ship Halcyon-9, some forty light-years out from a homeworld she has only ever seen as a pale blue pixel in the archive feeds. Raised among the ship's hydroponic decks and humming coolant corridors, she taught herself to sing to the machines, layering her voice against the reactor's low drone until the two became indistinguishable. Crew historians recorded her first broadcast at seventeen: a fragile, pristine transmission beamed sunward, addressed simply 'to anyone still listening.'\n\nHer music is a devotional signal fired into the dark—synthpop pulses smoothed into ambient tides, space-disco shimmer melting into dream-pop haze. Every song is a love letter sent knowing the reply, if it comes, will arrive decades late. She calls this 'light-delayed longing,' and it colors everything: the warm analog glow beneath her synthetic textures, the way her clean voice frays at the edges as if worn thin by distance. She is not mourning Earth so much as courting it across an impossible gulf.\n\nAmong the colonists she has become a kind of secular saint, her broadcasts piped through every deck at ship's-night. She insists she is only a chanteuse with a transmitter and too much time, but her recordings—assembled in the ship's chrome observation blister, aurora-gradients of engine plasma washing over her console—have taken on the weight of prayer. Whether Earth ever hears them, she keeps singing toward the frozen embrace of the void.",
+    "coverTitle": "Transmissions to a Distant Blue",
+    "coverDescription": "The cover frames Vela in silhouette against the ship's panoramic viewport, her figure edged in soft cyan and magenta as a holographic auroral gradient ripples across the chrome bulkheads behind her. A single tiny blue dot glows in the center of the black window—the far-off planet she sings to. Faint waveform lines of a transmission arc from her outstretched hand toward the light, dissolving into static at the frame's edge, suggesting a message sent but never quite answered.",
+    "portraitPrompt": "Cinematic portrait of a young woman with luminous pale skin and short slicked silver hair, standing inside a far-future starship interior of polished chrome panels and soft neon strip lighting. Holographic auroral gradients of cyan, violet, and rose wash across her face and the reflective walls behind her. She wears a sleek iridescent bodysuit with subtle circuitry seams. Soft rim lighting, shallow depth of field, atmospheric haze, melancholy and serene expression, gazing slightly off-camera as if toward a distant point. Photographic, high detail, moody synthetic glow.",
+    "coverPrompt": "Album cover illustration: a lone female figure in silhouette seen from behind, standing before an enormous curved starship viewport. Deep black space beyond, with a single small glowing blue planet centered in the window. Chrome-and-neon interior surfaces reflect rippling holographic auroral gradients in teal, magenta, and indigo. Thin luminous waveform lines arc from the figure toward the blue dot, fading into static. Cinematic, dreamlike, elegant negative space, soft glow, minimal futuristic typography space at the top."
+  },
+  "referenceNotes": [],
+  "portraitProvenance": [
+    "era",
+    "visualStyle"
+  ],
+  "coverProvenance": [
+    "era",
+    "visualStyle"
+  ]
+}

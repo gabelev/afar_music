@@ -1,0 +1,67 @@
+{
+  "title": "Salt in These Hands",
+  "lyricSeed": "Twenty years of salt has cracked these hands, still I haul the nets through the dark and cold. The sea don't care how much a man can hold.",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "105 BPM",
+      "1970s studio production",
+      "analog tape sound",
+      "outlaw country",
+      "outlaw country instrumentation",
+      "folk",
+      "sea shanty",
+      "americana",
+      "lo-fi",
+      "sparse arrangement",
+      "minimal instrumentation",
+      "warm tone",
+      "analog warmth",
+      "improvised feel",
+      "quiet",
+      "organic instrumentation",
+      "acoustic instruments",
+      "live drums",
+      "damaged vocal texture",
+      "distorted vocals"
+    ],
+    "negative_global_styles": [
+      "pristine production",
+      "dense arrangement",
+      "layered instrumentation",
+      "cold tone",
+      "icy digital timbre",
+      "structured songwriting",
+      "loud",
+      "synthetic textures",
+      "electronic synthesis",
+      "drum machines",
+      "clean vocals",
+      "pure vocal tone"
+    ],
+    "chunks": [
+      {
+        "text": "Twenty years of salt has cracked these hands, still I haul the nets through the dark and cold. The sea don't care how much a man can hold.",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "medium",
+  "provenance": [
+    "era",
+    "influences.outlaw country",
+    "influences.folk",
+    "influences.sea shanty",
+    "influences.americana",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": null
+}

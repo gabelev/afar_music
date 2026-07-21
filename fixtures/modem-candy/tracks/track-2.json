@@ -1,0 +1,73 @@
+{
+  "title": "Expired Sugar",
+  "lyricSeed": "candy older than my heart / stale and sweet, it falls apart / I lick the dust off memory / expired love still tastes like me",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "122 BPM",
+      "2020s contemporary production",
+      "hyper-detailed mix",
+      "hyperpop",
+      "hyperpop instrumentation",
+      "glitch pop",
+      "bubblegum bass",
+      "lo-fi",
+      "dense arrangement",
+      "layered instrumentation",
+      "structured songwriting",
+      "tight arrangement",
+      "loud",
+      "aggressive dynamics",
+      "synthetic textures",
+      "electronic synthesis",
+      "drum machines",
+      "hopeful mood",
+      "screamed vocals",
+      "damaged vocal texture",
+      "distorted vocals"
+    ],
+    "negative_global_styles": [
+      "pristine production",
+      "sparse arrangement",
+      "minimal instrumentation",
+      "improvised feel",
+      "loose performance",
+      "quiet",
+      "hushed dynamics",
+      "organic instrumentation",
+      "acoustic instruments",
+      "live drums",
+      "dark mood",
+      "whispered vocals",
+      "clean vocals",
+      "pure vocal tone"
+    ],
+    "chunks": [
+      {
+        "text": "candy older than my heart / stale and sweet, it falls apart / I lick the dust off memory / expired love still tastes like me",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "high",
+  "provenance": [
+    "era",
+    "influences.hyperpop",
+    "influences.glitch pop",
+    "influences.bubblegum bass",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.darkHopeful",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": {
+    "x-region": "us-central1",
+    "x-trace-id": "9f2f1ccb24d69216a32c0adfe5bdb0cd"
+  }
+}

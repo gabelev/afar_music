@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "name": "Ronnie Del Ray & The Static Hearts",
+    "bio": "Ronnie Del Ray grew up above her grandmother's shuttered record shop in a fading New Jersey shore town, raised on cracked 45s and the ghost of a girl group that never quite made it—her grandmother's own trio, dissolved by heartbreak before it cut a single hit. Ronnie learned to harmonize with those phantom voices, layering her own against the tape hiss until the past and present blurred. She assembled The Static Hearts from friends who understood that a beehive and a broken heart could carry the same weight in 2024 as they did in 1963.\n\nHer music is a séance for a decade she never lived in: lush Wall-of-Sound orchestration, doo-wop call-and-response, and the aching sway of girl-group pop, all bent toward a very modern kind of ache. Ronnie writes about the blue light of a phone screen at 3 a.m., the silence of an empty group chat, the tiny cruelty of a read receipt left unanswered. She sings these digital heartbreaks as though they were sock-hop tragedies, because to her they are—the longing across a crowded room simply moved to a smaller, brighter screen.\n\nRecording to warm analog tape with a deliberate touch of grain, Ronnie keeps her vocals close and unguarded, letting the cracks show. The result feels like a Kodachrome photograph left too long in the sun: gorgeous, wistful, and quietly falling apart. She isn't reviving the sixties—she's proving that loneliness only ever changes its clothes.",
+    "coverTitle": "Read Receipts",
+    "coverDescription": "A washed-out Kodachrome-style photograph of a young woman in full retro glamour—towering beehive, pale tulle gown—sitting alone in a dim mid-century living room, her face lit only by the cold blue glow of a phone held close to her chest. The warm amber lamplight behind her fades to shadow, and the whole image carries the soft grain and sun-faded pastels of a decades-old slide. The title 'Read Receipts' is set in delicate hand-drawn script across the lower third, styled like a vintage 45 sleeve.",
+    "portraitPrompt": "Faded Kodachrome-style portrait of a young woman with a dramatic 1960s beehive hairstyle and winged eyeliner, wearing a pale tulle gown with pearl accents. Soft warm amber studio lighting from one side, gentle film grain, muted pastel color palette with slightly washed-out highlights. Melancholic expression, distant gaze, three-quarter angle. Vintage slide-film aesthetic, shallow depth of field, mid-century glamour, nostalgic and wistful mood.",
+    "coverPrompt": "Square album cover in faded Kodachrome film style. A young woman in full retro glamour—towering beehive, pale tulle dress—sits alone in a dim 1960s living room. Her face is illuminated only by the cold blue glow of a smartphone held to her chest, contrasting with warm amber lamplight fading into shadow behind her. Heavy sun-faded pastels, visible film grain, soft vignette. Delicate hand-drawn vintage script reading 'Read Receipts' across the lower third, styled like an old 45 record sleeve. Lonely, cinematic, nostalgic atmosphere."
+  },
+  "referenceNotes": [],
+  "portraitProvenance": [
+    "era",
+    "visualStyle"
+  ],
+  "coverProvenance": [
+    "era",
+    "visualStyle"
+  ]
+}

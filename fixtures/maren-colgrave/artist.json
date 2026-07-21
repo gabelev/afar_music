@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "name": "Maren Colgrave",
+    "bio": "Maren Colgrave was the last keeper of the Elsewick Light, a slate-grey tower on a spit of land the mainlanders called the Drowned Furlong. Orphaned young and raised by an aunt who mended fishing nets, she took the lighthouse post at nineteen when no man would, and there she stayed through forty winters, trimming wicks and keeping the beam turning while the sea heaved its cargo onto her stones. She sang to keep the fog at bay—hushed, breath-thin songs half-swallowed by wind, the kind you strain to hear over the tide.\n\nHer music was never meant for anyone. She played a warped parlour guitar and a cracked harmonium hauled from a wreck, accompanied by the low drone of the sea itself. What survives are the fragments neighbours recalled and the verses she scratched into the flyleaves of her logbooks: songs about salt-swollen driftwood, about letters the tide refused to deliver, about the bodies the water gave back to be buried above the waterline. Chamber-folk delicacy meets the rough grief of an old shanty; long silences hang between phrases like held breath.\n\nMaren left no photographs, only the logbooks and the memory of a woman who spoke to the drowned as though they were still listening. These recordings—reconstructed from her written verses and the acoustics of the tower where she lived—are her only album, an inventory of everything the sea returned and everything it kept.",
+    "coverTitle": "What the Tide Returns",
+    "coverDescription": "A fog-grey monochrome scene: the base of a weathered stone lighthouse half-shrouded in mist, its beam a pale smear across a low sky. In the foreground, bleached driftwood and a single waterlogged envelope rest on wet shingle, rendered in the flat, hand-painted style of maritime folk-art. The title appears in faded, uneven letterpress along the bottom, as if stamped into an old logbook.",
+    "portraitPrompt": "Weathered woman in her sixties standing at the doorway of a stone lighthouse in dense sea fog, monochrome grey palette, thick wool shawl and oilskin coat salt-stained and worn, windblown grey hair, quiet weary expression, holding a warped parlour guitar, soft diffuse coastal light, film-grain texture, muted desaturated tones, documentary intimacy, no bright colors, weathered maritime folk-art atmosphere",
+    "coverPrompt": "Album cover illustration, fog-grey seaside monochrome, base of a weathered stone lighthouse half-hidden in mist with a pale beam sweeping a low overcast sky, foreground of bleached salt-swollen driftwood and a single waterlogged envelope on wet grey shingle, flat hand-painted maritime folk-art style, muted desaturated tones, aged paper texture, faded uneven letterpress title space along the bottom, melancholic and quiet mood"
+  },
+  "referenceNotes": [],
+  "portraitProvenance": [
+    "era",
+    "visualStyle"
+  ],
+  "coverProvenance": [
+    "era",
+    "visualStyle"
+  ]
+}

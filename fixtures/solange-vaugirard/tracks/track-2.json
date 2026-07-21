@@ -1,0 +1,71 @@
+{
+  "title": "Sepia Summers",
+  "lyricSeed": "Warm as the summer she left me in the grooves, sunlight in the static, memories on loop. I inherit every note she used to sing.",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "115 BPM",
+      "2000s digital production",
+      "radio-polished mix",
+      "French house",
+      "French house instrumentation",
+      "disco",
+      "vintage jazz",
+      "lo-fi",
+      "dense arrangement",
+      "layered instrumentation",
+      "warm tone",
+      "analog warmth",
+      "structured songwriting",
+      "tight arrangement",
+      "loud",
+      "synthetic textures",
+      "hopeful mood",
+      "uplifting",
+      "radiant",
+      "whispered vocals",
+      "damaged vocal texture"
+    ],
+    "negative_global_styles": [
+      "pristine production",
+      "sparse arrangement",
+      "minimal instrumentation",
+      "cold tone",
+      "icy digital timbre",
+      "improvised feel",
+      "loose performance",
+      "quiet",
+      "organic instrumentation",
+      "dark mood",
+      "brooding",
+      "ominous undertow",
+      "screamed vocals",
+      "clean vocals"
+    ],
+    "chunks": [
+      {
+        "text": "Warm as the summer she left me in the grooves, sunlight in the static, memories on loop. I inherit every note she used to sing.",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "high",
+  "provenance": [
+    "era",
+    "influences.French house",
+    "influences.disco",
+    "influences.vintage jazz",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.darkHopeful",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": null
+}

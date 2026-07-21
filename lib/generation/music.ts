@@ -13,6 +13,29 @@ import type { CompositionPlan, ContextAdherence } from "./mapping";
 const MUSIC_URL = "https://api.elevenlabs.io/v1/music?output_format=mp3_44100_128";
 const MUSIC_TIMEOUT_MS = 90_000;
 
+/**
+ * The ElevenLabs subscription allows 2 concurrent music generations; a third
+ * concurrent call 429s (concurrent_limit_exceeded). Callers still fire whole
+ * waves with Promise.all — this semaphore queues the overflow transparently.
+ */
+const MAX_CONCURRENT = 2;
+let active = 0;
+const waiters: (() => void)[] = [];
+
+async function acquire(): Promise<void> {
+  if (active < MAX_CONCURRENT) {
+    active++;
+    return;
+  }
+  await new Promise<void>((resolve) => waiters.push(resolve));
+  active++;
+}
+
+function release(): void {
+  active--;
+  waiters.shift()?.();
+}
+
 /** A copyrighted-content rejection carrying the API's suggested replacement. */
 export class MusicPromptError extends Error {
   constructor(
@@ -33,6 +56,25 @@ export interface GeneratedTrack {
 }
 
 export async function generateTrack(
+  plan: CompositionPlan,
+  contextAdherence: ContextAdherence,
+): Promise<GeneratedTrack> {
+  await acquire();
+  try {
+    return await requestTrack(plan, contextAdherence);
+  } catch (error) {
+    // One retry for transient rate limiting; MusicPromptError is not transient.
+    if (error instanceof Error && !(error instanceof MusicPromptError) && error.message.includes("429")) {
+      await new Promise((r) => setTimeout(r, 3000));
+      return await requestTrack(plan, contextAdherence);
+    }
+    throw error;
+  } finally {
+    release();
+  }
+}
+
+async function requestTrack(
   plan: CompositionPlan,
   contextAdherence: ContextAdherence,
 ): Promise<GeneratedTrack> {

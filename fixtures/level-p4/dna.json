@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "A late-night R&B singer who only records after midnight in an empty parking garage",
+  "era": 7,
+  "influences": [
+    {
+      "genre": "alternative R&B",
+      "weight": 0.45
+    },
+    {
+      "genre": "neo-soul",
+      "weight": 0.25
+    },
+    {
+      "genre": "ambient",
+      "weight": 0.15
+    },
+    {
+      "genre": "trip-hop",
+      "weight": 0.15
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": 0.3,
+    "sparseDense": -0.5,
+    "coldWarm": -0.2,
+    "improvisedStructured": -0.3,
+    "loudQuiet": 0.5,
+    "organicSynthetic": 0.4,
+    "darkHopeful": -0.3
+  },
+  "vocalCharacter": {
+    "whispersScreams": -0.6,
+    "cleanDamaged": 0.2
+  },
+  "lyricalObsessions": [
+    "empty concrete cathedrals",
+    "the hour after regret",
+    "flickering fluorescent love",
+    "echoes without an answer"
+  ],
+  "visualStyle": [
+    "sodium-vapor haze",
+    "long-exposure taillights"
+  ]
+}

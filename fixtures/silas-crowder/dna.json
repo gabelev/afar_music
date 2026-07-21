@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "A gravel-voiced country storyteller who spent twenty years on fishing boats",
+  "era": 3,
+  "influences": [
+    {
+      "genre": "outlaw country",
+      "weight": 0.4
+    },
+    {
+      "genre": "folk",
+      "weight": 0.3
+    },
+    {
+      "genre": "sea shanty",
+      "weight": 0.15
+    },
+    {
+      "genre": "americana",
+      "weight": 0.15
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": 0.3,
+    "sparseDense": -0.4,
+    "coldWarm": 0.4,
+    "improvisedStructured": -0.2,
+    "loudQuiet": 0.2,
+    "organicSynthetic": -0.9,
+    "darkHopeful": -0.1
+  },
+  "vocalCharacter": {
+    "whispersScreams": 0.1,
+    "cleanDamaged": 0.7
+  },
+  "lyricalObsessions": [
+    "salt-worn hands",
+    "the unforgiving sea",
+    "widows on the shore",
+    "long nights hauling nets"
+  ],
+  "visualStyle": [
+    "weathered dockside sepia",
+    "fog-drenched harbor dusk"
+  ]
+}
