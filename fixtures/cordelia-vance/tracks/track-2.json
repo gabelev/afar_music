@@ -1,0 +1,76 @@
+{
+  "title": "Borrowed Faith",
+  "lyricSeed": "This faith ain't mine, I borrowed it from my mama's knee, wearin' her belief like a coat too big for me, tell me what's left when the Sunday leaves you free?",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "105 BPM",
+      "1970s studio production",
+      "analog tape sound",
+      "gospel",
+      "soul",
+      "rhythm and blues",
+      "southern funk",
+      "pristine production",
+      "polished",
+      "dense arrangement",
+      "warm tone",
+      "analog warmth",
+      "cozy timbre",
+      "improvised feel",
+      "loud",
+      "aggressive dynamics",
+      "organic instrumentation",
+      "acoustic instruments",
+      "live drums",
+      "screamed vocals",
+      "throat-shredding intensity",
+      "clean vocals"
+    ],
+    "negative_global_styles": [
+      "lo-fi",
+      "tape saturation",
+      "sparse arrangement",
+      "cold tone",
+      "icy digital timbre",
+      "detached",
+      "structured songwriting",
+      "quiet",
+      "hushed dynamics",
+      "synthetic textures",
+      "electronic synthesis",
+      "drum machines",
+      "whispered vocals",
+      "breathy delivery",
+      "damaged vocal texture"
+    ],
+    "chunks": [
+      {
+        "text": "This faith ain't mine, I borrowed it from my mama's knee, wearin' her belief like a coat too big for me, tell me what's left when the Sunday leaves you free?",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "medium",
+  "provenance": [
+    "era",
+    "influences.gospel",
+    "influences.soul",
+    "influences.rhythm and blues",
+    "influences.southern funk",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": {
+    "x-region": "us-central1",
+    "x-trace-id": "d4ae23f9f70ea005634a7fa1e722a13d"
+  }
+}

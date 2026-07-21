@@ -1,0 +1,73 @@
+{
+  "title": "What the Tide Never Sent",
+  "lyricSeed": "Salt-swollen letters wash to my door, ink run to grey, names I can't read anymore. The sea keeps what it wants, gives back the rest to shore.",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "80 BPM",
+      "ancient folk tradition",
+      "pre-industrial acoustics",
+      "chamber folk",
+      "maritime traditional / sea shanty",
+      "ambient folk",
+      "slowcore",
+      "pristine production",
+      "sparse arrangement",
+      "minimal instrumentation",
+      "negative space",
+      "warm tone",
+      "improvised feel",
+      "quiet",
+      "hushed dynamics",
+      "intimate",
+      "organic instrumentation",
+      "acoustic instruments",
+      "live drums",
+      "whispered vocals",
+      "breathy delivery",
+      "clean vocals"
+    ],
+    "negative_global_styles": [
+      "lo-fi",
+      "dense arrangement",
+      "layered instrumentation",
+      "wall of sound",
+      "cold tone",
+      "structured songwriting",
+      "loud",
+      "aggressive dynamics",
+      "in-the-red energy",
+      "synthetic textures",
+      "electronic synthesis",
+      "drum machines",
+      "screamed vocals",
+      "throat-shredding intensity",
+      "damaged vocal texture"
+    ],
+    "chunks": [
+      {
+        "text": "Salt-swollen letters wash to my door, ink run to grey, names I can't read anymore. The sea keeps what it wants, gives back the rest to shore.",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "medium",
+  "provenance": [
+    "era",
+    "influences.chamber folk",
+    "influences.maritime traditional / sea shanty",
+    "influences.ambient folk",
+    "influences.slowcore",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": null
+}

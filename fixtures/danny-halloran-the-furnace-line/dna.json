@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "An arena-rock true believer from a dying steel town",
+  "era": 4,
+  "influences": [
+    {
+      "genre": "arena rock",
+      "weight": 0.4000000000000001
+    },
+    {
+      "genre": "heartland rock",
+      "weight": 0.30000000000000004
+    },
+    {
+      "genre": "hard rock",
+      "weight": 0.20000000000000004
+    },
+    {
+      "genre": "blue-collar anthemic pop",
+      "weight": 0.10000000000000002
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": -0.2,
+    "sparseDense": 0.5,
+    "coldWarm": 0.6,
+    "improvisedStructured": 0.6,
+    "loudQuiet": -0.7,
+    "organicSynthetic": -0.4,
+    "darkHopeful": 0.4
+  },
+  "vocalCharacter": {
+    "whispersScreams": 0.6,
+    "cleanDamaged": 0.3
+  },
+  "lyricalObsessions": [
+    "shuttered mill gates",
+    "last-call redemption",
+    "factory-town loyalty",
+    "fists raised at midnight"
+  ],
+  "visualStyle": [
+    "rust-belt neon",
+    "stadium-lighter glow"
+  ]
+}

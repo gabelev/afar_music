@@ -12,6 +12,8 @@
     "db:migrate": "node --env-file=.env scripts/db-migrate.ts",
     "generate": "node --env-file=.env --import tsx scripts/generate.ts",
     "ab-test": "node --env-file=.env --import tsx scripts/ab-test.ts",
+    "seed": "node --env-file=.env --import tsx scripts/seed.ts",
+    "fill-media": "node --env-file=.env --import tsx scripts/fill-media.ts",
     "prepare": "git config core.hooksPath .githooks"
   },
   "dependencies": {

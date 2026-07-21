@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "name": "Solange Vaugirard",
+    "bio": "Solange Vaugirard grew up in a fifth-floor Parisian apartment above her grandmother's record shop in the 11th arrondissement, where the walls hummed with the warble of pre-war jazz 78s. When her grandmother passed in 2001, Solange inherited a crate of crackling records\ndusty ballads, brushed-drum swing, a singer's smoky sighs\nand a broken Technics turntable she taught herself to repair. Chopping those loops into pulsing four-to-the-floor grooves in a bedroom studio, she found a way to keep the dead dancing.\n\nEmerging from the Parisian filter-house scene, Solange became known for a sound that felt like memory itself: golden, half-remembered, warm as an August afternoon. Her productions layer glassy French-house filters over sampled horn stabs and the ghostly hiss of her grandmother's collection, always chasing that midnight moment when the mirrorball catches the whole room. She sings too\nnot loudly, but in half-whispered confessions, her voice slightly frayed, like a tape played one too many times.\n\nWorking mostly alone and rarely photographed, Solange treats each release as a small act of inheritance. 'Every sample is a seance,' she once said. 'I invite them back onto the floor.' Her music is nostalgic without being sad\na hopeful, glittering conversation between generations, spun at 120 BPM.",
+    "coverTitle": "Ghosts on the Dancefloor",
+    "coverDescription": "A sepia-toned photograph of an empty dancefloor bathed in the fractured light of a spinning mirrorball, warm amber shards scattered across worn parquet. In the foreground, a stack of old vinyl records sits beside a single glass, catching golden light. The whole image is softened by heavy film grain, as if remembered rather than seen\ntimeless, warm, and quietly haunted.",
+    "portraitPrompt": "Portrait of a young French woman in her late twenties in a dim home studio, warm sepia film grain, soft golden lamplight, shallow depth of field. She leans over a vintage turntable, headphones around her neck, half-smiling as if listening to a private memory. Amber tones, mirrorball reflections speckling the wall behind her, analog synths and stacks of old jazz records framing the shot. 35mm film aesthetic, 2000s indie warmth, intimate and nostalgic.",
+    "coverPrompt": "Album cover illustration: an empty vintage dancefloor at midnight seen from above, worn parquet floor catching scattered amber light from a spinning mirrorball. A stack of old vinyl records and a single glass in the foreground. Heavy warm sepia film grain, glowing highlights, deep hopeful golden tones. No people, dreamlike and cinematic, evoking inherited memory and disco ghosts, 2000s photographic style."
+  },
+  "referenceNotes": [],
+  "portraitProvenance": [
+    "era",
+    "visualStyle"
+  ],
+  "coverProvenance": [
+    "era",
+    "visualStyle"
+  ]
+}

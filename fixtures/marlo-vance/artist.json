@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "name": "Marlo Vance",
+    "bio": "Marlo Vance grew up in Ashland Bend, a fading mill town where the biggest event of any year was the county fair packing up and leaving. The summer she turned nineteen, the paper mill announced its closing, and half the town began quietly loading trucks. Armed with a garage-sale super-8 camera and a four-track her uncle left behind, Marlo spent those final months documenting everything: the fluorescent hum of the corner diner on its last night, the empty grocery lot glowing pink at dusk, friends she knew she'd never see again.\n\nWhat began as home recordings became something obsessive. She layered whispered melodies over tape hiss, letting the imperfections stay—a dog barking, a screen door, the warble of a dying battery. The songs are hushed almost to the point of vanishing, then swell just enough to break your heart before receding again. Marlo refuses to over-produce, insisting the warmth of the room and the wear of the cassette are part of the story.\n\nBy the time Ashland Bend was mostly boarded up, Marlo had assembled a shoebox of faded polaroids and thirty reels of footage. She pressed the first tapes herself, hand-labeling each one in ballpoint pen. She calls her music 'field recordings from the end of a place,' and every release feels less like an album than a memory you're not sure was yours.",
+    "coverTitle": "The Last Day Before Everyone Leaves",
+    "coverDescription": "A collage of overexposed, sun-bleached super-8 stills arranged like an overflowing shoebox of memories—an empty parking lot bathed in dusk-pink light at the center, corners peeling like old photographs. Strips of hand-labeled cassette tape wind across the composition, ballpoint handwriting spelling out song titles. The whole image has the faded amber warmth of film left too long in a hot glovebox, edges vignetted and grainy, one polaroid tilted just off-center as if it slipped.",
+    "portraitPrompt": "Portrait of a young woman in her late teens sitting on the tailgate of an old pickup truck in an empty parking lot at dusk, holding a vintage super-8 camera. Shot on grainy super-8 film, heavily sun-bleached with amber and pink light leaks, soft focus, warm faded color grade. She wears a thrifted oversized cardigan, hair loose, gazing slightly away from the lens with a quiet melancholy. Overexposed highlights, dust and scratches on the film, shallow depth of field, nostalgic small-town Americana atmosphere, 2010s indie aesthetic.",
+    "coverPrompt": "Album cover collage of overexposed super-8 film stills and polaroid photographs scattered like the contents of a shoebox: an empty grocery store parking lot glowing pink at sunset, a shuttered corner diner, dry summer grass. Strips of cassette tape with hand-written ballpoint labels weave across the frame. Sun-bleached amber and dusty rose color palette, heavy film grain, peeling photo corners, vignetted edges, warm lo-fi nostalgic texture, analog collage on a weathered cardboard background, no text."
+  },
+  "referenceNotes": [],
+  "portraitProvenance": [
+    "era",
+    "visualStyle"
+  ],
+  "coverProvenance": [
+    "era",
+    "visualStyle"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "title": "Long Night Haulin'",
+  "lyricSeed": "Whiskey in my blood and a storm on the bow, one more haul boys, we'll be rich somehow. The unforgiving sea don't make no vow.",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "105 BPM",
+      "1970s studio production",
+      "analog tape sound",
+      "outlaw country",
+      "outlaw country instrumentation",
+      "folk",
+      "sea shanty",
+      "americana",
+      "lo-fi",
+      "sparse arrangement",
+      "minimal instrumentation",
+      "warm tone",
+      "analog warmth",
+      "improvised feel",
+      "quiet",
+      "organic instrumentation",
+      "acoustic instruments",
+      "live drums",
+      "damaged vocal texture",
+      "distorted vocals"
+    ],
+    "negative_global_styles": [
+      "pristine production",
+      "dense arrangement",
+      "layered instrumentation",
+      "cold tone",
+      "icy digital timbre",
+      "structured songwriting",
+      "loud",
+      "synthetic textures",
+      "electronic synthesis",
+      "drum machines",
+      "clean vocals",
+      "pure vocal tone"
+    ],
+    "chunks": [
+      {
+        "text": "Whiskey in my blood and a storm on the bow, one more haul boys, we'll be rich somehow. The unforgiving sea don't make no vow.",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "medium",
+  "provenance": [
+    "era",
+    "influences.outlaw country",
+    "influences.folk",
+    "influences.sea shanty",
+    "influences.americana",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": null
+}

@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "name": "Cordelia Vance",
+    "bio": "Born in a clapboard church outside Macon, Georgia, Cordelia Vance learned to sing before she learned to read, her mother's alto guiding her through hymns while the congregation stamped the floorboards into rhythm. By fifteen she was the youngest lead in the choir, a voice that could drop to a trembling whisper or tear the roof open with a full-throated cry. But somewhere between the funerals and the revivals, the certainty her elders promised never took root. She kept the fire and lost the faith, and that contradiction became the whole of her sound.\n\nIn 1972 she left the sanctuary for a smoky studio in Memphis, backed by a loose collective of session players who knew southern funk and warm, analog soul the way she knew scripture. Her records carried the swelling organ and hand-clap swing of gospel, but the words told a different story: prayers gone unanswered, love mistaken for grace, the terrible quiet that settles in where belief used to be. Radio programmers didn't know what to do with a woman who sang like a saint about her own doubt, and so she built a devoted underground instead.\n\nCordelia never fully left the church behind; you can hear it in every ascending run, every held note that begs for an answer that never comes. She sang not to convert but to confess, turning the ache of unanswered questions into something a stranger could hold. Her small, warm catalog remains a secret handed between believers and skeptics alike.",
+    "coverTitle": "The Silence Where Prayer Used to Be",
+    "coverDescription": "Shot in the amber gloom of an empty sanctuary, the cover shows a lone figure seated in a front pew, head bowed but not in prayer, bathed in the fractured jewel-tones of a stained-glass window. The film grain is heavy and warm, the colors bleeding toward gold and deep crimson, as though the whole image were remembered rather than photographed. An organ sits silent in the background shadows. The title appears hand-lettered in faded gold serif across the lower third, like the engraving on an old hymnal.",
+    "portraitPrompt": "1970s color film portrait of a Black woman in her late twenties, natural afro, seated in a dim wooden church interior, warm amber and crimson light spilling from an out-of-frame stained-glass window across her face, expression caught between devotion and doubt, eyes lowered, wearing a simple satin dress, heavy analog film grain, soft reverb-hazy glow, shallow depth of field, muted gold color grade, intimate and reverent",
+    "coverPrompt": "1970s album cover photograph, empty church sanctuary interior at dusk, a solitary figure seated in a front pew with head bowed, fractured jewel-toned light from a stained-glass window falling across weathered wooden floorboards, a silent pipe organ in deep shadow behind, warm amber and deep red palette, heavy vintage film grain and soft haze, faded hand-lettered gold serif title text across lower third, nostalgic melancholic mood"
+  },
+  "referenceNotes": [],
+  "portraitProvenance": [
+    "era",
+    "visualStyle"
+  ],
+  "coverProvenance": [
+    "era",
+    "visualStyle"
+  ]
+}

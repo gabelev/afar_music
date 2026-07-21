@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "A gospel-trained soul powerhouse singing songs of secular doubt",
+  "era": 3,
+  "influences": [
+    {
+      "genre": "gospel",
+      "weight": 0.30000000000000004
+    },
+    {
+      "genre": "soul",
+      "weight": 0.35000000000000003
+    },
+    {
+      "genre": "rhythm and blues",
+      "weight": 0.20000000000000004
+    },
+    {
+      "genre": "southern funk",
+      "weight": 0.15000000000000002
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": -0.4,
+    "sparseDense": 0.3,
+    "coldWarm": 0.7,
+    "improvisedStructured": -0.2,
+    "loudQuiet": -0.5,
+    "organicSynthetic": -0.8,
+    "darkHopeful": -0.1
+  },
+  "vocalCharacter": {
+    "whispersScreams": 0.6,
+    "cleanDamaged": -0.3
+  },
+  "lyricalObsessions": [
+    "a silence where prayer used to be",
+    "borrowed faith",
+    "the ache of unanswered questions",
+    "love as false salvation"
+  ],
+  "visualStyle": [
+    "dim sanctuary stained-glass glow",
+    "vintage warm-toned reverb haze"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "title": "Fluorescent Love",
+  "lyricSeed": "Flickering fluorescent love, buzzing over you and me, we glow then we go dim, baby that's all we'll ever be, cold light on an empty ceiling",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "120 BPM",
+      "2010s production",
+      "sidechained pads",
+      "trap hi-hats",
+      "alternative R&B",
+      "alternative R&B instrumentation",
+      "neo-soul",
+      "ambient",
+      "trip-hop",
+      "lo-fi",
+      "sparse arrangement",
+      "minimal instrumentation",
+      "cold tone",
+      "improvised feel",
+      "quiet",
+      "hushed dynamics",
+      "synthetic textures",
+      "electronic synthesis",
+      "dark mood",
+      "whispered vocals",
+      "breathy delivery",
+      "damaged vocal texture"
+    ],
+    "negative_global_styles": [
+      "pristine production",
+      "dense arrangement",
+      "layered instrumentation",
+      "warm tone",
+      "structured songwriting",
+      "loud",
+      "aggressive dynamics",
+      "organic instrumentation",
+      "acoustic instruments",
+      "hopeful mood",
+      "screamed vocals",
+      "throat-shredding intensity",
+      "clean vocals"
+    ],
+    "chunks": [
+      {
+        "text": "Flickering fluorescent love, buzzing over you and me, we glow then we go dim, baby that's all we'll ever be, cold light on an empty ceiling",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "medium",
+  "provenance": [
+    "era",
+    "influences.alternative R&B",
+    "influences.neo-soul",
+    "influences.ambient",
+    "influences.trip-hop",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.darkHopeful",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": {
+    "x-region": "us-central1",
+    "x-trace-id": "d091d31883a95f035c6918a9f6265ac6"
+  }
+}

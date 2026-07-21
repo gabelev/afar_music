@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "A far-future synth chanteuse broadcasting love songs back to Earth from a colony ship",
+  "era": 10,
+  "influences": [
+    {
+      "genre": "synthpop",
+      "weight": 0.35
+    },
+    {
+      "genre": "ambient",
+      "weight": 0.25
+    },
+    {
+      "genre": "space disco",
+      "weight": 0.2
+    },
+    {
+      "genre": "dream pop",
+      "weight": 0.2
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": -0.7,
+    "sparseDense": 0.2,
+    "coldWarm": 0.3,
+    "improvisedStructured": 0.5,
+    "loudQuiet": 0.3,
+    "organicSynthetic": 0.85,
+    "darkHopeful": 0.4
+  },
+  "vocalCharacter": {
+    "whispersScreams": -0.5,
+    "cleanDamaged": -0.6
+  },
+  "lyricalObsessions": [
+    "distant blue planet",
+    "light-delayed goodbyes",
+    "frozen embrace of the void",
+    "transmissions of longing"
+  ],
+  "visualStyle": [
+    "chrome-and-neon starship interiors",
+    "holographic auroral gradients"
+  ]
+}

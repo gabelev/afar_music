@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "A sun-drenched pop optimist who writes breakup songs that feel like beach days",
+  "era": 7,
+  "influences": [
+    {
+      "genre": "indie pop",
+      "weight": 0.35000000000000003
+    },
+    {
+      "genre": "surf rock",
+      "weight": 0.30000000000000004
+    },
+    {
+      "genre": "tropical house",
+      "weight": 0.20000000000000004
+    },
+    {
+      "genre": "synth-pop",
+      "weight": 0.15000000000000002
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": -0.4,
+    "sparseDense": 0.2,
+    "coldWarm": 0.8,
+    "improvisedStructured": 0.6,
+    "loudQuiet": -0.2,
+    "organicSynthetic": 0.1,
+    "darkHopeful": 0.7
+  },
+  "vocalCharacter": {
+    "whispersScreams": -0.2,
+    "cleanDamaged": -0.6
+  },
+  "lyricalObsessions": [
+    "saltwater goodbyes",
+    "fading summer light",
+    "sun-warmed heartbreak",
+    "tide-worn promises"
+  ],
+  "visualStyle": [
+    "golden-hour beach haze",
+    "pastel retro postcards"
+  ]
+}

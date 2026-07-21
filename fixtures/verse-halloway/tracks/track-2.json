@@ -1,0 +1,66 @@
+{
+  "title": "Tower Block Sonnet",
+  "lyricSeed": "Concrete cathedral, my window a stained-glass dream / lift's broke again but I rise like a Blake-lit scheme / brick and ambition, decaying gold on the seam",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "122 BPM",
+      "2020s contemporary production",
+      "hyper-detailed mix",
+      "grime",
+      "grime instrumentation",
+      "UK hip-hop",
+      "spoken word poetry",
+      "pristine production",
+      "dense arrangement",
+      "layered instrumentation",
+      "cold tone",
+      "icy digital timbre",
+      "loud",
+      "aggressive dynamics",
+      "synthetic textures",
+      "electronic synthesis",
+      "dark mood",
+      "screamed vocals",
+      "damaged vocal texture"
+    ],
+    "negative_global_styles": [
+      "lo-fi",
+      "sparse arrangement",
+      "minimal instrumentation",
+      "warm tone",
+      "analog warmth",
+      "quiet",
+      "hushed dynamics",
+      "organic instrumentation",
+      "acoustic instruments",
+      "hopeful mood",
+      "whispered vocals",
+      "clean vocals"
+    ],
+    "chunks": [
+      {
+        "text": "Concrete cathedral, my window a stained-glass dream / lift's broke again but I rise like a Blake-lit scheme / brick and ambition, decaying gold on the seam",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "medium",
+  "provenance": [
+    "era",
+    "influences.grime",
+    "influences.UK hip-hop",
+    "influences.spoken word poetry",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.darkHopeful",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": null
+}

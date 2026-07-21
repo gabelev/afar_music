@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "name": "Verse Halloway",
+    "bio": "Born Elijah Halloway in a Deptford tower block where the lifts smelled of rain and rust, Verse grew up in the gap between two libraries: his nan's water-stained Tennyson and the pirate radio bleeding through the walls at 2am. He learned meter before he learned bars, reciting Christina Rossetti to himself on the estate walkway while the 149 bus hissed below, then flipping the same cadence into eight-bar salvos when the older heads let him spit on the block. Teachers called him distracted; his English tutor called him something else entirely, sliding him a battered Blake anthology and telling him to go home and set it on fire.\n\nBy his late teens Verse was building a reputation on freestyles that would drop a Victorian couplet mid-flow and dare the crowd to keep up — fog over the Thames folded into 140bpm menace, gilded-age decay smuggled inside grime's cold electric snarl. He recorded his first tracks on a cracked laptop in a damp bedroom, layering sparse sub-bass under half-whispered, half-barked verses, the sound swinging from library-quiet confession to sudden estate-wide roar. The palette stayed synthetic and cold on purpose: he wanted the tower blocks to sound like the machines they are, then let a single warm line crack through like a lamp in a stairwell.\n\nHe stays deliberately hard to place — too literary for the roadman purists, too raw for the poetry circuit, a tongue caught between two centuries and refusing to pick one. That refusal is the whole point. Verse Halloway makes music for anyone who's ever stood on a concrete balcony at dusk, watching neon smear across the water, feeling both the weight of the past and the hunger of a dream that hasn't been named yet.",
+    "coverTitle": "Gilded Estate",
+    "coverDescription": "The cover captures a low-rise London estate at blue-hour dusk, its concrete walkways lit by sickly pink and teal neon that pools in the puddles below. A thin fog rolls in off an unseen river, softening the tower's edges into something almost decaying and ornate, like a ruined cathedral rendered in breeze-block. Across the lower third, the album title is set in heavy gothic ornamental typography, gold leaf flaking at the edges as though it's been peeling off the wall for a hundred years — old-world gilding grafted onto new-world grime.",
+    "portraitPrompt": "Cinematic portrait of a young Black British man in his early twenties, hood half-down, standing on a concrete estate walkway at dusk. Grimy neon light — magenta and cyan — rakes across one side of his face while cold blue shadow claims the other. Fine mist in the air, faint reflections in wet concrete. He holds a battered leather-bound poetry book loosely at his side. Expression caught between quiet contemplation and coiled intensity. Shot on 35mm, shallow depth of field, moody low-key lighting, subtle film grain, no logos, no text.",
+    "coverPrompt": "Album cover illustration: a weathered 1970s London tower block estate photographed at blue-hour dusk, concrete walkways glowing with grimy pink and teal neon reflected in rain puddles. A thin river fog creeps across the base of the building. The architecture subtly echoes gothic ruin — arches of shadow, ornamental decay. Overlaid across the lower third, large gothic ornamental typography in flaking gold leaf reading 'GILDED ESTATE'. Cold, cinematic, high-contrast, atmospheric, textured film grain."
+  },
+  "referenceNotes": [],
+  "portraitProvenance": [
+    "era",
+    "visualStyle"
+  ],
+  "coverProvenance": [
+    "era",
+    "visualStyle"
+  ]
+}

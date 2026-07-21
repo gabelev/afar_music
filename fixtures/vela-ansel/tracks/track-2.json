@@ -1,0 +1,79 @@
+{
+  "title": "Light-Delayed Goodbye",
+  "lyricSeed": "By the time you hear this I am years away, my love arrives in echoes, so kiss the sky in seven years and know I said goodbye today.",
+  "compositionPlan": {
+    "positive_global_styles": [
+      "132 BPM",
+      "far-future sound design",
+      "post-human textures",
+      "synthpop",
+      "ambient",
+      "space disco",
+      "dream pop",
+      "pristine production",
+      "polished",
+      "hi-fi clarity",
+      "dense arrangement",
+      "warm tone",
+      "structured songwriting",
+      "tight arrangement",
+      "quiet",
+      "synthetic textures",
+      "electronic synthesis",
+      "drum machines",
+      "hopeful mood",
+      "uplifting",
+      "whispered vocals",
+      "clean vocals",
+      "pure vocal tone"
+    ],
+    "negative_global_styles": [
+      "lo-fi",
+      "tape saturation",
+      "cassette hiss",
+      "sparse arrangement",
+      "cold tone",
+      "improvised feel",
+      "loose performance",
+      "loud",
+      "organic instrumentation",
+      "acoustic instruments",
+      "live drums",
+      "dark mood",
+      "brooding",
+      "screamed vocals",
+      "damaged vocal texture",
+      "distorted vocals"
+    ],
+    "chunks": [
+      {
+        "text": "By the time you hear this I am years away, my love arrives in echoes, so kiss the sky in seven years and know I said goodbye today.",
+        "duration_ms": 30000,
+        "positive_styles": [],
+        "negative_styles": []
+      }
+    ]
+  },
+  "contextAdherence": "high",
+  "provenance": [
+    "era",
+    "influences.synthpop",
+    "influences.ambient",
+    "influences.space disco",
+    "influences.dream pop",
+    "sonicPalette.pristineLofi",
+    "sonicPalette.sparseDense",
+    "sonicPalette.coldWarm",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.loudQuiet",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.darkHopeful",
+    "vocalCharacter.whispersScreams",
+    "vocalCharacter.cleanDamaged",
+    "lyricalObsessions"
+  ],
+  "metadata": {
+    "x-region": "us-central1",
+    "x-trace-id": "c171282c4262034a9bc495aa5afae7a6"
+  }
+}

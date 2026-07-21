@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "name": "MODEM CANDY",
+    "bio": "MODEM CANDY is the alias of a bedroom producer who never really left the year 2001. Raised in a house where the family computer lived in a converted closet, they spent childhood evenings memorizing the 56k handshake like a lullaby — that shriek and static crescendo that meant the whole world was about to arrive, one loading bar at a time. When the connection finally went broadband and the ritual disappeared, something in them refused to update. They still keep a working dial-up rig in the corner of their blue-lit bedroom, feeding its screech into a battered sampler alongside cassette hiss and the crinkle of candy wrappers.\n\nThe project began as insomnia therapy: layering bubblegum-bright melodies over corrupted, glitching drum machines until dawn, then falling asleep to the hum of a dead search engine. MODEM CANDY hoards expired sweets — chalky gum, faded gummies, candy so old the sugar has gone crystalline and strange — and treats their too-sweet-then-sour flavor as the perfect metaphor for nostalgia: something meant to comfort you that's quietly gone off. The music does the same, pairing sugar-rush hooks with pitch-shifted, damaged vocals that fracture mid-phrase like a buffering video.\n\nRefusing photos and interviews, MODEM CANDY exists mostly as a low-res avatar and a scatter of MIDI-glitch uploads that surface at 3 a.m. Fans trade theories about the handshake tones buried in every track — some claim they spell out coordinates, others just love how the whole thing feels like being homesick for a room you never left.",
+    "coverTitle": "56K SUGAR RUSH",
+    "coverDescription": "The cover is a decaying Y2K desktop frozen mid-crash: a chunky beige CRT monitor glowing electric blue, its screen fracturing into pixelated candy-colored glitch bars and a dial-up progress bar stuck at 87%. Half-unwrapped, sun-faded candies spill across the keyboard, their wrappers rendered in oversaturated neon that bleeds and smears like a corrupted JPEG. Scanlines, datamosh artifacts, and a floating cursor complete the scene, everything bathed in the sickly-sweet blue light of a bedroom with the blinds shut.",
+    "portraitPrompt": "Portrait of a young androgynous musician sitting alone in a dark bedroom lit only by the blue glow of an old CRT monitor, face half-obscured by digital glitch artifacts and datamosh distortion, pixelated candy-colored light streaks reflecting off their skin, tangled dial-up modem cables and scattered faded candy wrappers around them, low-res VHS grain texture, saturated neon pink and cyan color bleed, Y2K digital decay aesthetic, intimate and eerie, cinematic close crop, synthetic uncanny mood",
+    "coverPrompt": "Album cover illustration of a decaying early-2000s computer desktop, chunky beige CRT monitor glowing electric blue, screen fracturing into pixelated neon candy-colored glitch bars, a dial-up loading progress bar frozen at 87 percent, sun-faded unwrapped candies and crinkled wrappers spilling across a keyboard, heavy scanlines and JPEG compression artifacts, datamosh smears, a floating pixel cursor, oversaturated pink cyan and lime glow, Y2K digital decay meets sugar-rush neon, no text, dreamy claustrophobic bedroom atmosphere"
+  },
+  "referenceNotes": [],
+  "portraitProvenance": [
+    "era",
+    "visualStyle"
+  ],
+  "coverProvenance": [
+    "era",
+    "visualStyle"
+  ]
+}

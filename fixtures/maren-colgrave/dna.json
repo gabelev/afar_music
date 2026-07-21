@@ -1,0 +1,45 @@
+{
+  "seedPrompt": "A whispery folk singer who keeps a lighthouse and writes about what the sea returns",
+  "era": 0,
+  "influences": [
+    {
+      "genre": "chamber folk",
+      "weight": 0.35
+    },
+    {
+      "genre": "maritime traditional / sea shanty",
+      "weight": 0.25
+    },
+    {
+      "genre": "ambient folk",
+      "weight": 0.25
+    },
+    {
+      "genre": "slowcore",
+      "weight": 0.15
+    }
+  ],
+  "sonicPalette": {
+    "pristineLofi": -0.3,
+    "sparseDense": -0.7,
+    "coldWarm": 0.2,
+    "improvisedStructured": -0.2,
+    "loudQuiet": 0.7,
+    "organicSynthetic": -0.8,
+    "darkHopeful": -0.1
+  },
+  "vocalCharacter": {
+    "whispersScreams": -0.8,
+    "cleanDamaged": -0.3
+  },
+  "lyricalObsessions": [
+    "salt-swollen driftwood",
+    "the lighthouse's turning beam",
+    "letters the tide never delivered",
+    "bodies the sea gives back"
+  ],
+  "visualStyle": [
+    "fog-grey seaside monochrome",
+    "weathered maritime folk-art"
+  ]
+}
