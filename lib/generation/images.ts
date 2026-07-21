@@ -56,11 +56,15 @@ export async function generateImage(
     kind === "cover" ? "Album cover composition; no readable text." : "Artist portrait.",
   ].join(" ");
 
+  // JPEG at 85 keeps responses well under serverless payload limits
+  // (PNG at this size is ~3.5MB; JPEG lands around 300-500KB).
   const result = await client().images.generate({
     model: "gpt-image-1",
     prompt,
     size: SIZE_BY_KIND[kind],
     quality: "medium",
+    output_format: "jpeg",
+    output_compression: 85,
   });
 
   const b64 = result.data?.[0]?.b64_json;

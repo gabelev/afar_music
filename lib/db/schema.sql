@@ -33,5 +33,15 @@ CREATE TABLE IF NOT EXISTS artifacts (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Live-generated media (audio/images). The linked Blob store is private, so
+-- live media streams from here via /api/media/[id]; seed media is committed
+-- to the repo under public/. Rows are a few hundred KB to ~2MB.
+CREATE TABLE IF NOT EXISTS media (
+  id TEXT PRIMARY KEY,
+  content_type TEXT NOT NULL,
+  bytes BYTEA NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
 CREATE INDEX IF NOT EXISTS artifacts_artist_idx ON artifacts (artist_id, kind, position);
 CREATE INDEX IF NOT EXISTS dna_revisions_artist_idx ON dna_revisions (artist_id, rev DESC);

@@ -47,10 +47,10 @@ async function fillArtist(slug: string) {
 
   const imageJobs = [
     generateImage(dna, "portrait", identity.portraitPrompt).then((img) =>
-      writeFileSync(join(dir, "portrait.png"), img),
+      writeFileSync(join(dir, "portrait.jpg"), img),
     ),
     generateImage(dna, "cover", identity.coverPrompt).then((img) =>
-      writeFileSync(join(dir, "cover.png"), img),
+      writeFileSync(join(dir, "cover.jpg"), img),
     ),
   ];
 
