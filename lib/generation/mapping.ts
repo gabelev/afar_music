@@ -24,7 +24,13 @@ export type ContextAdherence = "low" | "medium" | "high";
 export interface CompositionPlan {
   positive_global_styles: string[];
   negative_global_styles: string[];
-  chunks: { text: string; duration_ms: number }[];
+  /** Per-chunk style arrays are required by the API but stay empty: all direction lives in the global arrays. */
+  chunks: {
+    text: string;
+    duration_ms: number;
+    positive_styles: string[];
+    negative_styles: string[];
+  }[];
 }
 
 export interface PlanWithProvenance {
@@ -132,7 +138,14 @@ export function buildCompositionPlan(dna: CreativeDNA, lyricSeed: string): PlanW
     plan: {
       positive_global_styles: [...new Set(positive)],
       negative_global_styles: [...new Set(negative)],
-      chunks: [{ text: clampLyrics(lyricSeed), duration_ms: TRACK_DURATION_MS }],
+      chunks: [
+        {
+          text: clampLyrics(lyricSeed),
+          duration_ms: TRACK_DURATION_MS,
+          positive_styles: [],
+          negative_styles: [],
+        },
+      ],
     },
     contextAdherence: contextAdherenceFor(dna.sonicPalette.improvisedStructured),
     provenance,
