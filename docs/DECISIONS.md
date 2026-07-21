@@ -26,5 +26,11 @@ A third concurrent music call returns 429 concurrent_limit_exceeded. The music c
 ## 2026-07-20 — Seed media served from public/, not Blob
 The linked Vercel Blob store is configured private, so public uploads fail. The spec wants seed assets committed to the repo anyway: the seed script copies media into public/artists/<slug>/ and stores root-relative URLs in the same blob_url column live generation uses — components stay uniform, no demo branching. Live generation still targets Blob; the store needs flipping to public access (or a small authenticated proxy route) before the create flow ships.
 
+## 2026-07-20 — Metal-drift fix: vocal bands, production-only tokens, quiet-aware BPM
+Live creations skewed heavy metal while fixtures sounded right. Root causes (found from stored DNA + reconstructed plans, not guesswork): (1) the vocal pad's vocabulary had no gradation — any value past the 0.15 deadzone emitted "screamed vocals"/"damaged vocal texture" at full strength, so half the pad meant screaming; (2) era/axis tokens forced genre and instrumentation ("1950s rock and roll production", "live drums", "trap hi-hats") onto every artist; (3) era BPM was fixed, pinning quiet artists to radio tempo. Decisions: vocal axes use mild→extreme bands (belted/raspy at ≤0.55, extremes only past 0.8); era/axis tokens are production descriptors only; loud↔quiet modulates BPM (quiet −20%, loud +10%). Ruled out with controlled A/Bs: negative_global_styles works (2888 vs 7007 Hz rolloff with/without), and the React controls write DNA faithfully. All in the token table — no schema change, which is exactly why the vocabulary lives outside the schema.
+
+## 2026-07-20 — Cross-axis combo tokens + lead-genre anchor
+Single-axis tokens can't express "solo, no band", and a genre with spread-thin weights was getting outvoted by palette adjectives. Sparse ≤ −0.4 + quiet ≥ 0.4 + organic ≤ −0.4 now adds "intimate solo performance" to positives and band/drum-kit/percussion to negatives; the heaviest influence always contributes at least two genre tokens. Confirmed by ear on Wren Halloway's stored DNA.
+
 ## 2026-07-20 — Tests with Vitest
 Standard, fast, zero-config with TS. Business-logic tests target the DNA schema and the DNA→composition-plan mapping, per the working agreement.
