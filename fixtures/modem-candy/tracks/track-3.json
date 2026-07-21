@@ -1,52 +1,26 @@
 {
   "title": "Blue Room Forever",
-  "lyricSeed": "blue light on my empty walls / nobody knocks, nobody calls / I glitch inside my little screen / the safest place I've ever been",
+  "lyricSeed": "Never leave the bedroom, screen is all I know\nMonitor glow hums a static lullaby so low\nNobody's knocking, nobody comes home\nJust me and the buffering, buffering alone\nY2K decay is peeling off the wall\nI don't wanna load the outside world at all",
   "compositionPlan": {
-    "positive_global_styles": [
-      "122 BPM",
-      "2020s contemporary production",
-      "hyper-detailed mix",
-      "hyperpop",
-      "hyperpop instrumentation",
-      "glitch pop",
-      "bubblegum bass",
-      "lo-fi",
-      "dense arrangement",
-      "layered instrumentation",
-      "structured songwriting",
-      "tight arrangement",
-      "loud",
-      "aggressive dynamics",
-      "synthetic textures",
-      "electronic synthesis",
-      "drum machines",
-      "hopeful mood",
-      "screamed vocals",
-      "damaged vocal texture",
-      "distorted vocals"
-    ],
-    "negative_global_styles": [
-      "pristine production",
-      "sparse arrangement",
-      "minimal instrumentation",
-      "improvised feel",
-      "loose performance",
-      "quiet",
-      "hushed dynamics",
-      "organic instrumentation",
-      "acoustic instruments",
-      "live drums",
-      "dark mood",
-      "whispered vocals",
-      "clean vocals",
-      "pure vocal tone"
-    ],
     "chunks": [
       {
-        "text": "blue light on my empty walls / nobody knocks, nobody calls / I glitch inside my little screen / the safest place I've ever been",
+        "text": "Never leave the bedroom, screen is all I know\nMonitor glow hums a static lullaby so low\nNobody's knocking, nobody comes home\nJust me and the buffering, buffering alone\nY2K decay is peeling off the wall\nI don't wanna load the outside world at all",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "128 BPM",
+          "2020s contemporary production",
+          "hyperpop",
+          "hyperpop instrumentation",
+          "powerful belted vocals",
+          "raspy weathered vocal texture",
+          "synthetic textures"
+        ],
+        "negative_styles": [
+          "organic instrumentation",
+          "sparse arrangement",
+          "pure vocal tone"
+        ],
+        "context_adherence": "high"
       }
     ]
   },
@@ -54,20 +28,14 @@
   "provenance": [
     "era",
     "influences.hyperpop",
-    "influences.glitch pop",
-    "influences.bubblegum bass",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.organicSynthetic",
-    "sonicPalette.darkHopeful",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.sparseDense",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "2c2b06b0e2368e9ee4967d1de2cf06e8"
+    "x-trace-id": "4d9b96584ca3ef6846d84df1e9d82354"
   }
 }

@@ -1,51 +1,25 @@
 {
-  "title": "Empty Group Chat",
-  "lyricSeed": "Everybody's talking but nobody's here, a hundred little hearts and I still disappear, oh, in a crowded room so loud, and I'm alone, alone",
+  "title": "Crowded Room, Empty Heart",
+  "lyricSeed": "Across the crowded room I catch your eye\nA hundred people dancing, still I feel so shy\nYou turn away, oh, and the record spins\nAnother lonely night where nobody wins\nSha-la-la, I'm longing here alone\nWishing you would call my telephone",
   "compositionPlan": {
-    "positive_global_styles": [
-      "110 BPM",
-      "1960s analog production",
-      "vintage tube warmth",
-      "1960s girl-group pop",
-      "1960s girl-group pop instrumentation",
-      "Wall of Sound orchestral pop",
-      "doo-wop",
-      "indie retro-soul",
-      "lo-fi",
-      "dense arrangement",
-      "layered instrumentation",
-      "warm tone",
-      "analog warmth",
-      "structured songwriting",
-      "tight arrangement",
-      "precise performance",
-      "loud",
-      "organic instrumentation",
-      "acoustic instruments",
-      "whispered vocals",
-      "clean vocals"
-    ],
-    "negative_global_styles": [
-      "pristine production",
-      "sparse arrangement",
-      "minimal instrumentation",
-      "cold tone",
-      "icy digital timbre",
-      "improvised feel",
-      "loose performance",
-      "jam-like spontaneity",
-      "quiet",
-      "synthetic textures",
-      "electronic synthesis",
-      "screamed vocals",
-      "damaged vocal texture"
-    ],
     "chunks": [
       {
-        "text": "Everybody's talking but nobody's here, a hundred little hearts and I still disappear, oh, in a crowded room so loud, and I'm alone, alone",
+        "text": "Across the crowded room I catch your eye\nA hundred people dancing, still I feel so shy\nYou turn away, oh, and the record spins\nAnother lonely night where nobody wins\nSha-la-la, I'm longing here alone\nWishing you would call my telephone",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "112 BPM",
+          "1960s analog production",
+          "1960s girl-group pop",
+          "1960s girl-group pop instrumentation",
+          "soft intimate vocals",
+          "clean vocals",
+          "structured songwriting"
+        ],
+        "negative_styles": [
+          "improvised feel",
+          "cold tone"
+        ],
+        "context_adherence": "high"
       }
     ]
   },
@@ -53,21 +27,14 @@
   "provenance": [
     "era",
     "influences.1960s girl-group pop",
-    "influences.Wall of Sound orchestral pop",
-    "influences.doo-wop",
-    "influences.indie retro-soul",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.coldWarm",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.organicSynthetic",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.coldWarm",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "fde06a7f6e2d3ca5cf5273cfb3e1e91c"
+    "x-trace-id": "b01f28d5bc3ccc53e72b5e6ab5254c5c"
   }
 }

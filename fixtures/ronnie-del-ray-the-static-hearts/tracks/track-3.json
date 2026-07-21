@@ -1,51 +1,25 @@
 {
-  "title": "Across the Neon Floor",
-  "lyricSeed": "I see you in the glow across the crowded room, but you're staring at your phone, lost in that blue, come back to me, my darling, ooh ooh ooh",
+  "title": "Empty Group Chat",
+  "lyricSeed": "My phone lights up but nobody's there\nAn empty group chat, does anybody care\nWhoa-oh, the little screen glows blue\nA thousand contacts, none of them are you\nDoo-wop, doo-wop, I type and I delete\nModern kind of lonely, bittersweet",
   "compositionPlan": {
-    "positive_global_styles": [
-      "110 BPM",
-      "1960s analog production",
-      "vintage tube warmth",
-      "1960s girl-group pop",
-      "1960s girl-group pop instrumentation",
-      "Wall of Sound orchestral pop",
-      "doo-wop",
-      "indie retro-soul",
-      "lo-fi",
-      "dense arrangement",
-      "layered instrumentation",
-      "warm tone",
-      "analog warmth",
-      "structured songwriting",
-      "tight arrangement",
-      "precise performance",
-      "loud",
-      "organic instrumentation",
-      "acoustic instruments",
-      "whispered vocals",
-      "clean vocals"
-    ],
-    "negative_global_styles": [
-      "pristine production",
-      "sparse arrangement",
-      "minimal instrumentation",
-      "cold tone",
-      "icy digital timbre",
-      "improvised feel",
-      "loose performance",
-      "jam-like spontaneity",
-      "quiet",
-      "synthetic textures",
-      "electronic synthesis",
-      "screamed vocals",
-      "damaged vocal texture"
-    ],
     "chunks": [
       {
-        "text": "I see you in the glow across the crowded room, but you're staring at your phone, lost in that blue, come back to me, my darling, ooh ooh ooh",
+        "text": "My phone lights up but nobody's there\nAn empty group chat, does anybody care\nWhoa-oh, the little screen glows blue\nA thousand contacts, none of them are you\nDoo-wop, doo-wop, I type and I delete\nModern kind of lonely, bittersweet",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "112 BPM",
+          "1960s analog production",
+          "1960s girl-group pop",
+          "1960s girl-group pop instrumentation",
+          "soft intimate vocals",
+          "clean vocals",
+          "structured songwriting"
+        ],
+        "negative_styles": [
+          "improvised feel",
+          "cold tone"
+        ],
+        "context_adherence": "high"
       }
     ]
   },
@@ -53,21 +27,14 @@
   "provenance": [
     "era",
     "influences.1960s girl-group pop",
-    "influences.Wall of Sound orchestral pop",
-    "influences.doo-wop",
-    "influences.indie retro-soul",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.coldWarm",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.organicSynthetic",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.coldWarm",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "0f99ce81a6ea67d3f7c9c07502e5b310"
+    "x-trace-id": "8cc8c3f9ef6fffeaa102b346756b11d6"
   }
 }

@@ -1,52 +1,26 @@
 {
   "title": "Expired Sugar",
-  "lyricSeed": "candy older than my heart / stale and sweet, it falls apart / I lick the dust off memory / expired love still tastes like me",
+  "lyricSeed": "Candy from a decade dead still tastes so sweet\nStale bubblegum melting pink between my teeth\nChalky little hearts with faded words to read\nEat the past until my stomach glitches out\nSugar-rush neon in my rotting little mouth\nNever let it go, never let it go",
   "compositionPlan": {
-    "positive_global_styles": [
-      "122 BPM",
-      "2020s contemporary production",
-      "hyper-detailed mix",
-      "hyperpop",
-      "hyperpop instrumentation",
-      "glitch pop",
-      "bubblegum bass",
-      "lo-fi",
-      "dense arrangement",
-      "layered instrumentation",
-      "structured songwriting",
-      "tight arrangement",
-      "loud",
-      "aggressive dynamics",
-      "synthetic textures",
-      "electronic synthesis",
-      "drum machines",
-      "hopeful mood",
-      "screamed vocals",
-      "damaged vocal texture",
-      "distorted vocals"
-    ],
-    "negative_global_styles": [
-      "pristine production",
-      "sparse arrangement",
-      "minimal instrumentation",
-      "improvised feel",
-      "loose performance",
-      "quiet",
-      "hushed dynamics",
-      "organic instrumentation",
-      "acoustic instruments",
-      "live drums",
-      "dark mood",
-      "whispered vocals",
-      "clean vocals",
-      "pure vocal tone"
-    ],
     "chunks": [
       {
-        "text": "candy older than my heart / stale and sweet, it falls apart / I lick the dust off memory / expired love still tastes like me",
+        "text": "Candy from a decade dead still tastes so sweet\nStale bubblegum melting pink between my teeth\nChalky little hearts with faded words to read\nEat the past until my stomach glitches out\nSugar-rush neon in my rotting little mouth\nNever let it go, never let it go",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "128 BPM",
+          "2020s contemporary production",
+          "hyperpop",
+          "hyperpop instrumentation",
+          "powerful belted vocals",
+          "raspy weathered vocal texture",
+          "synthetic textures"
+        ],
+        "negative_styles": [
+          "organic instrumentation",
+          "sparse arrangement",
+          "pure vocal tone"
+        ],
+        "context_adherence": "high"
       }
     ]
   },
@@ -54,20 +28,14 @@
   "provenance": [
     "era",
     "influences.hyperpop",
-    "influences.glitch pop",
-    "influences.bubblegum bass",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.organicSynthetic",
-    "sonicPalette.darkHopeful",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.sparseDense",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "9f2f1ccb24d69216a32c0adfe5bdb0cd"
+    "x-trace-id": "dcfddce630d9f8ae2d4df0e4e8671f01"
   }
 }

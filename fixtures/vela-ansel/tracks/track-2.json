@@ -1,56 +1,26 @@
 {
   "title": "Light-Delayed Goodbye",
-  "lyricSeed": "By the time you hear this I am years away, my love arrives in echoes, so kiss the sky in seven years and know I said goodbye today.",
+  "lyricSeed": "By the time you hear me I am gone\nRacing through the dark to somewhere new\nGoodbye arrives a hundred sunsets late\nBut I still mean it, I still mean you\nCatch the shimmer of my dying wave\nLove me in the echo, love the ghost I gave",
   "compositionPlan": {
-    "positive_global_styles": [
-      "132 BPM",
-      "far-future sound design",
-      "post-human textures",
-      "synthpop",
-      "ambient",
-      "space disco",
-      "dream pop",
-      "pristine production",
-      "polished",
-      "hi-fi clarity",
-      "dense arrangement",
-      "warm tone",
-      "structured songwriting",
-      "tight arrangement",
-      "quiet",
-      "synthetic textures",
-      "electronic synthesis",
-      "drum machines",
-      "hopeful mood",
-      "uplifting",
-      "whispered vocals",
-      "clean vocals",
-      "pure vocal tone"
-    ],
-    "negative_global_styles": [
-      "lo-fi",
-      "tape saturation",
-      "cassette hiss",
-      "sparse arrangement",
-      "cold tone",
-      "improvised feel",
-      "loose performance",
-      "loud",
-      "organic instrumentation",
-      "acoustic instruments",
-      "live drums",
-      "dark mood",
-      "brooding",
-      "screamed vocals",
-      "damaged vocal texture",
-      "distorted vocals"
-    ],
     "chunks": [
       {
-        "text": "By the time you hear this I am years away, my love arrives in echoes, so kiss the sky in seven years and know I said goodbye today.",
+        "text": "By the time you hear me I am gone\nRacing through the dark to somewhere new\nGoodbye arrives a hundred sunsets late\nBut I still mean it, I still mean you\nCatch the shimmer of my dying wave\nLove me in the echo, love the ghost I gave",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "124 BPM",
+          "far-future sound design",
+          "synthpop",
+          "synthpop instrumentation",
+          "soft intimate vocals",
+          "clean vocals",
+          "synthetic textures"
+        ],
+        "negative_styles": [
+          "organic instrumentation",
+          "lo-fi",
+          "damaged vocal texture"
+        ],
+        "context_adherence": "high"
       }
     ]
   },
@@ -58,22 +28,14 @@
   "provenance": [
     "era",
     "influences.synthpop",
-    "influences.ambient",
-    "influences.space disco",
-    "influences.dream pop",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.coldWarm",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.organicSynthetic",
-    "sonicPalette.darkHopeful",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.pristineLofi",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "c171282c4262034a9bc495aa5afae7a6"
+    "x-trace-id": "9070fe983f3bec695b6ebbed0f50c8f2"
   }
 }
