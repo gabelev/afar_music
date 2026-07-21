@@ -60,6 +60,18 @@ export const VOCAL_TOKENS = {
   },
 } as const;
 
+/**
+ * Cross-axis combination: when sparse, quiet, and organic all lean together,
+ * say "solo, no band" outright instead of leaving the model free to add a
+ * rhythm section. Threshold applies to each axis (sparse ≤ −t, quiet ≥ t,
+ * organic ≤ −t).
+ */
+export const SOLO_PERFORMANCE_COMBO = {
+  threshold: 0.4,
+  positive: ["intimate solo performance"],
+  negative: ["full band arrangement", "drum kit", "percussion"],
+} as const;
+
 /** Era → default BPM and production-era tokens. Index-aligned with ERAS. */
 export const ERA_STYLES: Record<
   (typeof ERAS)[number],

@@ -194,6 +194,49 @@ describe("buildCompositionPlan", () => {
     expect(plan.positive_global_styles).toContain("damaged vocal texture");
   });
 
+  it("sparse + quiet + organic together read as a solo performance", () => {
+    // Vocab tuning: aligned soft axes should say 'solo, no band' outright,
+    // not leave the model free to add a rhythm section.
+    const { plan } = buildCompositionPlan(
+      dnaWith({
+        sonicPalette: { ...neutralPalette, sparseDense: -0.7, loudQuiet: 0.8, organicSynthetic: -0.9 },
+      }),
+      "x",
+    );
+    expect(plan.positive_global_styles).toContain("intimate solo performance");
+    expect(plan.negative_global_styles).toContain("full band arrangement");
+    expect(plan.negative_global_styles).toContain("percussion");
+  });
+
+  it("the solo-performance combo needs all three axes aligned", () => {
+    const { plan } = buildCompositionPlan(
+      dnaWith({
+        sonicPalette: { ...neutralPalette, sparseDense: -0.7, loudQuiet: -0.5, organicSynthetic: -0.9 },
+      }),
+      "x",
+    );
+    expect(plan.positive_global_styles).not.toContain("intimate solo performance");
+    expect(plan.negative_global_styles).not.toContain("full band arrangement");
+  });
+
+  it("the lead influence always anchors the genre with at least two tokens", () => {
+    // A folk artist whose weights are spread thin still needs 'folk' to
+    // outweigh palette adjectives.
+    const { plan } = buildCompositionPlan(
+      dnaWith({
+        influences: [
+          { genre: "folk", weight: 0.28 },
+          { genre: "americana", weight: 0.24 },
+          { genre: "chamber pop", weight: 0.24 },
+          { genre: "ambient", weight: 0.24 },
+        ],
+      }),
+      "x",
+    );
+    expect(plan.positive_global_styles).toContain("folk");
+    expect(plan.positive_global_styles).toContain("folk instrumentation");
+  });
+
   it("vocal pad emits vocal tokens", () => {
     const { plan } = buildCompositionPlan(
       dnaWith({ vocalCharacter: { whispersScreams: -0.9, cleanDamaged: 0 } }),
