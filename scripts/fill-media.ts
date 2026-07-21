@@ -36,7 +36,7 @@ async function fillArtist(slug: string) {
       const trackPath = join(dir, "tracks", f);
       const track = JSON.parse(readFileSync(trackPath, "utf8"));
       const plan = buildCompositionPlan(dna, track.lyricSeed);
-      const generated = await generateTrack(plan.plan, plan.contextAdherence);
+      const generated = await generateTrack(plan.plan);
       writeFileSync(trackPath.replace(/\.json$/, ".mp3"), generated.audio);
       writeFileSync(
         trackPath,

@@ -130,7 +130,8 @@ export async function generateTrackSeed(
     max_tokens: 2048,
     system: [
       "You write song material for an AI artist. Return a track title and a lyricSeed.",
-      "The lyricSeed is sung verbatim by a music model over a 30-second track: it must be pure lyrics (no stage direction, no section labels), at most 170 characters, built from the artist's lyrical obsessions and mood.",
+      "The lyricSeed is sung verbatim by a music model over a 30-second track: pure lyrics (no stage direction, no section labels), built from the artist's lyrical obsessions and mood.",
+      "Write 4-8 short lines separated by newline characters, 45-70 words total — enough to fill 30 seconds of singing. Each line at most 60 characters.",
       "Each track for an artist should be a distinct song, not a variation of the same one.",
     ].join("\n"),
     messages: [
@@ -200,7 +201,8 @@ export async function generateTrackSeeds(dna: CreativeDNA): Promise<TrackSeed[]>
     max_tokens: 2048,
     system: [
       "You write song material for an AI artist. Return exactly 3 tracks, each with a title and a lyricSeed.",
-      "Each lyricSeed is sung verbatim by a music model over a 30-second track: pure lyrics (no stage direction, no section labels), at most 170 characters, built from the artist's lyrical obsessions and mood.",
+      "Each lyricSeed is sung verbatim by a music model over a 30-second track: pure lyrics (no stage direction, no section labels), built from the artist's lyrical obsessions and mood.",
+      "Write 4-8 short lines separated by newline characters, 45-70 words total — enough to fill 30 seconds of singing. Each line at most 60 characters.",
       "The three tracks must be three distinct songs — different angles on the artist, not variations of one song.",
     ].join("\n"),
     messages: [{ role: "user", content: dnaBrief(dna) }],

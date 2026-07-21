@@ -59,7 +59,7 @@ Free text box: "Tell me about the artist you want to create"
 - Use ElevenLabs composition plans rather than one-shot prompts, and pin `model_id` to `music_v2`. A plan is `{positive_global_styles, negative_global_styles, chunks: [...]}`.
 - The bipolar sliders map onto positive and negative styles almost exactly, which is the reason this control design earns its keep. A slider at the Lo-fi pole emits positive styles like "lo-fi, tape saturation" and negative styles like "pristine, polished". Distance from center becomes the weighting. That is a structural lever on the audio rather than an adjective in a prompt.
 - Rest of the mapping: era to BPM and production-era style tokens, influences to how many style tokens each genre contributes, the vocal pad to vocal style tokens, lyrical obsessions to lyrics.
-- Set `respect_sections_durations` to false. It trades precise timing for better audio quality, which is the right trade at 30 seconds.
+- Do not send `respect_sections_durations`: it is a `music_v1`-only field and has no effect on `music_v2`, which always enforces chunk durations.
 - If a copyrighted artist reference survives our own stripping, the API returns a `bad_prompt` or `bad_composition_plan` error carrying a suggested replacement. Catch it, use the suggestion, and surface it the same visible way as the seed-prompt stripping. Belt and braces on the same requirement.
 - Same principle for images: era and visual style drive model choice and aspect ratio, not only prompt text.
 
@@ -67,10 +67,12 @@ Free text box: "Tell me about the artist you want to create"
 
 Verified against the live API. Build to these rather than rediscovering them.
 
-- **Use one 30-second chunk, not a multi-chunk plan.** Chunk boundaries land as abrupt hard cuts even with `respect_sections_durations: false`. A single chunk lets the model place the intro and vocal entry itself, which transitions naturally.
+- **music_v2's `composition_plan` is chunks-only.** `positive_global_styles` / `negative_global_styles` belong to the `music_v1` MusicPrompt schema; on `music_v2` the documented style fields are `chunks[].positive_styles` / `negative_styles` ("styles for the first chunk are the most important as they set the overall tone and genre"). The API returns 200 with unknown keys, so styles in the wrong location fail silently. `respect_sections_durations` is likewise `music_v1`-only.
+- **Style budget: ~6–7 positives, few or no negatives.** The API reference's own recommendation. Tokens compete for slots (BPM, era, lead genre, and active vocal axes are guaranteed; the rest rank by magnitude) instead of sending everything.
+- **Use one 30-second chunk, not a multi-chunk plan.** Chunk boundaries land as abrupt hard cuts. A single chunk lets the model place the intro and vocal entry itself, which transitions naturally.
 - **Chunk `text` is lyrics, not direction.** The model sings whatever `text` contains. Text carries the lyric seed only; all prose direction lives in the style arrays.
-- **Chunk `text` over ~200 characters returns a bare 500.** 180 passes, 201 fails, and nothing in the docs hints at it. Clamp to 180 at a word boundary.
-- **`context_adherence` is an enum** (`low` | `medium` | `high`), not a 0–1 float. Map from the improvised↔structured slider in thirds.
+- **The ~200-character limit on chunk `text` is per LINE** (matches the documented 200-chars-per-line lyric constraint; a 201-char single line 500s, 180 passes). Clamp per line at 180 on a word boundary. Multi-line text is how a 30s chunk carries a singable word count — target 45–70 words (~1.5–2.3 words/sec sung).
+- **`context_adherence` is a per-chunk enum** (`low` | `medium` | `high`, documented default `high`), not a top-level field. Map from the improvised↔structured slider in thirds and set it inside the chunk.
 - **The response body is raw audio**, not JSON. Track metadata comes back on response headers.
 - **A 30-second track generates in ~5–6s.** Set the music timeout to 90s: headroom for load variance, still fast enough to fail and retry inside a web request.
 

@@ -50,12 +50,13 @@ for (const override of values.set ?? []) {
 }
 
 const plan = buildCompositionPlan(dna, clampLyrics(values.lyrics));
-console.log("positive:", plan.plan.positive_global_styles.join(" | "));
-console.log("negative:", plan.plan.negative_global_styles.join(" | "));
-console.log(`context_adherence: ${plan.contextAdherence}`);
+const chunk = plan.plan.chunks[0];
+console.log("positive:", chunk.positive_styles.join(" | "));
+console.log("negative:", chunk.negative_styles.join(" | "));
+console.log(`context_adherence: ${chunk.context_adherence}`);
 
 const startedAt = Date.now();
-const track = await generateTrack(plan.plan, plan.contextAdherence);
+const track = await generateTrack(plan.plan);
 writeFileSync(values.out, track.audio);
 console.log(`\nWrote ${values.out} (${track.audio.length} bytes, ${((Date.now() - startedAt) / 1000).toFixed(1)}s)`);
 console.log("metadata:", JSON.stringify(track.metadata));

@@ -1,9 +1,11 @@
-import type { CompositionPlan, ContextAdherence } from "./mapping";
+import type { CompositionPlan } from "./mapping";
 
 /**
  * ElevenLabs music client. Built to the verified API facts in docs/SPEC.md:
  * - model pinned to music_v2; composition plan, not a one-shot prompt
- * - respect_sections_durations: false (better audio at 30s)
+ * - the body carries ONLY model_id + composition_plan: all style direction and
+ *   context_adherence live inside the plan's chunks (music_v2 schema);
+ *   respect_sections_durations is music_v1-only and is not sent
  * - the response BODY is raw audio; track metadata is on response headers
  * - ~5-6s generation for 30s; 90s timeout leaves headroom inside a web request
  * - bad_prompt / bad_composition_plan errors carry a suggested replacement —
@@ -55,18 +57,15 @@ export interface GeneratedTrack {
   metadata: Record<string, string>;
 }
 
-export async function generateTrack(
-  plan: CompositionPlan,
-  contextAdherence: ContextAdherence,
-): Promise<GeneratedTrack> {
+export async function generateTrack(plan: CompositionPlan): Promise<GeneratedTrack> {
   await acquire();
   try {
-    return await requestTrack(plan, contextAdherence);
+    return await requestTrack(plan);
   } catch (error) {
     // One retry for transient rate limiting; MusicPromptError is not transient.
     if (error instanceof Error && !(error instanceof MusicPromptError) && error.message.includes("429")) {
       await new Promise((r) => setTimeout(r, 3000));
-      return await requestTrack(plan, contextAdherence);
+      return await requestTrack(plan);
     }
     throw error;
   } finally {
@@ -74,10 +73,7 @@ export async function generateTrack(
   }
 }
 
-async function requestTrack(
-  plan: CompositionPlan,
-  contextAdherence: ContextAdherence,
-): Promise<GeneratedTrack> {
+async function requestTrack(plan: CompositionPlan): Promise<GeneratedTrack> {
   const apiKey = process.env.ELEVENLABS_API_KEY;
   if (!apiKey) throw new Error("ELEVENLABS_API_KEY is not set");
 
@@ -87,8 +83,6 @@ async function requestTrack(
     body: JSON.stringify({
       model_id: "music_v2",
       composition_plan: plan,
-      respect_sections_durations: false,
-      context_adherence: contextAdherence,
     }),
     signal: AbortSignal.timeout(MUSIC_TIMEOUT_MS),
   });

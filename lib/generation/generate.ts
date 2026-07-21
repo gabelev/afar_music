@@ -75,7 +75,7 @@ async function materializeTrack(
 ): Promise<TrackArtifact> {
   const plan = buildCompositionPlan(dna, seed.lyricSeed);
   if (options.dryRun) return { position, seed, plan };
-  const track = await generateTrack(plan.plan, plan.contextAdherence);
+  const track = await generateTrack(plan.plan);
   return { position, seed, plan, track };
 }
 
