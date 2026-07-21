@@ -37,6 +37,10 @@ interface Identity {
 
 type KeepField = "era" | "influences" | "sonicPalette" | "vocalCharacter" | "lyricalObsessions" | "visualStyle";
 
+/** Provenance for text/image artifacts (mirrors lib/generation/generate.ts). */
+const BIO_PROV = ["seedPrompt", "era", "influences", "lyricalObsessions"];
+const IMAGE_PROV = ["era", "visualStyle"];
+
 const AXIS_META: { key: keyof SonicPalette; left: string; right: string }[] = [
   { key: "pristineLofi", left: "Pristine", right: "Lo-fi" },
   { key: "sparseDense", left: "Sparse", right: "Dense" },
@@ -80,6 +84,9 @@ export function CreateStudio() {
   const [identity, setIdentity] = useState<Identity | null>(null);
   const [portrait, setPortrait] = useState("");
   const [cover, setCover] = useState("");
+  const [highlight, setHighlight] = useState<string[]>([]);
+  const [nudge, setNudge] = useState("");
+  const [nudgeResult, setNudgeResult] = useState<{ explanation: string; changed: string[] } | null>(null);
 
   const run = async (label: string, fn: () => Promise<void>) => {
     setBusy(label);
@@ -166,6 +173,18 @@ export function CreateStudio() {
         if (kind === "portrait") setPortrait(result.image);
         else setCover(result.image);
       }
+    });
+
+  const applyNudge = () =>
+    run("Nudging the whole artist…", async () => {
+      if (!dna || !nudge.trim()) return;
+      const result = await post<{ dna: CreativeDNA; explanation: string }>("/api/nudge", {
+        dna,
+        instruction: nudge,
+      });
+      setNudgeResult({ explanation: result.explanation, changed: diffDNA(dna, result.dna) });
+      setDNA(result.dna);
+      setNudge("");
     });
 
   const save = () =>
@@ -431,25 +450,39 @@ export function CreateStudio() {
           <h1 style={{ fontWeight: 400, fontSize: 48, margin: "0 0 var(--space-4)" }}>{identity.name}</h1>
           <div className="grid grid-cols-1 md:grid-cols-[260px_1fr]" style={{ gap: "var(--space-6)" }}>
             <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-              {portrait && (
-                // eslint-disable-next-line @next/next/no-img-element -- data URL preview
-                <img src={portrait} alt={`Portrait of ${identity.name}`} className="plate" />
-              )}
+              <Hoverable provenance={IMAGE_PROV} onHover={setHighlight}>
+                {portrait ? (
+                  // eslint-disable-next-line @next/next/no-img-element -- generated preview
+                  <img src={portrait} alt={`Portrait of ${identity.name}`} className="plate" />
+                ) : (
+                  <div className="card text-muted" style={{ aspectRatio: "2/3", justifyContent: "center", textAlign: "center" }}>
+                    Painting the portrait…
+                  </div>
+                )}
+              </Hoverable>
               <button type="button" className="btn btn-ghost" onClick={() => regenerateProfilePiece("portrait")} disabled={busy !== null}>
                 ↻ Regenerate portrait
               </button>
-              {cover && (
-                // eslint-disable-next-line @next/next/no-img-element -- data URL preview
-                <img src={cover} alt={`Album cover: ${identity.coverTitle}`} className="plate" />
-              )}
+              <Hoverable provenance={IMAGE_PROV} onHover={setHighlight}>
+                {cover ? (
+                  // eslint-disable-next-line @next/next/no-img-element -- generated preview
+                  <img src={cover} alt={`Album cover: ${identity.coverTitle}`} className="plate" />
+                ) : (
+                  <div className="card text-muted" style={{ aspectRatio: "1/1", justifyContent: "center", textAlign: "center" }}>
+                    Pressing the cover…
+                  </div>
+                )}
+              </Hoverable>
               <button type="button" className="btn btn-ghost" onClick={() => regenerateProfilePiece("cover")} disabled={busy !== null}>
                 ↻ Regenerate cover
               </button>
             </div>
             <div>
-              {identity.bio.split("\n").filter(Boolean).map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
+              <Hoverable provenance={BIO_PROV} onHover={setHighlight}>
+                {identity.bio.split("\n").filter(Boolean).map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </Hoverable>
               <button type="button" className="btn btn-ghost" onClick={() => regenerateProfilePiece("bio")} disabled={busy !== null}>
                 ↻ Regenerate bio
               </button>
@@ -459,8 +492,39 @@ export function CreateStudio() {
                 {tracks
                   .filter((t) => t.position === singlePosition)
                   .map((t) => (
-                    <TrackPlayer key={t.position} title={t.title} audioUrl={t.audio} isSingle />
+                    <Hoverable key={t.position} provenance={t.provenance} onHover={setHighlight}>
+                      <TrackPlayer title={t.title} audioUrl={t.audio} isSingle />
+                    </Hoverable>
                   ))}
+              </div>
+
+              <div className="card" style={{ marginTop: "var(--space-4)" }}>
+                <span className="card-kicker">Creative DNA — hover anything above to see which DNA drove it</span>
+                <DNASummary dna={dna} highlight={highlight} changed={nudgeResult?.changed ?? []} />
+              </div>
+
+              <div className="card" style={{ marginTop: "var(--space-4)" }}>
+                <span className="card-kicker">Nudge the whole artist</span>
+                <div className="flex items-center gap-2">
+                  <input
+                    className="input"
+                    placeholder="Make them meaner… move them five years later… less polished…"
+                    value={nudge}
+                    onChange={(e) => setNudge(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && applyNudge()}
+                  />
+                  <button type="button" className="btn btn-primary" onClick={applyNudge} disabled={busy !== null || !nudge.trim()}>
+                    Nudge
+                  </button>
+                </div>
+                {nudgeResult && (
+                  <p className="card-body">
+                    <strong>The DNA moved:</strong> {nudgeResult.explanation}{" "}
+                    <span className="text-muted">
+                      Regenerate any artifact above to hear and see the change.
+                    </span>
+                  </p>
+                )}
               </div>
 
               <div className="flex items-center" style={{ gap: "var(--space-3)", marginTop: "var(--space-6)" }}>
@@ -487,6 +551,85 @@ export function CreateStudio() {
           <p className="card-body">{error} If it keeps happening, the seeded roster is always playable.</p>
         </div>
       )}
+    </div>
+  );
+}
+
+/** Which top-level DNA field paths changed between two DNAs (for the nudge diff). */
+function diffDNA(before: CreativeDNA, after: CreativeDNA): string[] {
+  const changed: string[] = [];
+  if (before.era !== after.era) changed.push("era");
+  if (JSON.stringify(before.influences) !== JSON.stringify(after.influences)) changed.push("influences");
+  (Object.keys(before.sonicPalette) as (keyof SonicPalette)[]).forEach((axis) => {
+    if (before.sonicPalette[axis] !== after.sonicPalette[axis]) changed.push(`sonicPalette.${axis}`);
+  });
+  if (
+    before.vocalCharacter.whispersScreams !== after.vocalCharacter.whispersScreams ||
+    before.vocalCharacter.cleanDamaged !== after.vocalCharacter.cleanDamaged
+  )
+    changed.push("vocalCharacter");
+  if (JSON.stringify(before.lyricalObsessions) !== JSON.stringify(after.lyricalObsessions))
+    changed.push("lyricalObsessions");
+  if (JSON.stringify(before.visualStyle) !== JSON.stringify(after.visualStyle)) changed.push("visualStyle");
+  return changed;
+}
+
+/** Wraps an artifact; hovering reports its provenance so the DNA panel can light up. */
+function Hoverable({
+  provenance,
+  onHover,
+  children,
+}: {
+  provenance: string[];
+  onHover: (paths: string[]) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div onMouseEnter={() => onHover(provenance)} onMouseLeave={() => onHover([])}>
+      {children}
+    </div>
+  );
+}
+
+/** Compact DNA chip panel; chips glow when a hovered artifact's provenance covers them. */
+function DNASummary({
+  dna,
+  highlight,
+  changed,
+}: {
+  dna: CreativeDNA;
+  highlight: string[];
+  changed: string[];
+}) {
+  const isLit = (path: string) =>
+    highlight.some((h) => h === path || h.startsWith(`${path}.`) || path.startsWith(`${h}.`));
+  const chip = (path: string, label: string) => (
+    <span
+      key={path}
+      className={isLit(path) ? "tag tag-outline" : changed.includes(path) ? "tag tag-accent" : "tag tag-neutral"}
+      style={{ transition: "all 0.15s ease" }}
+      title={changed.includes(path) ? "Moved by your nudge" : undefined}
+    >
+      {label}
+    </span>
+  );
+  return (
+    <div className="flex flex-wrap items-center" style={{ gap: 6 }}>
+      {chip("era", ERAS[dna.era])}
+      {dna.influences.map((inf) =>
+        chip(`influences.${inf.genre}`, `${inf.genre} ${Math.round(inf.weight * 100)}%`),
+      )}
+      {AXIS_META.map((axis) => {
+        const v = dna.sonicPalette[axis.key];
+        const pole = v < 0 ? axis.left : axis.right;
+        return chip(`sonicPalette.${axis.key}`, `${pole} ${Math.abs(v).toFixed(1)}`);
+      })}
+      {chip("vocalCharacter", "vocals")}
+      {chip("lyricalObsessions", dna.lyricalObsessions.join(" · "))}
+      {chip("visualStyle", dna.visualStyle.join(" · "))}
+      <span style={{ marginLeft: "auto" }}>
+        <Radar palette={dna.sonicPalette} size={72} />
+      </span>
     </div>
   );
 }
