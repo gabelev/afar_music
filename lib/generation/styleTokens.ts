@@ -31,7 +31,10 @@ export const AXIS_TOKENS: Record<SonicAxis, { left: string[]; right: string[] }>
     right: ["quiet", "hushed dynamics", "intimate"],
   },
   organicSynthetic: {
-    left: ["organic instrumentation", "acoustic instruments", "live drums"],
+    // No "live drums" here: era/axis tokens describe production, never force
+    // instrumentation (a whisper-folk artist at organic −0.9 was getting a
+    // full drum kit).
+    left: ["organic instrumentation", "acoustic instruments", "natural room acoustics"],
     right: ["synthetic textures", "electronic synthesis", "drum machines"],
   },
   darkHopeful: {
@@ -40,15 +43,20 @@ export const AXIS_TOKENS: Record<SonicAxis, { left: string[]; right: string[] }>
   },
 };
 
-/** 2D vocal pad vocabulary: same left/right convention per pad axis. */
+/**
+ * 2D vocal pad vocabulary, ordered MILD → EXTREME per pole (unlike the sonic
+ * axes, which are strongest-first). Magnitude bands decide how deep into the
+ * list a value reaches — a dot just past center must NOT mean screaming:
+ * |v| in (deadzone, 0.55] → first token, (0.55, 0.8] → first two, > 0.8 → all.
+ */
 export const VOCAL_TOKENS = {
   whispersScreams: {
-    left: ["whispered vocals", "breathy delivery"],
-    right: ["screamed vocals", "throat-shredding intensity"],
+    left: ["soft intimate vocals", "whispered vocals", "breathy delivery"],
+    right: ["powerful belted vocals", "screamed vocals", "throat-shredding intensity"],
   },
   cleanDamaged: {
     left: ["clean vocals", "pure vocal tone"],
-    right: ["damaged vocal texture", "distorted vocals"],
+    right: ["raspy weathered vocal texture", "damaged vocal texture", "distorted vocals"],
   },
 } as const;
 
@@ -57,14 +65,17 @@ export const ERA_STYLES: Record<
   (typeof ERAS)[number],
   { bpm: number; tokens: string[] }
 > = {
+  // Era tokens are production-era descriptors only — no genre words and no
+  // instrumentation ("rock and roll", "trap hi-hats", "gated reverb drums"
+  // were dragging every artist of an era toward one genre's sound).
   "far-past": { bpm: 80, tokens: ["ancient folk tradition", "pre-industrial acoustics"] },
-  "1950s": { bpm: 100, tokens: ["1950s rock and roll production", "mono-era recording"] },
+  "1950s": { bpm: 100, tokens: ["1950s era production", "mono-era recording"] },
   "1960s": { bpm: 110, tokens: ["1960s analog production", "vintage tube warmth"] },
   "1970s": { bpm: 105, tokens: ["1970s studio production", "analog tape sound"] },
-  "1980s": { bpm: 118, tokens: ["1980s production", "gated reverb drums", "analog synths"] },
-  "1990s": { bpm: 112, tokens: ["1990s production", "sampled breakbeats"] },
+  "1980s": { bpm: 118, tokens: ["1980s production", "big analog reverb"] },
+  "1990s": { bpm: 112, tokens: ["1990s production", "radio-era mixing"] },
   "2000s": { bpm: 115, tokens: ["2000s digital production", "radio-polished mix"] },
-  "2010s": { bpm: 120, tokens: ["2010s production", "sidechained pads", "trap hi-hats"] },
+  "2010s": { bpm: 120, tokens: ["2010s production", "streaming-era polish"] },
   "2020s": { bpm: 122, tokens: ["2020s contemporary production", "hyper-detailed mix"] },
   "2030s": { bpm: 126, tokens: ["near-future production", "AI-flavored sound design"] },
   "far-future": { bpm: 132, tokens: ["far-future sound design", "post-human textures"] },

@@ -63,6 +63,27 @@ export function mapBipolarAxis(
   };
 }
 
+/**
+ * Vocal axes use MILD→EXTREME banded lists (see VOCAL_TOKENS): the band decides
+ * how deep into the list a value reaches, so a pad dot just past center emits
+ * "powerful belted vocals", not "screamed vocals". The opposing pole's
+ * unmistakable tokens (everything past its first) go to negative styles.
+ */
+export function mapVocalAxis(
+  value: number,
+  poles: { left: readonly string[]; right: readonly string[] },
+): { positive: string[]; negative: string[] } {
+  const magnitude = Math.abs(value);
+  if (magnitude < NEUTRAL_DEADZONE) return { positive: [], negative: [] };
+  const active = value < 0 ? poles.left : poles.right;
+  const opposing = value < 0 ? poles.right : poles.left;
+  const depth = magnitude > 0.8 ? active.length : magnitude > 0.55 ? 2 : 1;
+  return {
+    positive: active.slice(0, depth),
+    negative: opposing.slice(1),
+  };
+}
+
 /** Influence weight → how many style tokens that genre contributes (0–4). */
 export function influenceTokens(genre: string, weight: number): string[] {
   const candidates = [
@@ -103,7 +124,12 @@ export function buildCompositionPlan(dna: CreativeDNA, lyricSeed: string): PlanW
 
   const era = ERAS[dna.era];
   const eraStyle = ERA_STYLES[era];
-  positive.push(`${eraStyle.bpm} BPM`, ...eraStyle.tokens);
+  // Era sets the base tempo; the loud↔quiet slider modulates it so a hushed
+  // artist isn't pinned to their era's radio tempo (quiet slows up to 20%,
+  // loud pushes up to 10%).
+  const lq = dna.sonicPalette.loudQuiet;
+  const bpm = Math.round(eraStyle.bpm * (lq > 0 ? 1 - 0.2 * lq : 1 + 0.1 * -lq));
+  positive.push(`${bpm} BPM`, ...eraStyle.tokens);
   provenance.push("era");
 
   for (const influence of dna.influences) {
@@ -124,7 +150,7 @@ export function buildCompositionPlan(dna: CreativeDNA, lyricSeed: string): PlanW
   }
 
   for (const padAxis of ["whispersScreams", "cleanDamaged"] as const) {
-    const mapped = mapBipolarAxis(dna.vocalCharacter[padAxis], VOCAL_TOKENS[padAxis]);
+    const mapped = mapVocalAxis(dna.vocalCharacter[padAxis], VOCAL_TOKENS[padAxis]);
     if (mapped.positive.length > 0 || mapped.negative.length > 0) {
       positive.push(...mapped.positive);
       negative.push(...mapped.negative);
