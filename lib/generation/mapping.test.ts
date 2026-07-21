@@ -124,7 +124,36 @@ describe("buildCompositionPlan", () => {
   it("era drives BPM and production tokens", () => {
     const { plan } = buildCompositionPlan(dnaWith({ era: ERAS.indexOf("1980s") }), "x");
     expect(plan.positive_global_styles).toContain("118 BPM");
-    expect(plan.positive_global_styles).toContain("gated reverb drums");
+    expect(plan.positive_global_styles).toContain("big analog reverb");
+  });
+
+  it("the loud↔quiet slider modulates the era BPM", () => {
+    // Quiet artists slow down (up to 20%); loud artists speed up (up to 10%).
+    const quiet = buildCompositionPlan(
+      dnaWith({ era: ERAS.indexOf("1970s"), sonicPalette: { ...neutralPalette, loudQuiet: 0.8 } }),
+      "x",
+    );
+    expect(quiet.plan.positive_global_styles).toContain("88 BPM"); // 105 × 0.84
+    const loud = buildCompositionPlan(
+      dnaWith({ era: ERAS.indexOf("1970s"), sonicPalette: { ...neutralPalette, loudQuiet: -1 } }),
+      "x",
+    );
+    expect(loud.plan.positive_global_styles).toContain("116 BPM"); // 105 × 1.1, rounded
+  });
+
+  it("era and organic tokens never force genre or instrumentation", () => {
+    // Regression: "1950s rock and roll production" and "live drums" were
+    // dragging quiet folk artists toward full-band rock.
+    const { plan } = buildCompositionPlan(
+      dnaWith({
+        era: ERAS.indexOf("1950s"),
+        sonicPalette: { ...neutralPalette, organicSynthetic: -1 },
+      }),
+      "x",
+    );
+    const all = plan.positive_global_styles.join(" | ");
+    expect(all).not.toMatch(/rock and roll|live drums|trap hi-hats/);
+    expect(plan.positive_global_styles).toContain("organic instrumentation");
   });
 
   it("a pushed slider lands in BOTH style arrays and in provenance", () => {
@@ -140,6 +169,29 @@ describe("buildCompositionPlan", () => {
   it("neutral axes stay out of provenance", () => {
     const { provenance } = buildCompositionPlan(dnaWith({}), "x");
     expect(provenance.some((p) => p.startsWith("sonicPalette."))).toBe(false);
+  });
+
+  it("moderate vocal-pad positions emit moderate tokens, not the extremes", () => {
+    // Regression: any value past the deadzone used to emit "screamed vocals" /
+    // "damaged vocal texture" at full strength — the whole right/bottom half of
+    // the pad read as screaming over distortion (metal, regardless of genre).
+    const { plan } = buildCompositionPlan(
+      dnaWith({ vocalCharacter: { whispersScreams: 0.3, cleanDamaged: 0.3 } }),
+      "x",
+    );
+    expect(plan.positive_global_styles).not.toContain("screamed vocals");
+    expect(plan.positive_global_styles).not.toContain("damaged vocal texture");
+    expect(plan.positive_global_styles.join(" ")).toMatch(/belted|powerful/);
+    expect(plan.positive_global_styles.join(" ")).toMatch(/rasp/);
+  });
+
+  it("extreme vocal-pad positions still reach the extremes", () => {
+    const { plan } = buildCompositionPlan(
+      dnaWith({ vocalCharacter: { whispersScreams: 0.9, cleanDamaged: 0.9 } }),
+      "x",
+    );
+    expect(plan.positive_global_styles).toContain("screamed vocals");
+    expect(plan.positive_global_styles).toContain("damaged vocal texture");
   });
 
   it("vocal pad emits vocal tokens", () => {
