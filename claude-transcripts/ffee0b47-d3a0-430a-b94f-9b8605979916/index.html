@@ -1,0 +1,2105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code transcript - Index</title>
+    <style>
+:root { --bg-color: #f5f5f5; --card-bg: #ffffff; --user-bg: #e3f2fd; --user-border: #1976d2; --assistant-bg: #f5f5f5; --assistant-border: #9e9e9e; --thinking-bg: #fff8e1; --thinking-border: #ffc107; --thinking-text: #666; --tool-bg: #f3e5f5; --tool-border: #9c27b0; --tool-result-bg: #e8f5e9; --tool-error-bg: #ffebee; --text-color: #212121; --text-muted: #757575; --code-bg: #263238; --code-text: #aed581; }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-color); color: var(--text-color); margin: 0; padding: 16px; line-height: 1.6; }
+.container { max-width: 800px; margin: 0 auto; }
+h1 { font-size: 1.5rem; margin-bottom: 24px; padding-bottom: 8px; border-bottom: 2px solid var(--user-border); }
+.header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 2px solid var(--user-border); padding-bottom: 8px; margin-bottom: 24px; }
+.header-row h1 { border-bottom: none; padding-bottom: 0; margin-bottom: 0; flex: 1; min-width: 200px; }
+.message { margin-bottom: 16px; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.message.user { background: var(--user-bg); border-left: 4px solid var(--user-border); }
+.message.assistant { background: var(--card-bg); border-left: 4px solid var(--assistant-border); }
+.message.tool-reply { background: #fff8e1; border-left: 4px solid #ff9800; }
+.tool-reply .role-label { color: #e65100; }
+.tool-reply .tool-result { background: transparent; padding: 0; margin: 0; }
+.tool-reply .tool-result .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, #fff8e1); }
+.message-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: rgba(0,0,0,0.03); font-size: 0.85rem; }
+.role-label { font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.user .role-label { color: var(--user-border); }
+time { color: var(--text-muted); font-size: 0.8rem; }
+.timestamp-link { color: inherit; text-decoration: none; }
+.timestamp-link:hover { text-decoration: underline; }
+.message:target { animation: highlight 2s ease-out; }
+@keyframes highlight { 0% { background-color: rgba(25, 118, 210, 0.2); } 100% { background-color: transparent; } }
+.message-content { padding: 16px; }
+.message-content p { margin: 0 0 12px 0; }
+.message-content p:last-child { margin-bottom: 0; }
+.thinking { background: var(--thinking-bg); border: 1px solid var(--thinking-border); border-radius: 8px; padding: 12px; margin: 12px 0; font-size: 0.9rem; color: var(--thinking-text); }
+.thinking-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #f57c00; margin-bottom: 8px; }
+.thinking p { margin: 8px 0; }
+.assistant-text { margin: 8px 0; }
+.tool-use { background: var(--tool-bg); border: 1px solid var(--tool-border); border-radius: 8px; padding: 12px; margin: 12px 0; }
+.tool-header { font-weight: 600; color: var(--tool-border); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.tool-icon { font-size: 1.1rem; }
+.tool-description { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; font-style: italic; }
+.tool-result { background: var(--tool-result-bg); border-radius: 8px; padding: 12px; margin: 12px 0; }
+.tool-result.tool-error { background: var(--tool-error-bg); }
+.file-tool { border-radius: 8px; padding: 12px; margin: 12px 0; }
+.write-tool { background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%); border: 1px solid #4caf50; }
+.edit-tool { background: linear-gradient(135deg, #fff3e0 0%, #fce4ec 100%); border: 1px solid #ff9800; }
+.file-tool-header { font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+.write-header { color: #2e7d32; }
+.edit-header { color: #e65100; }
+.file-tool-icon { font-size: 1rem; }
+.file-tool-path { font-family: monospace; background: rgba(0,0,0,0.08); padding: 2px 8px; border-radius: 4px; }
+.file-tool-fullpath { font-family: monospace; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; word-break: break-all; }
+.file-content { margin: 0; }
+.edit-section { display: flex; margin: 4px 0; border-radius: 4px; overflow: hidden; }
+.edit-label { padding: 8px 12px; font-weight: bold; font-family: monospace; display: flex; align-items: flex-start; }
+.edit-old { background: #fce4ec; }
+.edit-old .edit-label { color: #b71c1c; background: #f8bbd9; }
+.edit-old .edit-content { color: #880e4f; }
+.edit-new { background: #e8f5e9; }
+.edit-new .edit-label { color: #1b5e20; background: #a5d6a7; }
+.edit-new .edit-content { color: #1b5e20; }
+.edit-content { margin: 0; flex: 1; background: transparent; font-size: 0.85rem; }
+.edit-replace-all { font-size: 0.75rem; font-weight: normal; color: var(--text-muted); }
+.write-tool .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, #e6f4ea); }
+.edit-tool .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, #fff0e5); }
+.todo-list { background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%); border: 1px solid #81c784; border-radius: 8px; padding: 12px; margin: 12px 0; }
+.todo-header { font-weight: 600; color: #2e7d32; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+.todo-items { list-style: none; margin: 0; padding: 0; }
+.todo-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 0.9rem; }
+.todo-item:last-child { border-bottom: none; }
+.todo-icon { flex-shrink: 0; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 50%; }
+.todo-completed .todo-icon { color: #2e7d32; background: rgba(46, 125, 50, 0.15); }
+.todo-completed .todo-content { color: #558b2f; text-decoration: line-through; }
+.todo-in-progress .todo-icon { color: #f57c00; background: rgba(245, 124, 0, 0.15); }
+.todo-in-progress .todo-content { color: #e65100; font-weight: 500; }
+.todo-pending .todo-icon { color: #757575; background: rgba(0,0,0,0.05); }
+.todo-pending .todo-content { color: #616161; }
+pre { background: var(--code-bg); color: var(--code-text); padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 8px 0; white-space: pre-wrap; word-wrap: break-word; }
+pre.json { color: #e0e0e0; }
+code { background: rgba(0,0,0,0.08); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+pre code { background: none; padding: 0; }
+.user-content { margin: 0; }
+.truncatable { position: relative; }
+.truncatable.truncated .truncatable-content { max-height: 200px; overflow: hidden; }
+.truncatable.truncated::after { content: ''; position: absolute; bottom: 32px; left: 0; right: 0; height: 60px; background: linear-gradient(to bottom, transparent, var(--card-bg)); pointer-events: none; }
+.message.user .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, var(--user-bg)); }
+.message.tool-reply .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, #fff8e1); }
+.tool-use .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, var(--tool-bg)); }
+.tool-result .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, var(--tool-result-bg)); }
+.expand-btn { display: none; width: 100%; padding: 8px 16px; margin-top: 4px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); border-radius: 6px; cursor: pointer; font-size: 0.85rem; color: var(--text-muted); }
+.expand-btn:hover { background: rgba(0,0,0,0.1); }
+.truncatable.truncated .expand-btn, .truncatable.expanded .expand-btn { display: block; }
+.pagination { display: flex; justify-content: center; gap: 8px; margin: 24px 0; flex-wrap: wrap; }
+.pagination a, .pagination span { padding: 5px 10px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; }
+.pagination a { background: var(--card-bg); color: var(--user-border); border: 1px solid var(--user-border); }
+.pagination a:hover { background: var(--user-bg); }
+.pagination .current { background: var(--user-border); color: white; }
+.pagination .disabled { color: var(--text-muted); border: 1px solid #ddd; }
+.pagination .index-link { background: var(--user-border); color: white; }
+details.continuation { margin-bottom: 16px; }
+details.continuation summary { cursor: pointer; padding: 12px 16px; background: var(--user-bg); border-left: 4px solid var(--user-border); border-radius: 12px; font-weight: 500; color: var(--text-muted); }
+details.continuation summary:hover { background: rgba(25, 118, 210, 0.15); }
+details.continuation[open] summary { border-radius: 12px 12px 0 0; margin-bottom: 0; }
+.index-item { margin-bottom: 16px; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); background: var(--user-bg); border-left: 4px solid var(--user-border); }
+.index-item a { display: block; text-decoration: none; color: inherit; }
+.index-item a:hover { background: rgba(25, 118, 210, 0.1); }
+.index-item-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: rgba(0,0,0,0.03); font-size: 0.85rem; }
+.index-item-number { font-weight: 600; color: var(--user-border); }
+.index-item-content { padding: 16px; }
+.index-item-stats { padding: 8px 16px 12px 32px; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid rgba(0,0,0,0.06); }
+.index-item-commit { margin-top: 6px; padding: 4px 8px; background: #fff3e0; border-radius: 4px; font-size: 0.85rem; color: #e65100; }
+.index-item-commit code { background: rgba(0,0,0,0.08); padding: 1px 4px; border-radius: 3px; font-size: 0.8rem; margin-right: 6px; }
+.commit-card { margin: 8px 0; padding: 10px 14px; background: #fff3e0; border-left: 4px solid #ff9800; border-radius: 6px; }
+.commit-card a { text-decoration: none; color: #5d4037; display: block; }
+.commit-card a:hover { color: #e65100; }
+.commit-card-hash { font-family: monospace; color: #e65100; font-weight: 600; margin-right: 8px; }
+.index-commit { margin-bottom: 12px; padding: 10px 16px; background: #fff3e0; border-left: 4px solid #ff9800; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.index-commit a { display: block; text-decoration: none; color: inherit; }
+.index-commit a:hover { background: rgba(255, 152, 0, 0.1); margin: -10px -16px; padding: 10px 16px; border-radius: 8px; }
+.index-commit-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; margin-bottom: 4px; }
+.index-commit-hash { font-family: monospace; color: #e65100; font-weight: 600; }
+.index-commit-msg { color: #5d4037; }
+.index-item-long-text { margin-top: 8px; padding: 12px; background: var(--card-bg); border-radius: 8px; border-left: 3px solid var(--assistant-border); }
+.index-item-long-text .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, var(--card-bg)); }
+.index-item-long-text-content { color: var(--text-color); }
+#search-box { display: none; align-items: center; gap: 8px; }
+#search-box input { padding: 6px 12px; border: 1px solid var(--assistant-border); border-radius: 6px; font-size: 16px; width: 180px; }
+#search-box button, #modal-search-btn, #modal-close-btn { background: var(--user-border); color: white; border: none; border-radius: 6px; padding: 6px 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+#search-box button:hover, #modal-search-btn:hover { background: #1565c0; }
+#modal-close-btn { background: var(--text-muted); margin-left: 8px; }
+#modal-close-btn:hover { background: #616161; }
+#search-modal[open] { border: none; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.2); padding: 0; width: 90vw; max-width: 900px; height: 80vh; max-height: 80vh; display: flex; flex-direction: column; }
+#search-modal::backdrop { background: rgba(0,0,0,0.5); }
+.search-modal-header { display: flex; align-items: center; gap: 8px; padding: 16px; border-bottom: 1px solid var(--assistant-border); background: var(--bg-color); border-radius: 12px 12px 0 0; }
+.search-modal-header input { flex: 1; padding: 8px 12px; border: 1px solid var(--assistant-border); border-radius: 6px; font-size: 16px; }
+#search-status { padding: 8px 16px; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid rgba(0,0,0,0.06); }
+#search-results { flex: 1; overflow-y: auto; padding: 16px; }
+.search-result { margin-bottom: 16px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.search-result a { display: block; text-decoration: none; color: inherit; }
+.search-result a:hover { background: rgba(25, 118, 210, 0.05); }
+.search-result-page { padding: 6px 12px; background: rgba(0,0,0,0.03); font-size: 0.8rem; color: var(--text-muted); border-bottom: 1px solid rgba(0,0,0,0.06); }
+.search-result-content { padding: 12px; }
+.search-result mark { background: #fff59d; padding: 1px 2px; border-radius: 2px; }
+@media (max-width: 600px) { body { padding: 8px; } .message, .index-item { border-radius: 8px; } .message-content, .index-item-content { padding: 12px; } pre { font-size: 0.8rem; padding: 8px; } #search-box input { width: 120px; } #search-modal[open] { width: 95vw; height: 90vh; } }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-row">
+            <h1>Claude Code transcript</h1>
+            <div id="search-box">
+                <input type="text" id="search-input" placeholder="Search..." aria-label="Search transcripts">
+                <button id="search-btn" type="button" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+
+<div class="pagination">
+<span class="current">Index</span>
+<span class="disabled">&larr; Prev</span>
+<a href="page-001.html">1</a>
+<a href="page-002.html">2</a>
+<a href="page-001.html">Next &rarr;</a>
+</div>
+
+        <p style="color: var(--text-muted); margin-bottom: 24px;">6 prompts · 266 messages · 91 tool calls · 4 commits · 2 pages</p>
+        
+<div class="index-item"><a href="page-001.html#msg-2026-07-21T15-58-36-279Z"><div class="index-item-header"><span class="index-item-number">#1</span><time datetime="2026-07-21T15:58:36.279Z" data-timestamp="2026-07-21T15:58:36.279Z">2026-07-21T15:58:36.279Z</time></div><div class="index-item-content"><p>After reviewing the elevenlabs docuementation this morning, I think something is getting lost between user intent and the music generated. </p>
+<p>Lets do some debugging. </p>
+<ul>
+<li>
+<p>Audit how the Creative DNA controls feed into the ElevenLabs music request. Reconstruct the literal JSON body we POST for one fixture artist (read the code and hand-evaluate it; don't call the API), note which model_id we pin, then fetch https://elevenlabs.io/docs/api-reference/music/compose and the composition-plans guide and read the schema that actually applies to that model version. Verify this explicity with the documentation, don't assume the code or code comments are correct. Give me a field by filed table of every key we send against the eleven labs current documentation and flag the keys that are incorrect or at the wrong location in the JSON, or keys that belong to a different model version than we are using, fields we leave empty and any ones where there are documented defaults that may be overriding ours (we would still be getting a 200 so it may fail silently). Trace every DNA field (era, each sonic axis, each vocal-pad axis, each influence weight) to the bytes we actually transmit and name the ones that are computed, stored, or returned to the client but never sent</p>
+</li>
+<li>
+<p>Review all the style tokens across all fixture plans, count the positive v negative style tokens and investigare if the negatives may impact generation. </p>
+</li>
+<li>
+<p>Have a look at the sung-text length duration (words / second). Make sure we are sending the correct lyric payloads.</p>
+</li>
+<li>
+<p>Check where continuous slider values get quantized and whether any influence weight rounds to zero.</p>
+</li>
+</ul>
+<p>Report back on your findings.</p></div></a><div class="index-item-stats"><span>1 skill</span>
+</div></div>
+<div class="index-item"><a href="page-001.html#msg-2026-07-21T15-58-45-328Z"><div class="index-item-header"><span class="index-item-number">#2</span><time datetime="2026-07-21T15:58:45.328Z" data-timestamp="2026-07-21T15:58:45.328Z">2026-07-21T15:58:45.328Z</time></div><div class="index-item-content"><p>Base directory for this skill: /Users/gabriel/.claude/plugins/cache/claude-plugins-official/superpowers/6.1.1/skills/systematic-debugging</p>
+<h1>Systematic Debugging</h1>
+<h2>Overview</h2>
+<p>Random fixes waste time and create new bugs. Quick patches mask underlying issues.</p>
+<p><strong>Core principle:</strong> ALWAYS find root cause before attempting fixes. Symptom fixes are failure.</p>
+<p><strong>Violating the letter of this process is violating the spirit of debugging.</strong></p>
+<h2>The Iron Law</h2>
+<pre><code>NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
+</code></pre>
+<p>If you haven't completed Phase 1, you cannot propose fixes.</p>
+<h2>When to Use</h2>
+<p>Use for ANY technical issue:
+- Test failures
+- Bugs in production
+- Unexpected behavior
+- Performance problems
+- Build failures
+- Integration issues</p>
+<p><strong>Use this ESPECIALLY when:</strong>
+- Under time pressure (emergencies make guessing tempting)
+- "Just one quick fix" seems obvious
+- You've already tried multiple fixes
+- Previous fix didn't work
+- You don't fully understand the issue</p>
+<p><strong>Don't skip when:</strong>
+- Issue seems simple (simple bugs have root causes too)
+- You're in a hurry (rushing guarantees rework)
+- Manager wants it fixed NOW (systematic is faster than thrashing)</p>
+<h2>The Four Phases</h2>
+<p>You MUST complete each phase before proceeding to the next.</p>
+<h3>Phase 1: Root Cause Investigation</h3>
+<p><strong>BEFORE attempting ANY fix:</strong></p>
+<ol>
+<li><strong>Read Error Messages Carefully</strong></li>
+<li>Don't skip past errors or warnings</li>
+<li>They often contain the exact solution</li>
+<li>Read stack traces completely</li>
+<li>
+<p>Note line numbers, file paths, error codes</p>
+</li>
+<li>
+<p><strong>Reproduce Consistently</strong></p>
+</li>
+<li>Can you trigger it reliably?</li>
+<li>What are the exact steps?</li>
+<li>Does it happen every time?</li>
+<li>
+<p>If not reproducible → gather more data, don't guess</p>
+</li>
+<li>
+<p><strong>Check Recent Changes</strong></p>
+</li>
+<li>What changed that could cause this?</li>
+<li>Git diff, recent commits</li>
+<li>New dependencies, config changes</li>
+<li>
+<p>Environmental differences</p>
+</li>
+<li>
+<p><strong>Gather Evidence in Multi-Component Systems</strong></p>
+</li>
+</ol>
+<p><strong>WHEN system has multiple components (CI → build → signing, API → service → database):</strong></p>
+<p><strong>BEFORE proposing fixes, add diagnostic instrumentation:</strong>
+   ```
+   For EACH component boundary:
+     - Log what data enters component
+     - Log what data exits component
+     - Verify environment/config propagation
+     - Check state at each layer</p>
+<p>Run once to gather evidence showing WHERE it breaks
+   THEN analyze evidence to identify failing component
+   THEN investigate that specific component
+   ```</p>
+<p><strong>Example (multi-layer system):</strong>
+   ```bash
+   # Layer 1: Workflow
+   echo "=== Secrets available in workflow: ==="
+   echo "IDENTITY: ${IDENTITY:+SET}${IDENTITY:-UNSET}"</p>
+<p># Layer 2: Build script
+   echo "=== Env vars in build script: ==="
+   env | grep IDENTITY || echo "IDENTITY not in environment"</p>
+<p># Layer 3: Signing script
+   echo "=== Keychain state: ==="
+   security list-keychains
+   security find-identity -v</p>
+<p># Layer 4: Actual signing
+   codesign --sign "$IDENTITY" --verbose=4 "$APP"
+   ```</p>
+<p><strong>This reveals:</strong> Which layer fails (secrets → workflow ✓, workflow → build ✗)</p>
+<ol>
+<li><strong>Trace Data Flow</strong></li>
+</ol>
+<p><strong>WHEN error is deep in call stack:</strong></p>
+<p>See <code>root-cause-tracing.md</code> in this directory for the complete backward tracing technique.</p>
+<p><strong>Quick version:</strong>
+   - Where does bad value originate?
+   - What called this with bad value?
+   - Keep tracing up until you find the source
+   - Fix at source, not at symptom</p>
+<h3>Phase 2: Pattern Analysis</h3>
+<p><strong>Find the pattern before fixing:</strong></p>
+<ol>
+<li><strong>Find Working Examples</strong></li>
+<li>Locate similar working code in same codebase</li>
+<li>
+<p>What works that's similar to what's broken?</p>
+</li>
+<li>
+<p><strong>Compare Against References</strong></p>
+</li>
+<li>If implementing pattern, read reference implementation COMPLETELY</li>
+<li>Don't skim - read every line</li>
+<li>
+<p>Understand the pattern fully before applying</p>
+</li>
+<li>
+<p><strong>Identify Differences</strong></p>
+</li>
+<li>What's different between working and broken?</li>
+<li>List every difference, however small</li>
+<li>
+<p>Don't assume "that can't matter"</p>
+</li>
+<li>
+<p><strong>Understand Dependencies</strong></p>
+</li>
+<li>What other components does this need?</li>
+<li>What settings, config, environment?</li>
+<li>What assumptions does it make?</li>
+</ol>
+<h3>Phase 3: Hypothesis and Testing</h3>
+<p><strong>Scientific method:</strong></p>
+<ol>
+<li><strong>Form Single Hypothesis</strong></li>
+<li>State clearly: "I think X is the root cause because Y"</li>
+<li>Write it down</li>
+<li>
+<p>Be specific, not vague</p>
+</li>
+<li>
+<p><strong>Test Minimally</strong></p>
+</li>
+<li>Make the SMALLEST possible change to test hypothesis</li>
+<li>One variable at a time</li>
+<li>
+<p>Don't fix multiple things at once</p>
+</li>
+<li>
+<p><strong>Verify Before Continuing</strong></p>
+</li>
+<li>Did it work? Yes → Phase 4</li>
+<li>Didn't work? Form NEW hypothesis</li>
+<li>
+<p>DON'T add more fixes on top</p>
+</li>
+<li>
+<p><strong>When You Don't Know</strong></p>
+</li>
+<li>Say "I don't understand X"</li>
+<li>Don't pretend to know</li>
+<li>Ask for help</li>
+<li>Research more</li>
+</ol>
+<h3>Phase 4: Implementation</h3>
+<p><strong>Fix the root cause, not the symptom:</strong></p>
+<ol>
+<li><strong>Create Failing Test Case</strong></li>
+<li>Simplest possible reproduction</li>
+<li>Automated test if possible</li>
+<li>One-off test script if no framework</li>
+<li>MUST have before fixing</li>
+<li>
+<p>Use the <code>superpowers:test-driven-development</code> skill for writing proper failing tests</p>
+</li>
+<li>
+<p><strong>Implement Single Fix</strong></p>
+</li>
+<li>Address the root cause identified</li>
+<li>ONE change at a time</li>
+<li>No "while I'm here" improvements</li>
+<li>
+<p>No bundled refactoring</p>
+</li>
+<li>
+<p><strong>Verify Fix</strong></p>
+</li>
+<li>Test passes now?</li>
+<li>No other tests broken?</li>
+<li>
+<p>Issue actually resolved?</p>
+</li>
+<li>
+<p><strong>If Fix Doesn't Work</strong></p>
+</li>
+<li>STOP</li>
+<li>Count: How many fixes have you tried?</li>
+<li>If &lt; 3: Return to Phase 1, re-analyze with new information</li>
+<li><strong>If ≥ 3: STOP and question the architecture (step 5 below)</strong></li>
+<li>
+<p>DON'T attempt Fix #4 without architectural discussion</p>
+</li>
+<li>
+<p><strong>If 3+ Fixes Failed: Question Architecture</strong></p>
+</li>
+</ol>
+<p><strong>Pattern indicating architectural problem:</strong>
+   - Each fix reveals new shared state/coupling/problem in different place
+   - Fixes require "massive refactoring" to implement
+   - Each fix creates new symptoms elsewhere</p>
+<p><strong>STOP and question fundamentals:</strong>
+   - Is this pattern fundamentally sound?
+   - Are we "sticking with it through sheer inertia"?
+   - Should we refactor architecture vs. continue fixing symptoms?</p>
+<p><strong>Discuss with your human partner before attempting more fixes</strong></p>
+<p>This is NOT a failed hypothesis - this is a wrong architecture.</p>
+<h2>Red Flags - STOP and Follow Process</h2>
+<p>If you catch yourself thinking:
+- "Quick fix for now, investigate later"
+- "Just try changing X and see if it works"
+- "Add multiple changes, run tests"
+- "Skip the test, I'll manually verify"
+- "It's probably X, let me fix that"
+- "I don't fully understand but this might work"
+- "Pattern says X but I'll adapt it differently"
+- "Here are the main problems: [lists fixes without investigation]"
+- Proposing solutions before tracing data flow
+- <strong>"One more fix attempt" (when already tried 2+)</strong>
+- <strong>Each fix reveals new problem in different place</strong></p>
+<p><strong>ALL of these mean: STOP. Return to Phase 1.</strong></p>
+<p><strong>If 3+ fixes failed:</strong> Question the architecture (see Phase 4.5)</p>
+<h2>your human partner's Signals You're Doing It Wrong</h2>
+<p><strong>Watch for these redirections:</strong>
+- "Is that not happening?" - You assumed without verifying
+- "Will it show us...?" - You should have added evidence gathering
+- "Stop guessing" - You're proposing fixes without understanding
+- "Ultra-think this" - Question fundamentals, not just symptoms
+- "We're stuck?" (frustrated) - Your approach isn't working</p>
+<p><strong>When you see these:</strong> STOP. Return to Phase 1.</p>
+<h2>Common Rationalizations</h2>
+<table>
+<thead>
+<tr>
+<th>Excuse</th>
+<th>Reality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Issue is simple, don't need process"</td>
+<td>Simple issues have root causes too. Process is fast for simple bugs.</td>
+</tr>
+<tr>
+<td>"Emergency, no time for process"</td>
+<td>Systematic debugging is FASTER than guess-and-check thrashing.</td>
+</tr>
+<tr>
+<td>"Just try this first, then investigate"</td>
+<td>First fix sets the pattern. Do it right from the start.</td>
+</tr>
+<tr>
+<td>"I'll write test after confirming fix works"</td>
+<td>Untested fixes don't stick. Test first proves it.</td>
+</tr>
+<tr>
+<td>"Multiple fixes at once saves time"</td>
+<td>Can't isolate what worked. Causes new bugs.</td>
+</tr>
+<tr>
+<td>"Reference too long, I'll adapt the pattern"</td>
+<td>Partial understanding guarantees bugs. Read it completely.</td>
+</tr>
+<tr>
+<td>"I see the problem, let me fix it"</td>
+<td>Seeing symptoms ≠ understanding root cause.</td>
+</tr>
+<tr>
+<td>"One more fix attempt" (after 2+ failures)</td>
+<td>3+ failures = architectural problem. Question pattern, don't fix again.</td>
+</tr>
+</tbody>
+</table>
+<h2>Quick Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Key Activities</th>
+<th>Success Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Root Cause</strong></td>
+<td>Read errors, reproduce, check changes, gather evidence</td>
+<td>Understand WHAT and WHY</td>
+</tr>
+<tr>
+<td><strong>2. Pattern</strong></td>
+<td>Find working examples, compare</td>
+<td>Identify differences</td>
+</tr>
+<tr>
+<td><strong>3. Hypothesis</strong></td>
+<td>Form theory, test minimally</td>
+<td>Confirmed or new hypothesis</td>
+</tr>
+<tr>
+<td><strong>4. Implementation</strong></td>
+<td>Create test, fix, verify</td>
+<td>Bug resolved, tests pass</td>
+</tr>
+</tbody>
+</table>
+<h2>When Process Reveals "No Root Cause"</h2>
+<p>If systematic investigation reveals issue is truly environmental, timing-dependent, or external:</p>
+<ol>
+<li>You've completed the process</li>
+<li>Document what you investigated</li>
+<li>Implement appropriate handling (retry, timeout, error message)</li>
+<li>Add monitoring/logging for future investigation</li>
+</ol>
+<p><strong>But:</strong> 95% of "no root cause" cases are incomplete investigation.</p>
+<h2>Supporting Techniques</h2>
+<p>These techniques are part of systematic debugging and available in this directory:</p>
+<ul>
+<li><strong><code>root-cause-tracing.md</code></strong> - Trace bugs backward through call stack to find original trigger</li>
+<li><strong><code>defense-in-depth.md</code></strong> - Add validation at multiple layers after finding root cause</li>
+<li><strong><code>condition-based-waiting.md</code></strong> - Replace arbitrary timeouts with condition polling</li>
+</ul>
+<p><strong>Related skills:</strong>
+- <strong>superpowers:test-driven-development</strong> - For creating failing test case (Phase 4, Step 1)
+- <strong>superpowers:verification-before-completion</strong> - Verify fix worked before claiming success</p>
+<h2>Real-World Impact</h2>
+<p>From debugging sessions:
+- Systematic approach: 15-30 minutes to fix
+- Random fixes approach: 2-3 hours of thrashing
+- First-time fix rate: 95% vs 40%
+- New bugs introduced: Near zero vs common</p>
+<p>ARGUMENTS: Audit how Creative DNA controls feed into the ElevenLabs music compose request; verify our JSON body field-by-field against current ElevenLabs docs; check style token positives/negatives, lyric length vs duration, and slider quantization</p></div></a><div class="index-item-stats"><span>10 bash · 7 read · 3 fetch · 1 toolsearch · 1 write · 1 edit</span>
+<div class="index-item-long-text"><div class="truncatable"><div class="truncatable-content"><div class="index-item-long-text-content"><p>Base directory for this skill: /Users/gabriel/.claude/plugins/cache/claude-plugins-official/superpowers/6.1.1/skills/systematic-debugging</p>
+<h1>Systematic Debugging</h1>
+<h2>Overview</h2>
+<p>Random fixes waste time and create new bugs. Quick patches mask underlying issues.</p>
+<p><strong>Core principle:</strong> ALWAYS find root cause before attempting fixes. Symptom fixes are failure.</p>
+<p><strong>Violating the letter of this process is violating the spirit of debugging.</strong></p>
+<h2>The Iron Law</h2>
+<pre><code>NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
+</code></pre>
+<p>If you haven't completed Phase 1, you cannot propose fixes.</p>
+<h2>When to Use</h2>
+<p>Use for ANY technical issue:
+- Test failures
+- Bugs in production
+- Unexpected behavior
+- Performance problems
+- Build failures
+- Integration issues</p>
+<p><strong>Use this ESPECIALLY when:</strong>
+- Under time pressure (emergencies make guessing tempting)
+- "Just one quick fix" seems obvious
+- You've already tried multiple fixes
+- Previous fix didn't work
+- You don't fully understand the issue</p>
+<p><strong>Don't skip when:</strong>
+- Issue seems simple (simple bugs have root causes too)
+- You're in a hurry (rushing guarantees rework)
+- Manager wants it fixed NOW (systematic is faster than thrashing)</p>
+<h2>The Four Phases</h2>
+<p>You MUST complete each phase before proceeding to the next.</p>
+<h3>Phase 1: Root Cause Investigation</h3>
+<p><strong>BEFORE attempting ANY fix:</strong></p>
+<ol>
+<li><strong>Read Error Messages Carefully</strong></li>
+<li>Don't skip past errors or warnings</li>
+<li>They often contain the exact solution</li>
+<li>Read stack traces completely</li>
+<li>
+<p>Note line numbers, file paths, error codes</p>
+</li>
+<li>
+<p><strong>Reproduce Consistently</strong></p>
+</li>
+<li>Can you trigger it reliably?</li>
+<li>What are the exact steps?</li>
+<li>Does it happen every time?</li>
+<li>
+<p>If not reproducible → gather more data, don't guess</p>
+</li>
+<li>
+<p><strong>Check Recent Changes</strong></p>
+</li>
+<li>What changed that could cause this?</li>
+<li>Git diff, recent commits</li>
+<li>New dependencies, config changes</li>
+<li>
+<p>Environmental differences</p>
+</li>
+<li>
+<p><strong>Gather Evidence in Multi-Component Systems</strong></p>
+</li>
+</ol>
+<p><strong>WHEN system has multiple components (CI → build → signing, API → service → database):</strong></p>
+<p><strong>BEFORE proposing fixes, add diagnostic instrumentation:</strong>
+   ```
+   For EACH component boundary:
+     - Log what data enters component
+     - Log what data exits component
+     - Verify environment/config propagation
+     - Check state at each layer</p>
+<p>Run once to gather evidence showing WHERE it breaks
+   THEN analyze evidence to identify failing component
+   THEN investigate that specific component
+   ```</p>
+<p><strong>Example (multi-layer system):</strong>
+   ```bash
+   # Layer 1: Workflow
+   echo "=== Secrets available in workflow: ==="
+   echo "IDENTITY: ${IDENTITY:+SET}${IDENTITY:-UNSET}"</p>
+<p># Layer 2: Build script
+   echo "=== Env vars in build script: ==="
+   env | grep IDENTITY || echo "IDENTITY not in environment"</p>
+<p># Layer 3: Signing script
+   echo "=== Keychain state: ==="
+   security list-keychains
+   security find-identity -v</p>
+<p># Layer 4: Actual signing
+   codesign --sign "$IDENTITY" --verbose=4 "$APP"
+   ```</p>
+<p><strong>This reveals:</strong> Which layer fails (secrets → workflow ✓, workflow → build ✗)</p>
+<ol>
+<li><strong>Trace Data Flow</strong></li>
+</ol>
+<p><strong>WHEN error is deep in call stack:</strong></p>
+<p>See <code>root-cause-tracing.md</code> in this directory for the complete backward tracing technique.</p>
+<p><strong>Quick version:</strong>
+   - Where does bad value originate?
+   - What called this with bad value?
+   - Keep tracing up until you find the source
+   - Fix at source, not at symptom</p>
+<h3>Phase 2: Pattern Analysis</h3>
+<p><strong>Find the pattern before fixing:</strong></p>
+<ol>
+<li><strong>Find Working Examples</strong></li>
+<li>Locate similar working code in same codebase</li>
+<li>
+<p>What works that's similar to what's broken?</p>
+</li>
+<li>
+<p><strong>Compare Against References</strong></p>
+</li>
+<li>If implementing pattern, read reference implementation COMPLETELY</li>
+<li>Don't skim - read every line</li>
+<li>
+<p>Understand the pattern fully before applying</p>
+</li>
+<li>
+<p><strong>Identify Differences</strong></p>
+</li>
+<li>What's different between working and broken?</li>
+<li>List every difference, however small</li>
+<li>
+<p>Don't assume "that can't matter"</p>
+</li>
+<li>
+<p><strong>Understand Dependencies</strong></p>
+</li>
+<li>What other components does this need?</li>
+<li>What settings, config, environment?</li>
+<li>What assumptions does it make?</li>
+</ol>
+<h3>Phase 3: Hypothesis and Testing</h3>
+<p><strong>Scientific method:</strong></p>
+<ol>
+<li><strong>Form Single Hypothesis</strong></li>
+<li>State clearly: "I think X is the root cause because Y"</li>
+<li>Write it down</li>
+<li>
+<p>Be specific, not vague</p>
+</li>
+<li>
+<p><strong>Test Minimally</strong></p>
+</li>
+<li>Make the SMALLEST possible change to test hypothesis</li>
+<li>One variable at a time</li>
+<li>
+<p>Don't fix multiple things at once</p>
+</li>
+<li>
+<p><strong>Verify Before Continuing</strong></p>
+</li>
+<li>Did it work? Yes → Phase 4</li>
+<li>Didn't work? Form NEW hypothesis</li>
+<li>
+<p>DON'T add more fixes on top</p>
+</li>
+<li>
+<p><strong>When You Don't Know</strong></p>
+</li>
+<li>Say "I don't understand X"</li>
+<li>Don't pretend to know</li>
+<li>Ask for help</li>
+<li>Research more</li>
+</ol>
+<h3>Phase 4: Implementation</h3>
+<p><strong>Fix the root cause, not the symptom:</strong></p>
+<ol>
+<li><strong>Create Failing Test Case</strong></li>
+<li>Simplest possible reproduction</li>
+<li>Automated test if possible</li>
+<li>One-off test script if no framework</li>
+<li>MUST have before fixing</li>
+<li>
+<p>Use the <code>superpowers:test-driven-development</code> skill for writing proper failing tests</p>
+</li>
+<li>
+<p><strong>Implement Single Fix</strong></p>
+</li>
+<li>Address the root cause identified</li>
+<li>ONE change at a time</li>
+<li>No "while I'm here" improvements</li>
+<li>
+<p>No bundled refactoring</p>
+</li>
+<li>
+<p><strong>Verify Fix</strong></p>
+</li>
+<li>Test passes now?</li>
+<li>No other tests broken?</li>
+<li>
+<p>Issue actually resolved?</p>
+</li>
+<li>
+<p><strong>If Fix Doesn't Work</strong></p>
+</li>
+<li>STOP</li>
+<li>Count: How many fixes have you tried?</li>
+<li>If &lt; 3: Return to Phase 1, re-analyze with new information</li>
+<li><strong>If ≥ 3: STOP and question the architecture (step 5 below)</strong></li>
+<li>
+<p>DON'T attempt Fix #4 without architectural discussion</p>
+</li>
+<li>
+<p><strong>If 3+ Fixes Failed: Question Architecture</strong></p>
+</li>
+</ol>
+<p><strong>Pattern indicating architectural problem:</strong>
+   - Each fix reveals new shared state/coupling/problem in different place
+   - Fixes require "massive refactoring" to implement
+   - Each fix creates new symptoms elsewhere</p>
+<p><strong>STOP and question fundamentals:</strong>
+   - Is this pattern fundamentally sound?
+   - Are we "sticking with it through sheer inertia"?
+   - Should we refactor architecture vs. continue fixing symptoms?</p>
+<p><strong>Discuss with your human partner before attempting more fixes</strong></p>
+<p>This is NOT a failed hypothesis - this is a wrong architecture.</p>
+<h2>Red Flags - STOP and Follow Process</h2>
+<p>If you catch yourself thinking:
+- "Quick fix for now, investigate later"
+- "Just try changing X and see if it works"
+- "Add multiple changes, run tests"
+- "Skip the test, I'll manually verify"
+- "It's probably X, let me fix that"
+- "I don't fully understand but this might work"
+- "Pattern says X but I'll adapt it differently"
+- "Here are the main problems: [lists fixes without investigation]"
+- Proposing solutions before tracing data flow
+- <strong>"One more fix attempt" (when already tried 2+)</strong>
+- <strong>Each fix reveals new problem in different place</strong></p>
+<p><strong>ALL of these mean: STOP. Return to Phase 1.</strong></p>
+<p><strong>If 3+ fixes failed:</strong> Question the architecture (see Phase 4.5)</p>
+<h2>your human partner's Signals You're Doing It Wrong</h2>
+<p><strong>Watch for these redirections:</strong>
+- "Is that not happening?" - You assumed without verifying
+- "Will it show us...?" - You should have added evidence gathering
+- "Stop guessing" - You're proposing fixes without understanding
+- "Ultra-think this" - Question fundamentals, not just symptoms
+- "We're stuck?" (frustrated) - Your approach isn't working</p>
+<p><strong>When you see these:</strong> STOP. Return to Phase 1.</p>
+<h2>Common Rationalizations</h2>
+<table>
+<thead>
+<tr>
+<th>Excuse</th>
+<th>Reality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Issue is simple, don't need process"</td>
+<td>Simple issues have root causes too. Process is fast for simple bugs.</td>
+</tr>
+<tr>
+<td>"Emergency, no time for process"</td>
+<td>Systematic debugging is FASTER than guess-and-check thrashing.</td>
+</tr>
+<tr>
+<td>"Just try this first, then investigate"</td>
+<td>First fix sets the pattern. Do it right from the start.</td>
+</tr>
+<tr>
+<td>"I'll write test after confirming fix works"</td>
+<td>Untested fixes don't stick. Test first proves it.</td>
+</tr>
+<tr>
+<td>"Multiple fixes at once saves time"</td>
+<td>Can't isolate what worked. Causes new bugs.</td>
+</tr>
+<tr>
+<td>"Reference too long, I'll adapt the pattern"</td>
+<td>Partial understanding guarantees bugs. Read it completely.</td>
+</tr>
+<tr>
+<td>"I see the problem, let me fix it"</td>
+<td>Seeing symptoms ≠ understanding root cause.</td>
+</tr>
+<tr>
+<td>"One more fix attempt" (after 2+ failures)</td>
+<td>3+ failures = architectural problem. Question pattern, don't fix again.</td>
+</tr>
+</tbody>
+</table>
+<h2>Quick Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Key Activities</th>
+<th>Success Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Root Cause</strong></td>
+<td>Read errors, reproduce, check changes, gather evidence</td>
+<td>Understand WHAT and WHY</td>
+</tr>
+<tr>
+<td><strong>2. Pattern</strong></td>
+<td>Find working examples, compare</td>
+<td>Identify differences</td>
+</tr>
+<tr>
+<td><strong>3. Hypothesis</strong></td>
+<td>Form theory, test minimally</td>
+<td>Confirmed or new hypothesis</td>
+</tr>
+<tr>
+<td><strong>4. Implementation</strong></td>
+<td>Create test, fix, verify</td>
+<td>Bug resolved, tests pass</td>
+</tr>
+</tbody>
+</table>
+<h2>When Process Reveals "No Root Cause"</h2>
+<p>If systematic investigation reveals issue is truly environmental, timing-dependent, or external:</p>
+<ol>
+<li>You've completed the process</li>
+<li>Document what you investigated</li>
+<li>Implement appropriate handling (retry, timeout, error message)</li>
+<li>Add monitoring/logging for future investigation</li>
+</ol>
+<p><strong>But:</strong> 95% of "no root cause" cases are incomplete investigation.</p>
+<h2>Supporting Techniques</h2>
+<p>These techniques are part of systematic debugging and available in this directory:</p>
+<ul>
+<li><strong><code>root-cause-tracing.md</code></strong> - Trace bugs backward through call stack to find original trigger</li>
+<li><strong><code>defense-in-depth.md</code></strong> - Add validation at multiple layers after finding root cause</li>
+<li><strong><code>condition-based-waiting.md</code></strong> - Replace arbitrary timeouts with condition polling</li>
+</ul>
+<p><strong>Related skills:</strong>
+- <strong>superpowers:test-driven-development</strong> - For creating failing test case (Phase 4, Step 1)
+- <strong>superpowers:verification-before-completion</strong> - Verify fix worked before claiming success</p>
+<h2>Real-World Impact</h2>
+<p>From debugging sessions:
+- Systematic approach: 15-30 minutes to fix
+- Random fixes approach: 2-3 hours of thrashing
+- First-time fix rate: 95% vs 40%
+- New bugs introduced: Near zero vs common</p>
+<p>ARGUMENTS: Audit how Creative DNA controls feed into the ElevenLabs music compose request; verify our JSON body field-by-field against current ElevenLabs docs; check style token positives/negatives, lyric length vs duration, and slider quantization</p></div></div><button class="expand-btn">Show more</button></div></div>
+<div class="index-item-long-text"><div class="truncatable"><div class="truncatable-content"><div class="index-item-long-text-content"><p>All four investigation threads are complete and verified against two ElevenLabs API reference pages plus a local execution of the repo's actual mapping code. Here's the full report.</p>
+<h1>TL;DR — the styles never reach the model</h1>
+<p>Your instinct is right, and the docs make it concrete: <strong>we pin <code>model_id: "music_v2"</code>, but we put every style token in the <code>music_v1</code> schema's location.</strong> Per the current docs (both <code>/v1/music</code> and <code>/v1/music/plan</code> reference pages agree), the v2 <code>CompositionPlan</code> is <strong><code>{ chunks: [...] }</code> only</strong> — <code>positive_global_styles</code> / <code>negative_global_styles</code> exist solely on the v1 <code>MusicPrompt</code> shape. Meanwhile the per-chunk <code>positive_styles</code> / <code>negative_styles</code> — which the docs call out as <em>"the most important as they set the overall tone and genre"</em> (they recommend 6–7 on the first chunk) — are the fields we send <strong>empty</strong>, deliberately (<code>mapping.ts:27</code>). <code>context_adherence</code> is likewise a <strong>per-chunk</strong> field (documented default <code>"high"</code>), not the top-level key we send it as.</p>
+<p>So the bytes we POST contain all the DNA direction, but in keys the documented v2 schema doesn't define, while the keys v2 actually reads carry nothing but lyrics. The API tolerates the extra keys and returns 200 (your stored fixtures have real <code>x-trace-id</code> headers, so this passed in production) — the classic silent failure you predicted. <strong>The only DNA field that demonstrably reaches the audio is <code>lyricalObsessions</code>, laundered through Claude's lyric seed into chunk <code>text</code>.</strong> Cordelia sounds gospel-ish because her lyrics say "pew," "prayer," and "Lord" — not because any slider worked.</p>
+<p>One caveat on confidence: the docs define the contract; I can't prove from docs alone that the server <em>drops</em> rather than leniently merges the v1 keys. The empirical confirmation is exactly the SPEC's "hour one" test (one artist, one slider at each extreme, listen + spectral rolloff), and <code>scripts/ab-test.ts</code> exists for it.</p>
+<hr />
+<h2>1. The literal body for Cordelia Vance (hand-evaluated, confirmed by executing <code>buildCompositionPlan</code> locally)</h2>
+<pre><code class="language-json">POST https://api.elevenlabs.io/v1/music?output_format=mp3_44100_128
+{
+  &quot;model_id&quot;: &quot;music_v2&quot;,
+  &quot;composition_plan&quot;: {
+    &quot;positive_global_styles&quot;: [&quot;110 BPM&quot;, &quot;1970s studio production&quot;, &quot;analog tape sound&quot;,
+      &quot;gospel&quot;, &quot;soul&quot;, &quot;soul instrumentation&quot;, &quot;rhythm and blues&quot;, &quot;southern funk&quot;,
+      &quot;pristine production&quot;, &quot;polished&quot;, &quot;dense arrangement&quot;, &quot;warm tone&quot;, &quot;analog warmth&quot;,
+      &quot;cozy timbre&quot;, &quot;improvised feel&quot;, &quot;loud&quot;, &quot;aggressive dynamics&quot;,
+      &quot;organic instrumentation&quot;, &quot;acoustic instruments&quot;, &quot;natural room acoustics&quot;,
+      &quot;powerful belted vocals&quot;, &quot;screamed vocals&quot;, &quot;clean vocals&quot;],
+    &quot;negative_global_styles&quot;: [&quot;lo-fi&quot;, &quot;tape saturation&quot;, &quot;sparse arrangement&quot;, &quot;cold tone&quot;,
+      &quot;icy digital timbre&quot;, &quot;detached&quot;, &quot;structured songwriting&quot;, &quot;quiet&quot;, &quot;hushed dynamics&quot;,
+      &quot;synthetic textures&quot;, &quot;electronic synthesis&quot;, &quot;drum machines&quot;, &quot;whispered vocals&quot;,
+      &quot;breathy delivery&quot;, &quot;damaged vocal texture&quot;, &quot;distorted vocals&quot;],
+    &quot;chunks&quot;: [{
+      &quot;text&quot;: &quot;There's a silence in the pew where my prayer used to be, ...&quot;,
+      &quot;duration_ms&quot;: 30000,
+      &quot;positive_styles&quot;: [],
+      &quot;negative_styles&quot;: []
+    }]
+  },
+  &quot;respect_sections_durations&quot;: false,
+  &quot;context_adherence&quot;: &quot;medium&quot;
+}
+</code></pre>
+<p>(Note: <code>"screamed vocals"</code> as a <em>positive</em> for a soul singer — see §4.)</p>
+<h2>2. Field-by-field vs current documentation</h2>
+<table>
+<thead>
+<tr>
+<th>Key we send</th>
+<th>Docs verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model_id: "music_v2"</code></td>
+<td>✅ Valid enum, correctly pinned (default would be <code>music_v1</code>).</td>
+</tr>
+<tr>
+<td><code>?output_format=mp3_44100_128</code></td>
+<td>✅ Valid.</td>
+</tr>
+<tr>
+<td><code>composition_plan</code> (vs <code>prompt</code>)</td>
+<td>✅ Valid top-level key; correctly not combined with <code>prompt</code> (mutually exclusive).</td>
+</tr>
+<tr>
+<td><code>composition_plan.positive_global_styles</code></td>
+<td>❌ <strong>Wrong model version.</strong> Exists only on v1 <code>MusicPrompt</code>. Not part of v2 <code>CompositionPlan</code>.</td>
+</tr>
+<tr>
+<td><code>composition_plan.negative_global_styles</code></td>
+<td>❌ Same — v1-only key.</td>
+</tr>
+<tr>
+<td><code>composition_plan.chunks</code></td>
+<td>✅ Correct v2 key.</td>
+</tr>
+<tr>
+<td><code>chunks[0].text</code></td>
+<td>✅ Valid, but under-uses the documented format: text "can contain section name in square brackets, e.g. [Verse 1] … and inline directions in curly braces." We send one bare unlabeled line.</td>
+</tr>
+<tr>
+<td><code>chunks[0].duration_ms: 30000</code></td>
+<td>✅ Valid (3 000–120 000 ms).</td>
+</tr>
+<tr>
+<td><code>chunks[0].positive_styles: []</code></td>
+<td>⚠️ <strong>Valid key, sent empty.</strong> This is the field docs say sets "the overall tone and genre"; recommendation is 6–7 styles. All 22 of our tokens should be (a pruned subset of) this array.</td>
+</tr>
+<tr>
+<td><code>chunks[0].negative_styles: []</code></td>
+<td>✅ Empty is "typical" per docs — the one place we comply, by accident.</td>
+</tr>
+<tr>
+<td><code>respect_sections_durations: false</code></td>
+<td>⚠️ Documented top-level field but <strong>applies to <code>music_v1</code> only; <code>music_v2</code> always enforces durations.</strong> Inert no-op; the code comment "better audio at 30s" (<code>music.ts:6</code>) cannot be true on v2. Documented default is <code>true</code>.</td>
+</tr>
+<tr>
+<td><code>context_adherence: "medium"</code> (top-level)</td>
+<td>❌ <strong>Wrong location.</strong> It's a per-chunk field. Since we never set it on the chunk, the <strong>documented default <code>"high"</code> silently overrides</strong> our slider on every request. Also note the documented semantics are "how much the model adheres to the context of its surrounding chunks" — with a single chunk it's not an improvised↔structured control at all.</td>
+</tr>
+</tbody>
+</table>
+<p>Fields we never send: <code>seed</code> (so no regeneration consistency), chunk-level <code>context_adherence</code> / <code>conditioning_ref</code> / <code>condition_strength</code>; <code>force_instrumental</code> and <code>music_length_ms</code> are prompt-only, correctly absent.</p>
+<h2>3. DNA field → transmitted bytes trace</h2>
+<table>
+<thead>
+<tr>
+<th>DNA field</th>
+<th>Computed into</th>
+<th>Actually effective?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>era</code> (+ <code>loudQuiet</code> BPM modulation)</td>
+<td>BPM token + 2 era tokens → global styles</td>
+<td>❌ Transmitted in a dead key.</td>
+</tr>
+<tr>
+<td><code>influences</code> ×4</td>
+<td>0–4 tokens each → global styles</td>
+<td>❌ Dead key. Additionally, weights &lt; 0.125 emit <strong>zero tokens even before that</strong> (§5).</td>
+</tr>
+<tr>
+<td>7 sonic axes</td>
+<td>pole tokens → both global arrays</td>
+<td>❌ Dead key. <code>darkHopeful</code> at ±0.1 is deadzoned in 5 of 12 fixtures.</td>
+</tr>
+<tr>
+<td><code>improvisedStructured</code> (2nd use)</td>
+<td>thirds → <code>context_adherence</code> enum</td>
+<td>❌ Sent at wrong level; chunk default <code>"high"</code> wins. Computed, <strong>stored on the artifact, returned to the client</strong> (<code>app/api/tracks/route.ts:35</code>) — never effectively sent.</td>
+</tr>
+<tr>
+<td><code>vocalCharacter</code> both pad axes</td>
+<td>banded tokens → global arrays</td>
+<td>❌ Dead key.</td>
+</tr>
+<tr>
+<td><code>lyricalObsessions</code></td>
+<td>Claude lyric seed → <code>chunks[0].text</code></td>
+<td>✅ <strong>The only field that reaches the audio.</strong></td>
+</tr>
+<tr>
+<td><code>seedPrompt</code>, <code>visualStyle</code></td>
+<td>Claude-only / images-only</td>
+<td>By design, not music-path bugs.</td>
+</tr>
+<tr>
+<td><code>provenance</code></td>
+<td>stored + shown to client</td>
+<td>Misleading in current state: it claims fields "contributed tokens" that land in ignored keys.</td>
+</tr>
+</tbody>
+</table>
+<h2>4. Style tokens: positive vs negative across all 36 stored fixture plans</h2>
+<p><strong>Average 21.7 positive vs 14.0 negative per plan (neg/pos = 0.65).</strong> Docs recommend ~6–7 positives and say empty negatives are typical — so if these arrays were ever moved to the chunk where they belong <em>as-is</em>, we'd be 3× over the style budget and heavily over-negated. Specific problems in the negative design:</p>
+<ul>
+<li><strong>Symmetric negation amplifies mild opinions into hard bans.</strong> <code>mapBipolarAxis</code> emits as many negative tokens as positive for the same magnitude — Cordelia's barely-off-center <code>improvisedStructured: -0.2</code> bans "structured songwriting" outright; her <code>loudQuiet: -0.5</code> bans "quiet" and "hushed dynamics" on a gospel-soul artist who presumably has dynamics.</li>
+<li><strong><code>mapVocalAxis</code> negatives ignore magnitude entirely</strong> (<code>opposing.slice(1)</code> at any strength past the deadzone), so a 0.16 lean produces two hard vocal bans.</li>
+<li><strong>Vocal band boundary bug:</strong> <code>whispersScreams</code> &gt; 0.55 takes <em>two</em> tokens, so Cordelia at 0.6 gets <code>"screamed vocals"</code> as a <strong>positive</strong> style. A soul belter at 0.56 and a metal screamer at 0.95 get nearly the same positive list.</li>
+<li>Fixtures are stale relative to the current vocabulary: modem-candy's stored negatives still contain <code>"live drums"</code> (removed from <code>styleTokens.ts</code> per its comment), and stored Cordelia plans (22/15) differ from a fresh build (23/16).</li>
+</ul>
+<h2>5. Lyric length vs duration</h2>
+<p>Across all 36 plans: 120–157 chars, 20–31 words per 30 000 ms chunk → <strong>0.67–1.03 words/sec (avg ≈ 0.85)</strong>. Typical sung pop delivery is ~1.5–3 words/sec, so we're supplying roughly 10–15 seconds of singable material for a 30-second track — the model has to pad with instrumental sections or drag delivery. The payloads are "correct" per the self-imposed 170/180-char cap, but the cap itself looks like a misreading: the empirically discovered "201 chars → 500" (SPEC) matches the documented <strong>200-chars-per-<em>line</em></strong> limit (v1 allows 30 lines × 200 chars per section). Newline-separated multi-line text — optionally with <code>[Verse]</code>/<code>[Chorus]</code> labels, which the v2 <code>text</code> field explicitly supports — should lift the ceiling ~30×.</p>
+<h2>6. Quantization audit</h2>
+<ul>
+<li><strong>Sonic sliders</strong> (<code>CreateStudio.tsx:331</code>): step 0.05, fine — but <code>NEUTRAL_DEADZONE = 0.15</code> silently zeroes anything at ±0.1 (one slider notch off-center = two notches, 0.10, still dead). Hit in 7 fixture axes, most often <code>darkHopeful</code>.</li>
+<li><strong>Influence weights</strong>: yes, <strong>weights round to zero.</strong> UI step is 0.01 with renormalization (continuous), but <code>influenceTokens</code> does <code>Math.round(weight * 4)</code> → any weight <strong>&lt; 0.125 emits nothing</strong>. Four of twelve fixtures have a genre contributing zero tokens (danny-halloran "blue-collar anthemic pop" 0.10, modem-candy "vaporwave" 0.10, solange-vaugirard "nu-disco" 0.10, verse-halloway "dubstep" 0.12). Only the single heaviest genre is protected by the lead-genre backstop. The UI still shows these as e.g. "10%", so the control looks live but isn't.</li>
+<li><strong>Vocal pad</strong>: continuous pointer input, then banded at 0.55 / 0.8 — the 0.55 boundary is the "screamed vocals" cliff above; the 0.15 deadzone also killed silas-crowder's 0.1 whisper lean.</li>
+<li><strong><code>improvisedStructured</code> → thirds → enum</strong>: moot today, since the value never lands anywhere the API reads.</li>
+</ul>
+<hr />
+<p><strong>Bottom line:</strong> the mapping layer is well-built but is compiling to the wrong target — the v1 request shape under a v2 model pin. The fix direction (not applied; this was an audit) is: move a pruned ~6–7-token positive set and a much smaller negative set into <code>chunks[0].positive_styles</code>/<code>negative_styles</code>, move <code>context_adherence</code> into the chunk, drop the inert <code>respect_sections_durations</code>, rethink lyric length as multi-line text, and lower/flag the 0.125 influence floor — then run the SPEC's extreme-slider A/B with <code>scripts/ab-test.ts</code> to confirm the controls audibly land. Happy to plan that as a branch when you want it.</p></div></div><button class="expand-btn">Show more</button></div></div>
+</div></div>
+<div class="index-item"><a href="page-001.html#msg-2026-07-21T16-06-07-415Z"><div class="index-item-header"><span class="index-item-number">#3</span><time datetime="2026-07-21T16:06:07.415Z" data-timestamp="2026-07-21T16:06:07.415Z">2026-07-21T16:06:07.415Z</time></div><div class="index-item-content"><p>Yes let's make this fixes now.</p></div></a><div class="index-item-stats"><span>1 skill</span>
+</div></div>
+<div class="index-item"><a href="page-001.html#msg-2026-07-21T16-07-19-554Z"><div class="index-item-header"><span class="index-item-number">#4</span><time datetime="2026-07-21T16:07:19.554Z" data-timestamp="2026-07-21T16:07:19.554Z">2026-07-21T16:07:19.554Z</time></div><div class="index-item-content"><p>Base directory for this skill: /Users/gabriel/.claude/plugins/cache/claude-plugins-official/superpowers/6.1.1/skills/test-driven-development</p>
+<h1>Test-Driven Development (TDD)</h1>
+<h2>Overview</h2>
+<p>Write the test first. Watch it fail. Write minimal code to pass.</p>
+<p><strong>Core principle:</strong> If you didn't watch the test fail, you don't know if it tests the right thing.</p>
+<p><strong>Violating the letter of the rules is violating the spirit of the rules.</strong></p>
+<h2>When to Use</h2>
+<p><strong>Always:</strong>
+- New features
+- Bug fixes
+- Refactoring
+- Behavior changes</p>
+<p><strong>Exceptions (ask your human partner):</strong>
+- Throwaway prototypes
+- Generated code
+- Configuration files</p>
+<p>Thinking "skip TDD just this once"? Stop. That's rationalization.</p>
+<h2>The Iron Law</h2>
+<pre><code>NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+</code></pre>
+<p>Write code before the test? Delete it. Start over.</p>
+<p><strong>No exceptions:</strong>
+- Don't keep it as "reference"
+- Don't "adapt" it while writing tests
+- Don't look at it
+- Delete means delete</p>
+<p>Implement fresh from tests. Period.</p>
+<h2>Red-Green-Refactor</h2>
+<pre><code class="language-dot">digraph tdd_cycle {
+    rankdir=LR;
+    red [label=&quot;RED\nWrite failing test&quot;, shape=box, style=filled, fillcolor=&quot;#ffcccc&quot;];
+    verify_red [label=&quot;Verify fails\ncorrectly&quot;, shape=diamond];
+    green [label=&quot;GREEN\nMinimal code&quot;, shape=box, style=filled, fillcolor=&quot;#ccffcc&quot;];
+    verify_green [label=&quot;Verify passes\nAll green&quot;, shape=diamond];
+    refactor [label=&quot;REFACTOR\nClean up&quot;, shape=box, style=filled, fillcolor=&quot;#ccccff&quot;];
+    next [label=&quot;Next&quot;, shape=ellipse];
+
+    red -&gt; verify_red;
+    verify_red -&gt; green [label=&quot;yes&quot;];
+    verify_red -&gt; red [label=&quot;wrong\nfailure&quot;];
+    green -&gt; verify_green;
+    verify_green -&gt; refactor [label=&quot;yes&quot;];
+    verify_green -&gt; green [label=&quot;no&quot;];
+    refactor -&gt; verify_green [label=&quot;stay\ngreen&quot;];
+    verify_green -&gt; next;
+    next -&gt; red;
+}
+</code></pre>
+<h3>RED - Write Failing Test</h3>
+<p>Write one minimal test showing what should happen.</p>
+<p><Good></p>
+<pre><code class="language-typescript">test('retries failed operations 3 times', async () =&gt; {
+  let attempts = 0;
+  const operation = () =&gt; {
+    attempts++;
+    if (attempts &lt; 3) throw new Error('fail');
+    return 'success';
+  };
+
+  const result = await retryOperation(operation);
+
+  expect(result).toBe('success');
+  expect(attempts).toBe(3);
+});
+</code></pre>
+<p>Clear name, tests real behavior, one thing
+</Good></p>
+<p><Bad></p>
+<pre><code class="language-typescript">test('retry works', async () =&gt; {
+  const mock = jest.fn()
+    .mockRejectedValueOnce(new Error())
+    .mockRejectedValueOnce(new Error())
+    .mockResolvedValueOnce('success');
+  await retryOperation(mock);
+  expect(mock).toHaveBeenCalledTimes(3);
+});
+</code></pre>
+<p>Vague name, tests mock not code
+</Bad></p>
+<p><strong>Requirements:</strong>
+- One behavior
+- Clear name
+- Real code (no mocks unless unavoidable)</p>
+<h3>Verify RED - Watch It Fail</h3>
+<p><strong>MANDATORY. Never skip.</strong></p>
+<pre><code class="language-bash">npm test path/to/test.test.ts
+</code></pre>
+<p>Confirm:
+- Test fails (not errors)
+- Failure message is expected
+- Fails because feature missing (not typos)</p>
+<p><strong>Test passes?</strong> You're testing existing behavior. Fix test.</p>
+<p><strong>Test errors?</strong> Fix error, re-run until it fails correctly.</p>
+<h3>GREEN - Minimal Code</h3>
+<p>Write simplest code to pass the test.</p>
+<p><Good></p>
+<pre><code class="language-typescript">async function retryOperation&lt;T&gt;(fn: () =&gt; Promise&lt;T&gt;): Promise&lt;T&gt; {
+  for (let i = 0; i &lt; 3; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      if (i === 2) throw e;
+    }
+  }
+  throw new Error('unreachable');
+}
+</code></pre>
+<p>Just enough to pass
+</Good></p>
+<p><Bad></p>
+<pre><code class="language-typescript">async function retryOperation&lt;T&gt;(
+  fn: () =&gt; Promise&lt;T&gt;,
+  options?: {
+    maxRetries?: number;
+    backoff?: 'linear' | 'exponential';
+    onRetry?: (attempt: number) =&gt; void;
+  }
+): Promise&lt;T&gt; {
+  // YAGNI
+}
+</code></pre>
+<p>Over-engineered
+</Bad></p>
+<p>Don't add features, refactor other code, or "improve" beyond the test.</p>
+<h3>Verify GREEN - Watch It Pass</h3>
+<p><strong>MANDATORY.</strong></p>
+<pre><code class="language-bash">npm test path/to/test.test.ts
+</code></pre>
+<p>Confirm:
+- Test passes
+- Other tests still pass
+- Output pristine (no errors, warnings)</p>
+<p><strong>Test fails?</strong> Fix code, not test.</p>
+<p><strong>Other tests fail?</strong> Fix now.</p>
+<h3>REFACTOR - Clean Up</h3>
+<p>After green only:
+- Remove duplication
+- Improve names
+- Extract helpers</p>
+<p>Keep tests green. Don't add behavior.</p>
+<h3>Repeat</h3>
+<p>Next failing test for next feature.</p>
+<h2>Good Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Quality</th>
+<th>Good</th>
+<th>Bad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Minimal</strong></td>
+<td>One thing. "and" in name? Split it.</td>
+<td><code>test('validates email and domain and whitespace')</code></td>
+</tr>
+<tr>
+<td><strong>Clear</strong></td>
+<td>Name describes behavior</td>
+<td><code>test('test1')</code></td>
+</tr>
+<tr>
+<td><strong>Shows intent</strong></td>
+<td>Demonstrates desired API</td>
+<td>Obscures what code should do</td>
+</tr>
+</tbody>
+</table>
+<h2>Why Order Matters</h2>
+<p><strong>"I'll write tests after to verify it works"</strong></p>
+<p>Tests written after code pass immediately. Passing immediately proves nothing:
+- Might test wrong thing
+- Might test implementation, not behavior
+- Might miss edge cases you forgot
+- You never saw it catch the bug</p>
+<p>Test-first forces you to see the test fail, proving it actually tests something.</p>
+<p><strong>"I already manually tested all the edge cases"</strong></p>
+<p>Manual testing is ad-hoc. You think you tested everything but:
+- No record of what you tested
+- Can't re-run when code changes
+- Easy to forget cases under pressure
+- "It worked when I tried it" ≠ comprehensive</p>
+<p>Automated tests are systematic. They run the same way every time.</p>
+<p><strong>"Deleting X hours of work is wasteful"</strong></p>
+<p>Sunk cost fallacy. The time is already gone. Your choice now:
+- Delete and rewrite with TDD (X more hours, high confidence)
+- Keep it and add tests after (30 min, low confidence, likely bugs)</p>
+<p>The "waste" is keeping code you can't trust. Working code without real tests is technical debt.</p>
+<p><strong>"TDD is dogmatic, being pragmatic means adapting"</strong></p>
+<p>TDD IS pragmatic:
+- Finds bugs before commit (faster than debugging after)
+- Prevents regressions (tests catch breaks immediately)
+- Documents behavior (tests show how to use code)
+- Enables refactoring (change freely, tests catch breaks)</p>
+<p>"Pragmatic" shortcuts = debugging in production = slower.</p>
+<p><strong>"Tests after achieve the same goals - it's spirit not ritual"</strong></p>
+<p>No. Tests-after answer "What does this do?" Tests-first answer "What should this do?"</p>
+<p>Tests-after are biased by your implementation. You test what you built, not what's required. You verify remembered edge cases, not discovered ones.</p>
+<p>Tests-first force edge case discovery before implementing. Tests-after verify you remembered everything (you didn't).</p>
+<p>30 minutes of tests after ≠ TDD. You get coverage, lose proof tests work.</p>
+<h2>Common Rationalizations</h2>
+<table>
+<thead>
+<tr>
+<th>Excuse</th>
+<th>Reality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Too simple to test"</td>
+<td>Simple code breaks. Test takes 30 seconds.</td>
+</tr>
+<tr>
+<td>"I'll test after"</td>
+<td>Tests passing immediately prove nothing.</td>
+</tr>
+<tr>
+<td>"Tests after achieve same goals"</td>
+<td>Tests-after = "what does this do?" Tests-first = "what should this do?"</td>
+</tr>
+<tr>
+<td>"Already manually tested"</td>
+<td>Ad-hoc ≠ systematic. No record, can't re-run.</td>
+</tr>
+<tr>
+<td>"Deleting X hours is wasteful"</td>
+<td>Sunk cost fallacy. Keeping unverified code is technical debt.</td>
+</tr>
+<tr>
+<td>"Keep as reference, write tests first"</td>
+<td>You'll adapt it. That's testing after. Delete means delete.</td>
+</tr>
+<tr>
+<td>"Need to explore first"</td>
+<td>Fine. Throw away exploration, start with TDD.</td>
+</tr>
+<tr>
+<td>"Test hard = design unclear"</td>
+<td>Listen to test. Hard to test = hard to use.</td>
+</tr>
+<tr>
+<td>"TDD will slow me down"</td>
+<td>TDD faster than debugging. Pragmatic = test-first.</td>
+</tr>
+<tr>
+<td>"Manual test faster"</td>
+<td>Manual doesn't prove edge cases. You'll re-test every change.</td>
+</tr>
+<tr>
+<td>"Existing code has no tests"</td>
+<td>You're improving it. Add tests for existing code.</td>
+</tr>
+</tbody>
+</table>
+<h2>Red Flags - STOP and Start Over</h2>
+<ul>
+<li>Code before test</li>
+<li>Test after implementation</li>
+<li>Test passes immediately</li>
+<li>Can't explain why test failed</li>
+<li>Tests added "later"</li>
+<li>Rationalizing "just this once"</li>
+<li>"I already manually tested it"</li>
+<li>"Tests after achieve the same purpose"</li>
+<li>"It's about spirit not ritual"</li>
+<li>"Keep as reference" or "adapt existing code"</li>
+<li>"Already spent X hours, deleting is wasteful"</li>
+<li>"TDD is dogmatic, I'm being pragmatic"</li>
+<li>"This is different because..."</li>
+</ul>
+<p><strong>All of these mean: Delete code. Start over with TDD.</strong></p>
+<h2>Example: Bug Fix</h2>
+<p><strong>Bug:</strong> Empty email accepted</p>
+<p><strong>RED</strong></p>
+<pre><code class="language-typescript">test('rejects empty email', async () =&gt; {
+  const result = await submitForm({ email: '' });
+  expect(result.error).toBe('Email required');
+});
+</code></pre>
+<p><strong>Verify RED</strong></p>
+<pre><code class="language-bash">$ npm test
+FAIL: expected 'Email required', got undefined
+</code></pre>
+<p><strong>GREEN</strong></p>
+<pre><code class="language-typescript">function submitForm(data: FormData) {
+  if (!data.email?.trim()) {
+    return { error: 'Email required' };
+  }
+  // ...
+}
+</code></pre>
+<p><strong>Verify GREEN</strong></p>
+<pre><code class="language-bash">$ npm test
+PASS
+</code></pre>
+<p><strong>REFACTOR</strong>
+Extract validation for multiple fields if needed.</p>
+<h2>Verification Checklist</h2>
+<p>Before marking work complete:</p>
+<ul>
+<li>[ ] Every new function/method has a test</li>
+<li>[ ] Watched each test fail before implementing</li>
+<li>[ ] Each test failed for expected reason (feature missing, not typo)</li>
+<li>[ ] Wrote minimal code to pass each test</li>
+<li>[ ] All tests pass</li>
+<li>[ ] Output pristine (no errors, warnings)</li>
+<li>[ ] Tests use real code (mocks only if unavoidable)</li>
+<li>[ ] Edge cases and errors covered</li>
+</ul>
+<p>Can't check all boxes? You skipped TDD. Start over.</p>
+<h2>When Stuck</h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Don't know how to test</td>
+<td>Write wished-for API. Write assertion first. Ask your human partner.</td>
+</tr>
+<tr>
+<td>Test too complicated</td>
+<td>Design too complicated. Simplify interface.</td>
+</tr>
+<tr>
+<td>Must mock everything</td>
+<td>Code too coupled. Use dependency injection.</td>
+</tr>
+<tr>
+<td>Test setup huge</td>
+<td>Extract helpers. Still complex? Simplify design.</td>
+</tr>
+</tbody>
+</table>
+<h2>Debugging Integration</h2>
+<p>Bug found? Write failing test reproducing it. Follow TDD cycle. Test proves fix and prevents regression.</p>
+<p>Never fix bugs without a test.</p>
+<h2>Testing Anti-Patterns</h2>
+<p>When adding mocks or test utilities, read <a href="testing-anti-patterns.md">testing-anti-patterns.md</a> to avoid common pitfalls:
+- Testing mock behavior instead of real behavior
+- Adding test-only methods to production classes
+- Mocking without understanding dependencies</p>
+<h2>Final Rule</h2>
+<pre><code>Production code → test exists and failed first
+Otherwise → not TDD
+</code></pre>
+<p>No exceptions without your human partner's permission.</p></div></a><div class="index-item-stats"><span>13 bash · 12 edit · 5 read · 4 write</span>
+<div class="index-item-long-text"><div class="truncatable"><div class="truncatable-content"><div class="index-item-long-text-content"><p>Base directory for this skill: /Users/gabriel/.claude/plugins/cache/claude-plugins-official/superpowers/6.1.1/skills/test-driven-development</p>
+<h1>Test-Driven Development (TDD)</h1>
+<h2>Overview</h2>
+<p>Write the test first. Watch it fail. Write minimal code to pass.</p>
+<p><strong>Core principle:</strong> If you didn't watch the test fail, you don't know if it tests the right thing.</p>
+<p><strong>Violating the letter of the rules is violating the spirit of the rules.</strong></p>
+<h2>When to Use</h2>
+<p><strong>Always:</strong>
+- New features
+- Bug fixes
+- Refactoring
+- Behavior changes</p>
+<p><strong>Exceptions (ask your human partner):</strong>
+- Throwaway prototypes
+- Generated code
+- Configuration files</p>
+<p>Thinking "skip TDD just this once"? Stop. That's rationalization.</p>
+<h2>The Iron Law</h2>
+<pre><code>NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+</code></pre>
+<p>Write code before the test? Delete it. Start over.</p>
+<p><strong>No exceptions:</strong>
+- Don't keep it as "reference"
+- Don't "adapt" it while writing tests
+- Don't look at it
+- Delete means delete</p>
+<p>Implement fresh from tests. Period.</p>
+<h2>Red-Green-Refactor</h2>
+<pre><code class="language-dot">digraph tdd_cycle {
+    rankdir=LR;
+    red [label=&quot;RED\nWrite failing test&quot;, shape=box, style=filled, fillcolor=&quot;#ffcccc&quot;];
+    verify_red [label=&quot;Verify fails\ncorrectly&quot;, shape=diamond];
+    green [label=&quot;GREEN\nMinimal code&quot;, shape=box, style=filled, fillcolor=&quot;#ccffcc&quot;];
+    verify_green [label=&quot;Verify passes\nAll green&quot;, shape=diamond];
+    refactor [label=&quot;REFACTOR\nClean up&quot;, shape=box, style=filled, fillcolor=&quot;#ccccff&quot;];
+    next [label=&quot;Next&quot;, shape=ellipse];
+
+    red -&gt; verify_red;
+    verify_red -&gt; green [label=&quot;yes&quot;];
+    verify_red -&gt; red [label=&quot;wrong\nfailure&quot;];
+    green -&gt; verify_green;
+    verify_green -&gt; refactor [label=&quot;yes&quot;];
+    verify_green -&gt; green [label=&quot;no&quot;];
+    refactor -&gt; verify_green [label=&quot;stay\ngreen&quot;];
+    verify_green -&gt; next;
+    next -&gt; red;
+}
+</code></pre>
+<h3>RED - Write Failing Test</h3>
+<p>Write one minimal test showing what should happen.</p>
+<p><Good></p>
+<pre><code class="language-typescript">test('retries failed operations 3 times', async () =&gt; {
+  let attempts = 0;
+  const operation = () =&gt; {
+    attempts++;
+    if (attempts &lt; 3) throw new Error('fail');
+    return 'success';
+  };
+
+  const result = await retryOperation(operation);
+
+  expect(result).toBe('success');
+  expect(attempts).toBe(3);
+});
+</code></pre>
+<p>Clear name, tests real behavior, one thing
+</Good></p>
+<p><Bad></p>
+<pre><code class="language-typescript">test('retry works', async () =&gt; {
+  const mock = jest.fn()
+    .mockRejectedValueOnce(new Error())
+    .mockRejectedValueOnce(new Error())
+    .mockResolvedValueOnce('success');
+  await retryOperation(mock);
+  expect(mock).toHaveBeenCalledTimes(3);
+});
+</code></pre>
+<p>Vague name, tests mock not code
+</Bad></p>
+<p><strong>Requirements:</strong>
+- One behavior
+- Clear name
+- Real code (no mocks unless unavoidable)</p>
+<h3>Verify RED - Watch It Fail</h3>
+<p><strong>MANDATORY. Never skip.</strong></p>
+<pre><code class="language-bash">npm test path/to/test.test.ts
+</code></pre>
+<p>Confirm:
+- Test fails (not errors)
+- Failure message is expected
+- Fails because feature missing (not typos)</p>
+<p><strong>Test passes?</strong> You're testing existing behavior. Fix test.</p>
+<p><strong>Test errors?</strong> Fix error, re-run until it fails correctly.</p>
+<h3>GREEN - Minimal Code</h3>
+<p>Write simplest code to pass the test.</p>
+<p><Good></p>
+<pre><code class="language-typescript">async function retryOperation&lt;T&gt;(fn: () =&gt; Promise&lt;T&gt;): Promise&lt;T&gt; {
+  for (let i = 0; i &lt; 3; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      if (i === 2) throw e;
+    }
+  }
+  throw new Error('unreachable');
+}
+</code></pre>
+<p>Just enough to pass
+</Good></p>
+<p><Bad></p>
+<pre><code class="language-typescript">async function retryOperation&lt;T&gt;(
+  fn: () =&gt; Promise&lt;T&gt;,
+  options?: {
+    maxRetries?: number;
+    backoff?: 'linear' | 'exponential';
+    onRetry?: (attempt: number) =&gt; void;
+  }
+): Promise&lt;T&gt; {
+  // YAGNI
+}
+</code></pre>
+<p>Over-engineered
+</Bad></p>
+<p>Don't add features, refactor other code, or "improve" beyond the test.</p>
+<h3>Verify GREEN - Watch It Pass</h3>
+<p><strong>MANDATORY.</strong></p>
+<pre><code class="language-bash">npm test path/to/test.test.ts
+</code></pre>
+<p>Confirm:
+- Test passes
+- Other tests still pass
+- Output pristine (no errors, warnings)</p>
+<p><strong>Test fails?</strong> Fix code, not test.</p>
+<p><strong>Other tests fail?</strong> Fix now.</p>
+<h3>REFACTOR - Clean Up</h3>
+<p>After green only:
+- Remove duplication
+- Improve names
+- Extract helpers</p>
+<p>Keep tests green. Don't add behavior.</p>
+<h3>Repeat</h3>
+<p>Next failing test for next feature.</p>
+<h2>Good Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Quality</th>
+<th>Good</th>
+<th>Bad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Minimal</strong></td>
+<td>One thing. "and" in name? Split it.</td>
+<td><code>test('validates email and domain and whitespace')</code></td>
+</tr>
+<tr>
+<td><strong>Clear</strong></td>
+<td>Name describes behavior</td>
+<td><code>test('test1')</code></td>
+</tr>
+<tr>
+<td><strong>Shows intent</strong></td>
+<td>Demonstrates desired API</td>
+<td>Obscures what code should do</td>
+</tr>
+</tbody>
+</table>
+<h2>Why Order Matters</h2>
+<p><strong>"I'll write tests after to verify it works"</strong></p>
+<p>Tests written after code pass immediately. Passing immediately proves nothing:
+- Might test wrong thing
+- Might test implementation, not behavior
+- Might miss edge cases you forgot
+- You never saw it catch the bug</p>
+<p>Test-first forces you to see the test fail, proving it actually tests something.</p>
+<p><strong>"I already manually tested all the edge cases"</strong></p>
+<p>Manual testing is ad-hoc. You think you tested everything but:
+- No record of what you tested
+- Can't re-run when code changes
+- Easy to forget cases under pressure
+- "It worked when I tried it" ≠ comprehensive</p>
+<p>Automated tests are systematic. They run the same way every time.</p>
+<p><strong>"Deleting X hours of work is wasteful"</strong></p>
+<p>Sunk cost fallacy. The time is already gone. Your choice now:
+- Delete and rewrite with TDD (X more hours, high confidence)
+- Keep it and add tests after (30 min, low confidence, likely bugs)</p>
+<p>The "waste" is keeping code you can't trust. Working code without real tests is technical debt.</p>
+<p><strong>"TDD is dogmatic, being pragmatic means adapting"</strong></p>
+<p>TDD IS pragmatic:
+- Finds bugs before commit (faster than debugging after)
+- Prevents regressions (tests catch breaks immediately)
+- Documents behavior (tests show how to use code)
+- Enables refactoring (change freely, tests catch breaks)</p>
+<p>"Pragmatic" shortcuts = debugging in production = slower.</p>
+<p><strong>"Tests after achieve the same goals - it's spirit not ritual"</strong></p>
+<p>No. Tests-after answer "What does this do?" Tests-first answer "What should this do?"</p>
+<p>Tests-after are biased by your implementation. You test what you built, not what's required. You verify remembered edge cases, not discovered ones.</p>
+<p>Tests-first force edge case discovery before implementing. Tests-after verify you remembered everything (you didn't).</p>
+<p>30 minutes of tests after ≠ TDD. You get coverage, lose proof tests work.</p>
+<h2>Common Rationalizations</h2>
+<table>
+<thead>
+<tr>
+<th>Excuse</th>
+<th>Reality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Too simple to test"</td>
+<td>Simple code breaks. Test takes 30 seconds.</td>
+</tr>
+<tr>
+<td>"I'll test after"</td>
+<td>Tests passing immediately prove nothing.</td>
+</tr>
+<tr>
+<td>"Tests after achieve same goals"</td>
+<td>Tests-after = "what does this do?" Tests-first = "what should this do?"</td>
+</tr>
+<tr>
+<td>"Already manually tested"</td>
+<td>Ad-hoc ≠ systematic. No record, can't re-run.</td>
+</tr>
+<tr>
+<td>"Deleting X hours is wasteful"</td>
+<td>Sunk cost fallacy. Keeping unverified code is technical debt.</td>
+</tr>
+<tr>
+<td>"Keep as reference, write tests first"</td>
+<td>You'll adapt it. That's testing after. Delete means delete.</td>
+</tr>
+<tr>
+<td>"Need to explore first"</td>
+<td>Fine. Throw away exploration, start with TDD.</td>
+</tr>
+<tr>
+<td>"Test hard = design unclear"</td>
+<td>Listen to test. Hard to test = hard to use.</td>
+</tr>
+<tr>
+<td>"TDD will slow me down"</td>
+<td>TDD faster than debugging. Pragmatic = test-first.</td>
+</tr>
+<tr>
+<td>"Manual test faster"</td>
+<td>Manual doesn't prove edge cases. You'll re-test every change.</td>
+</tr>
+<tr>
+<td>"Existing code has no tests"</td>
+<td>You're improving it. Add tests for existing code.</td>
+</tr>
+</tbody>
+</table>
+<h2>Red Flags - STOP and Start Over</h2>
+<ul>
+<li>Code before test</li>
+<li>Test after implementation</li>
+<li>Test passes immediately</li>
+<li>Can't explain why test failed</li>
+<li>Tests added "later"</li>
+<li>Rationalizing "just this once"</li>
+<li>"I already manually tested it"</li>
+<li>"Tests after achieve the same purpose"</li>
+<li>"It's about spirit not ritual"</li>
+<li>"Keep as reference" or "adapt existing code"</li>
+<li>"Already spent X hours, deleting is wasteful"</li>
+<li>"TDD is dogmatic, I'm being pragmatic"</li>
+<li>"This is different because..."</li>
+</ul>
+<p><strong>All of these mean: Delete code. Start over with TDD.</strong></p>
+<h2>Example: Bug Fix</h2>
+<p><strong>Bug:</strong> Empty email accepted</p>
+<p><strong>RED</strong></p>
+<pre><code class="language-typescript">test('rejects empty email', async () =&gt; {
+  const result = await submitForm({ email: '' });
+  expect(result.error).toBe('Email required');
+});
+</code></pre>
+<p><strong>Verify RED</strong></p>
+<pre><code class="language-bash">$ npm test
+FAIL: expected 'Email required', got undefined
+</code></pre>
+<p><strong>GREEN</strong></p>
+<pre><code class="language-typescript">function submitForm(data: FormData) {
+  if (!data.email?.trim()) {
+    return { error: 'Email required' };
+  }
+  // ...
+}
+</code></pre>
+<p><strong>Verify GREEN</strong></p>
+<pre><code class="language-bash">$ npm test
+PASS
+</code></pre>
+<p><strong>REFACTOR</strong>
+Extract validation for multiple fields if needed.</p>
+<h2>Verification Checklist</h2>
+<p>Before marking work complete:</p>
+<ul>
+<li>[ ] Every new function/method has a test</li>
+<li>[ ] Watched each test fail before implementing</li>
+<li>[ ] Each test failed for expected reason (feature missing, not typo)</li>
+<li>[ ] Wrote minimal code to pass each test</li>
+<li>[ ] All tests pass</li>
+<li>[ ] Output pristine (no errors, warnings)</li>
+<li>[ ] Tests use real code (mocks only if unavoidable)</li>
+<li>[ ] Edge cases and errors covered</li>
+</ul>
+<p>Can't check all boxes? You skipped TDD. Start over.</p>
+<h2>When Stuck</h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Don't know how to test</td>
+<td>Write wished-for API. Write assertion first. Ask your human partner.</td>
+</tr>
+<tr>
+<td>Test too complicated</td>
+<td>Design too complicated. Simplify interface.</td>
+</tr>
+<tr>
+<td>Must mock everything</td>
+<td>Code too coupled. Use dependency injection.</td>
+</tr>
+<tr>
+<td>Test setup huge</td>
+<td>Extract helpers. Still complex? Simplify design.</td>
+</tr>
+</tbody>
+</table>
+<h2>Debugging Integration</h2>
+<p>Bug found? Write failing test reproducing it. Follow TDD cycle. Test proves fix and prevents regression.</p>
+<p>Never fix bugs without a test.</p>
+<h2>Testing Anti-Patterns</h2>
+<p>When adding mocks or test utilities, read <a href="testing-anti-patterns.md">testing-anti-patterns.md</a> to avoid common pitfalls:
+- Testing mock behavior instead of real behavior
+- Adding test-only methods to production classes
+- Mocking without understanding dependencies</p>
+<h2>Final Rule</h2>
+<pre><code>Production code → test exists and failed first
+Otherwise → not TDD
+</code></pre>
+<p>No exceptions without your human partner's permission.</p></div></div><button class="expand-btn">Show more</button></div></div>
+<div class="index-item-long-text"><div class="truncatable"><div class="truncatable-content"><div class="index-item-long-text-content"><p>All five fixes are implemented, tested, and up as <strong>PR #12</strong>: https://github.com/gabelev/afar_music/pull/12 (branch <code>fix/P1-elevenlabs-v2-request-shape</code>, two commits).</p>
+<p><strong>What changed</strong></p>
+<ul>
+<li><strong>Request shape</strong> (<code>music.ts</code>, <code>mapping.ts</code>): the body is now exactly <code>{model_id: "music_v2", composition_plan}</code>. The v1-only global style arrays, top-level <code>context_adherence</code>, and inert <code>respect_sections_durations</code> are gone. All style direction lives in <code>chunks[0].positive_styles</code>/<code>negative_styles</code>, and <code>context_adherence</code> rides inside the chunk.</li>
+<li><strong>Ranked style budget</strong>: 7 positives per the docs' 6–7 recommendation. BPM, era, the lead genre's two tokens, and active vocal-pad axes get guaranteed slots; everything else competes on magnitude. Negatives are capped at 4 and only emitted for leans ≥ 0.6, so a −0.2 slider no longer hard-bans its opposite pole.</li>
+<li><strong>Quantization fixes</strong>: influence token count uses ceil (a 10% genre no longer silently contributes zero), and the vocal band at 0.6 now emits "powerful belted vocals" instead of "screamed vocals" (extremes need &gt; 0.85).</li>
+<li><strong>Lyrics</strong>: Claude now writes 4–8 newline-separated lines, 45–70 words (~1.5–2.3 words/sec vs the old ~0.85), and <code>clampLyrics</code> clamps per line at 180 — the 200-char limit the SPEC discovered empirically matches the documented per-<em>line</em> constraint, not a total.</li>
+<li><strong>Docs</strong>: SPEC "Music API facts" rewritten to the verified v2 schema, README mapping section updated, ADR entry appended.</li>
+</ul>
+<p>Cordelia's payload went from 39 tokens in ignored keys + empty chunk styles to a 7-positive / 3-negative chunk (<code>110 BPM, 1970s studio production, soul, soul instrumentation, powerful belted vocals, clean vocals, organic instrumentation</code> vs <code>synthetic textures, cold tone, whispered vocals</code>).</p>
+<p><strong>Verification</strong>: 49/49 tests pass (every new behavior had a watched-fail test first, including a stubbed-fetch test asserting the exact body keys), <code>tsc</code> clean, lint clean except one pre-existing <code>aria-valuenow</code> warning on main. I made no live API calls.</p>
+<p><strong>One thing you should know before merging</strong>: while updating the ADR I found the 2026-07-20 metal-drift entry recorded an A/B where <code>negative_global_styles</code> <em>appeared</em> to move rolloff (2888 vs 7007 Hz). That's counter-evidence to "globals are fully ignored" — either ElevenLabs leniently merges the v1 keys, or that was single-sample noise on a stochastic model. The fix is docs-correct either way, but I'd re-run the extreme-slider A/B (<code>npm run ab-test</code>, costs cents) against the new payload before regenerating the fixture media — the stored fixture plans still carry the old shape and vocabulary, so they'll want regenerating once the A/B confirms the controls now land audibly.</p></div></div><button class="expand-btn">Show more</button></div></div>
+</div></div><div class="index-commit"><div class="index-commit-header"><span class="index-commit-hash">9a02e1b</span><time datetime="2026-07-21T16:14:19.002Z" data-timestamp="2026-07-21T16:14:19.002Z">2026-07-21T16:14:19.002Z</time></div><div class="index-commit-msg">Send styles and context_adherence where music_v2 actually reads them</div></div><div class="index-commit"><div class="index-commit-header"><span class="index-commit-hash">5bff478</span><time datetime="2026-07-21T16:16:21.754Z" data-timestamp="2026-07-21T16:16:21.754Z">2026-07-21T16:16:21.754Z</time></div><div class="index-commit-msg">Multi-line lyric seeds sized for 30s; docs reflect the v2 request shape</div></div>
+<div class="index-item"><a href="page-001.html#msg-2026-07-21T16-22-16-254Z"><div class="index-item-header"><span class="index-item-number">#5</span><time datetime="2026-07-21T16:22:16.254Z" data-timestamp="2026-07-21T16:22:16.254Z">2026-07-21T16:22:16.254Z</time></div><div class="index-item-content"><p>Ok to regenetate fixtures. PR merged. </p>
+<p>I thought I had this in there already, but since this bug came from not actively checking the live documentation and building against it,  add an instruction to my claude.md to explicitly check live documentation when interfacing with an API.</p>
+<p>There is one small optimization I want you to make. After a user chooses to generate an artist on the creative DNA page. Call the image api's to pre-generate the album and artist images so the user does not have to wait for them to generate on the artist page.</p></div></a><div class="index-item-stats"><span>15 bash · 6 read · 4 edit · 1 write</span>
+<div class="index-item-long-text"><div class="truncatable"><div class="truncatable-content"><div class="index-item-long-text-content"><p>All three tasks are done. Summary:</p>
+<p><strong>1. CLAUDE.md instruction</strong> — added to your global <code>~/.claude/CLAUDE.md</code> under "Overall": when interfacing with an external API, fetch and read its live documentation and verify the exact schema for the pinned version against current docs rather than trusting training data, existing code, or comments — with the note that APIs often 200 on unknown fields, so a wrong shape fails silently. (You were right that it wasn't in there — the file covered process and git, but nothing about external APIs.)</p>
+<p><strong>2. Fixtures regenerated</strong> — that was PR #13, which you've merged. Before burning credits I re-ran the A/B the ADR flagged: with the new chunk-styles payload, <code>organicSynthetic</code> at −1 vs +1 moved mean 85% spectral rolloff <strong>4027 → 5821 Hz</strong>, so the controls demonstrably reach the audio now. Then all six artists with committed audio got fresh multi-line lyric seeds and new tracks: every chunk has 7 ranked positives, 1–4 negatives, in-chunk <code>context_adherence</code>, and 35–60 words (~1.5 words/sec, up from ~0.85). <code>fill-media</code> gained <code>--reseed-tracks</code> and <code>--tracks-only</code> flags and now writes the full track artifact so stored plans can't drift from the code again. One thing intentionally not done: <code>npm run seed</code> — it replaces the live roster's tracks (titles and lyrics changed), so run it whenever you're ready to publish the new audio.</p>
+<p><strong>3. Image prefetch</strong> — PR #14: https://github.com/gabelev/afar_music/pull/14. When the user hits generate on the DNA page, the profile wave (identity, then portrait + cover in parallel) starts in the background, so after they pick a single the profile step is usually instant. The prefetch is keyed by DNA object identity — any slider tweak, nudge, or regenerate creates a new object, so a stale prefetch just misses and <code>pickSingle</code> falls back to the old on-demand path; prefetch failures resolve to null silently and fall back the same way. Client-side only, no API changes, and the ADR notes this supersedes the old "wave boundary is sequential" decision (that was about the pick being real, which only ever applied to tracks).</p>
+<p>Verification across both branches: <code>tsc</code> clean, 49/49 tests, lint clean apart from the pre-existing <code>aria-valuenow</code> warning on the vocal pad (untouched; noting rather than fixing per your working agreement).</p></div></div><button class="expand-btn">Show more</button></div></div>
+</div></div><div class="index-commit"><div class="index-commit-header"><span class="index-commit-hash">9478051</span><time datetime="2026-07-21T16:28:47.496Z" data-timestamp="2026-07-21T16:28:47.496Z">2026-07-21T16:28:47.496Z</time></div><div class="index-commit-msg">Regenerate fixture tracks against the fixed music_v2 payload</div></div><div class="index-commit"><div class="index-commit-header"><span class="index-commit-hash">e805d04</span><time datetime="2026-07-21T16:30:35.461Z" data-timestamp="2026-07-21T16:30:35.461Z">2026-07-21T16:30:35.461Z</time></div><div class="index-commit-msg">Prefetch wave 2 (identity + images) while the user listens to candidates</div></div>
+<div class="index-item"><a href="page-002.html#msg-2026-07-21T16-33-45-465Z"><div class="index-item-header"><span class="index-item-number">#6</span><time datetime="2026-07-21T16:33:45.465Z" data-timestamp="2026-07-21T16:33:45.465Z">2026-07-21T16:33:45.465Z</time></div><div class="index-item-content"><p>PR#14 merged. Update chaos dimension with tickets marked complete for this work.</p></div></a><div class="index-item-stats"><span>3 mcp__claude_ai_chaos-dimension__create_task · 1 toolsearch · 1 mcp__claude_ai_chaos-dimension__list_workstreams · 1 mcp__claude_ai_chaos-dimension__list_tasks</span>
+<div class="index-item-long-text"><div class="truncatable"><div class="truncatable-content"><div class="index-item-long-text-content"><p>Three tickets added to the <strong>arfar</strong> workstream, all in the done column, matching your existing PR-scoped note style:</p>
+<ol>
+<li><strong>Fix: send DNA styles where music_v2 actually reads them (docs audit)</strong> — high priority, PR #12, with the root cause and the full fix list in the notes.</li>
+<li><strong>Regenerate fixture tracks against the fixed payload + A/B re-verification</strong> — PR #13, including the 4027 → 5821 Hz rolloff result, and a note that <code>npm run seed</code> is still pending to publish the regenerated audio to the live roster.</li>
+<li><strong>Prefetch wave 2 (identity + images) while the user picks a single</strong> — PR #14.</li>
+</ol>
+<p>One small observation while filing these: the original hour-one A/B ticket recorded organic at <em>higher</em> rolloff than synthetic (8638 vs 7016 Hz), while the new payload measures organic <em>lower</em> (4027 vs 5821 Hz) — synthetic-brighter is the more physically expected direction, which is consistent with the old payload's styles having only partially (or differently) reached the model. Nothing to act on, just corroborating context for the fix.</p></div></div><button class="expand-btn">Show more</button></div></div>
+</div></div>
+        
+
+<div class="pagination">
+<span class="current">Index</span>
+<span class="disabled">&larr; Prev</span>
+<a href="page-001.html">1</a>
+<a href="page-002.html">2</a>
+<a href="page-001.html">Next &rarr;</a>
+</div>
+
+
+        <dialog id="search-modal">
+            <div class="search-modal-header">
+                <input type="text" id="modal-search-input" placeholder="Search..." aria-label="Search transcripts">
+                <button id="modal-search-btn" type="button" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                </button>
+                <button id="modal-close-btn" type="button" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                </button>
+            </div>
+            <div id="search-status"></div>
+            <div id="search-results"></div>
+        </dialog>
+        <script>
+(function() {
+    var totalPages = 2;
+    var searchBox = document.getElementById('search-box');
+    var searchInput = document.getElementById('search-input');
+    var searchBtn = document.getElementById('search-btn');
+    var modal = document.getElementById('search-modal');
+    var modalInput = document.getElementById('modal-search-input');
+    var modalSearchBtn = document.getElementById('modal-search-btn');
+    var modalCloseBtn = document.getElementById('modal-close-btn');
+    var searchStatus = document.getElementById('search-status');
+    var searchResults = document.getElementById('search-results');
+
+    if (!searchBox || !modal) return;
+
+    // Hide search on file:// protocol (doesn't work due to CORS restrictions)
+    if (window.location.protocol === 'file:') return;
+
+    // Show search box (progressive enhancement)
+    searchBox.style.display = 'flex';
+
+    // Gist preview support - detect if we're on gisthost.github.io or gistpreview.github.io
+    var hostname = window.location.hostname;
+    var isGistPreview = hostname === 'gisthost.github.io' || hostname === 'gistpreview.github.io';
+    var gistId = null;
+    var gistOwner = null;
+    var gistInfoLoaded = false;
+
+    if (isGistPreview) {
+        // Extract gist ID from URL query string like ?78a436a8a9e7a2e603738b8193b95410/index.html
+        var queryMatch = window.location.search.match(/^\?([a-f0-9]+)/i);
+        if (queryMatch) {
+            gistId = queryMatch[1];
+        }
+    }
+
+    async function loadGistInfo() {
+        if (!isGistPreview || !gistId || gistInfoLoaded) return;
+        try {
+            var response = await fetch('https://api.github.com/gists/' + gistId);
+            if (response.ok) {
+                var info = await response.json();
+                gistOwner = info.owner.login;
+                gistInfoLoaded = true;
+            }
+        } catch (e) {
+            console.error('Failed to load gist info:', e);
+        }
+    }
+
+    function getPageFetchUrl(pageFile) {
+        if (isGistPreview && gistOwner && gistId) {
+            // Use raw gist URL for fetching content
+            return 'https://gist.githubusercontent.com/' + gistOwner + '/' + gistId + '/raw/' + pageFile;
+        }
+        return pageFile;
+    }
+
+    function getPageLinkUrl(pageFile) {
+        if (isGistPreview && gistId) {
+            // Use gistpreview URL format for navigation links
+            return '?' + gistId + '/' + pageFile;
+        }
+        return pageFile;
+    }
+
+    function escapeHtml(text) {
+        var div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function escapeRegex(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function openModal(query) {
+        modalInput.value = query || '';
+        searchResults.innerHTML = '';
+        searchStatus.textContent = '';
+        modal.showModal();
+        modalInput.focus();
+        if (query) {
+            performSearch(query);
+        }
+    }
+
+    function closeModal() {
+        modal.close();
+        // Update URL to remove search fragment, preserving path and query string
+        if (window.location.hash.startsWith('#search=')) {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+    }
+
+    function updateUrlHash(query) {
+        if (query) {
+            // Preserve path and query string when adding hash
+            history.replaceState(null, '', window.location.pathname + window.location.search + '#search=' + encodeURIComponent(query));
+        }
+    }
+
+    function highlightTextNodes(element, searchTerm) {
+        var walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+        var nodesToReplace = [];
+
+        while (walker.nextNode()) {
+            var node = walker.currentNode;
+            if (node.nodeValue.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) {
+                nodesToReplace.push(node);
+            }
+        }
+
+        nodesToReplace.forEach(function(node) {
+            var text = node.nodeValue;
+            var regex = new RegExp('(' + escapeRegex(searchTerm) + ')', 'gi');
+            var parts = text.split(regex);
+            if (parts.length > 1) {
+                var span = document.createElement('span');
+                parts.forEach(function(part) {
+                    if (part.toLowerCase() === searchTerm.toLowerCase()) {
+                        var mark = document.createElement('mark');
+                        mark.textContent = part;
+                        span.appendChild(mark);
+                    } else {
+                        span.appendChild(document.createTextNode(part));
+                    }
+                });
+                node.parentNode.replaceChild(span, node);
+            }
+        });
+    }
+
+    function fixInternalLinks(element, pageFile) {
+        // Update all internal anchor links to include the page file
+        var links = element.querySelectorAll('a[href^="#"]');
+        links.forEach(function(link) {
+            var href = link.getAttribute('href');
+            link.setAttribute('href', pageFile + href);
+        });
+    }
+
+    function processPage(pageFile, html, query) {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(html, 'text/html');
+        var resultsFromPage = 0;
+
+        // Find all message blocks
+        var messages = doc.querySelectorAll('.message');
+        messages.forEach(function(msg) {
+            var text = msg.textContent || '';
+            if (text.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
+                resultsFromPage++;
+
+                // Get the message ID for linking
+                var msgId = msg.id || '';
+                var pageLinkUrl = getPageLinkUrl(pageFile);
+                var link = pageLinkUrl + (msgId ? '#' + msgId : '');
+
+                // Clone the message HTML and highlight matches
+                var clone = msg.cloneNode(true);
+                // Fix internal links to include the page file
+                fixInternalLinks(clone, pageLinkUrl);
+                highlightTextNodes(clone, query);
+
+                var resultDiv = document.createElement('div');
+                resultDiv.className = 'search-result';
+                resultDiv.innerHTML = '<a href="' + link + '">' +
+                    '<div class="search-result-page">' + escapeHtml(pageFile) + '</div>' +
+                    '<div class="search-result-content">' + clone.innerHTML + '</div>' +
+                    '</a>';
+                searchResults.appendChild(resultDiv);
+            }
+        });
+
+        return resultsFromPage;
+    }
+
+    async function performSearch(query) {
+        if (!query.trim()) {
+            searchStatus.textContent = 'Enter a search term';
+            return;
+        }
+
+        updateUrlHash(query);
+        searchResults.innerHTML = '';
+        searchStatus.textContent = 'Searching...';
+
+        // Load gist info if on gistpreview (needed for constructing URLs)
+        if (isGistPreview && !gistInfoLoaded) {
+            searchStatus.textContent = 'Loading gist info...';
+            await loadGistInfo();
+            if (!gistOwner) {
+                searchStatus.textContent = 'Failed to load gist info. Search unavailable.';
+                return;
+            }
+        }
+
+        var resultsFound = 0;
+        var pagesSearched = 0;
+
+        // Build list of pages to fetch
+        var pagesToFetch = [];
+        for (var i = 1; i <= totalPages; i++) {
+            pagesToFetch.push('page-' + String(i).padStart(3, '0') + '.html');
+        }
+
+        searchStatus.textContent = 'Searching...';
+
+        // Process pages in batches of 3, but show results immediately as each completes
+        var batchSize = 3;
+        for (var i = 0; i < pagesToFetch.length; i += batchSize) {
+            var batch = pagesToFetch.slice(i, i + batchSize);
+
+            // Create promises that process results immediately when each fetch completes
+            var promises = batch.map(function(pageFile) {
+                return fetch(getPageFetchUrl(pageFile))
+                    .then(function(response) {
+                        if (!response.ok) throw new Error('Failed to fetch');
+                        return response.text();
+                    })
+                    .then(function(html) {
+                        // Process and display results immediately
+                        var count = processPage(pageFile, html, query);
+                        resultsFound += count;
+                        pagesSearched++;
+                        searchStatus.textContent = 'Found ' + resultsFound + ' result(s) in ' + pagesSearched + '/' + totalPages + ' pages...';
+                    })
+                    .catch(function() {
+                        pagesSearched++;
+                        searchStatus.textContent = 'Found ' + resultsFound + ' result(s) in ' + pagesSearched + '/' + totalPages + ' pages...';
+                    });
+            });
+
+            // Wait for this batch to complete before starting the next
+            await Promise.all(promises);
+        }
+
+        searchStatus.textContent = 'Found ' + resultsFound + ' result(s) in ' + totalPages + ' pages';
+    }
+
+    // Event listeners
+    searchBtn.addEventListener('click', function() {
+        openModal(searchInput.value);
+    });
+
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            openModal(searchInput.value);
+        }
+    });
+
+    modalSearchBtn.addEventListener('click', function() {
+        performSearch(modalInput.value);
+    });
+
+    modalInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            performSearch(modalInput.value);
+        }
+    });
+
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Check for #search= in URL on page load
+    if (window.location.hash.startsWith('#search=')) {
+        var query = decodeURIComponent(window.location.hash.substring(8));
+        if (query) {
+            searchInput.value = query;
+            openModal(query);
+        }
+    }
+})();
+        </script>
+    </div>
+    <script>
+document.querySelectorAll('time[data-timestamp]').forEach(function(el) {
+    const timestamp = el.getAttribute('data-timestamp');
+    const date = new Date(timestamp);
+    const now = new Date();
+    const isToday = date.toDateString() === now.toDateString();
+    const timeStr = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+    if (isToday) { el.textContent = timeStr; }
+    else { el.textContent = date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ' ' + timeStr; }
+});
+document.querySelectorAll('pre.json').forEach(function(el) {
+    let text = el.textContent;
+    text = text.replace(/"([^"]+)":/g, '<span style="color: #ce93d8">"$1"</span>:');
+    text = text.replace(/: "([^"]*)"/g, ': <span style="color: #81d4fa">"$1"</span>');
+    text = text.replace(/: (\d+)/g, ': <span style="color: #ffcc80">$1</span>');
+    text = text.replace(/: (true|false|null)/g, ': <span style="color: #f48fb1">$1</span>');
+    el.innerHTML = text;
+});
+document.querySelectorAll('.truncatable').forEach(function(wrapper) {
+    const content = wrapper.querySelector('.truncatable-content');
+    const btn = wrapper.querySelector('.expand-btn');
+    if (content.scrollHeight > 250) {
+        wrapper.classList.add('truncated');
+        btn.addEventListener('click', function() {
+            if (wrapper.classList.contains('truncated')) { wrapper.classList.remove('truncated'); wrapper.classList.add('expanded'); btn.textContent = 'Show less'; }
+            else { wrapper.classList.remove('expanded'); wrapper.classList.add('truncated'); btn.textContent = 'Show more'; }
+        });
+    }
+});
+</script>
+</body>
+</html>
