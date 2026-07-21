@@ -88,6 +88,35 @@ export function CreateStudio() {
   const [nudge, setNudge] = useState("");
   const [nudgeResult, setNudgeResult] = useState<{ explanation: string; changed: string[] } | null>(null);
 
+  /**
+   * Wave-2 prefetch: identity + images start the moment tracks are requested,
+   * so by the time the user has listened and picked a single they're usually
+   * already done. Keyed by DNA object identity — any DNA edit creates a new
+   * object, which makes a stale prefetch miss and pickSingle regenerate fresh.
+   * Failures resolve to null (never surfaced mid-listen); pickSingle falls
+   * back to generating on demand.
+   */
+  const profilePrefetch = useRef<{
+    dna: CreativeDNA;
+    identity: Promise<Identity | null>;
+    images: Promise<{ portrait: string; cover: string } | null>;
+  } | null>(null);
+
+  const fetchImages = (forDNA: CreativeDNA, id: Identity) =>
+    Promise.all([
+      post<{ image: string }>("/api/profile", { dna: forDNA, regenerate: "portrait", basePrompt: id.portraitPrompt }),
+      post<{ image: string }>("/api/profile", { dna: forDNA, regenerate: "cover", basePrompt: id.coverPrompt }),
+    ]).then(([p, c]) => ({ portrait: p.image, cover: c.image }));
+
+  const startProfilePrefetch = (forDNA: CreativeDNA) => {
+    if (profilePrefetch.current?.dna === forDNA) return; // same DNA → already in flight
+    const identity = post<{ identity: Identity }>("/api/profile", { dna: forDNA })
+      .then((r) => r.identity)
+      .catch(() => null);
+    const images = identity.then((id) => (id ? fetchImages(forDNA, id) : null)).catch(() => null);
+    profilePrefetch.current = { dna: forDNA, identity, images };
+  };
+
   const run = async (label: string, fn: () => Promise<void>) => {
     setBusy(label);
     setError(null);
@@ -126,6 +155,7 @@ export function CreateStudio() {
   const generateTracks = () =>
     run("Writing three candidate singles… (~20 seconds)", async () => {
       if (!dna) return;
+      startProfilePrefetch(dna); // wave 2 warms up while the user listens
       const result = await post<{ tracks: CandidateTrack[] }>("/api/tracks", { dna });
       setTracks(result.tracks);
       setSinglePosition(null);
@@ -143,19 +173,17 @@ export function CreateStudio() {
     });
 
   const pickSingle = (position: number) =>
-    run("Building the rest of the artist… (~40 seconds)", async () => {
+    run("Building the rest of the artist…", async () => {
       if (!dna) return;
       setSinglePosition(position);
-      const { identity: id } = await post<{ identity: Identity }>("/api/profile", { dna });
+      const prefetch = profilePrefetch.current?.dna === dna ? profilePrefetch.current : null;
+      const id = (await prefetch?.identity) ?? (await post<{ identity: Identity }>("/api/profile", { dna })).identity;
       setIdentity(id);
       setStep("profile");
-      // Images stream in behind the text, both requests in parallel.
-      const [p, c] = await Promise.all([
-        post<{ image: string }>("/api/profile", { dna, regenerate: "portrait", basePrompt: id.portraitPrompt }),
-        post<{ image: string }>("/api/profile", { dna, regenerate: "cover", basePrompt: id.coverPrompt }),
-      ]);
-      setPortrait(p.image);
-      setCover(c.image);
+      // Images stream in behind the text; usually already resolved by the prefetch.
+      const images = (await prefetch?.images) ?? (await fetchImages(dna, id));
+      setPortrait(images.portrait);
+      setCover(images.cover);
     });
 
   const regenerateProfilePiece = (kind: "bio" | "portrait" | "cover") =>
