@@ -17,5 +17,8 @@ Zero dependencies (no husky). `npm install` wires it through the `prepare` scrip
 ## 2026-07-20 — Parallelize generation calls within each wave
 Gabe's directive: latency is a UX risk. Wave 1 fires 3 candidate tracks concurrently; wave 2 fires bio + portrait + cover concurrently. Only the wave boundary itself is sequential (product decision — the user's pick must be real).
 
+## 2026-07-20 — tsx (dev dependency) for CLI scripts
+Node 25 strips TS types natively but can't resolve the `@/` path alias the app code uses. `node --import tsx` runs the CLI scripts with full tsconfig resolution; zero impact on the deployed app (devDependency only).
+
 ## 2026-07-20 — Tests with Vitest
 Standard, fast, zero-config with TS. Business-logic tests target the DNA schema and the DNA→composition-plan mapping, per the working agreement.

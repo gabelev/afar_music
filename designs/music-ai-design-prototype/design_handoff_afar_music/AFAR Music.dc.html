@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="design-system/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--font-body:'Instrument Sans',system-ui,sans-serif}
+  body{font-family:var(--font-body)}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes pulseBar{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body)">
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-4) var(--space-8);border-bottom:1px solid var(--color-divider);position:sticky;top:0;background:color-mix(in srgb, var(--color-bg) 94%, transparent);backdrop-filter:blur(8px);z-index:20">
+    <div onClick="{{ goHome }}" style="cursor:pointer;display:flex;align-items:baseline;gap:10px">
+      <span style="font-family:var(--font-heading);font-weight:600;font-size:28px;letter-spacing:.5px">AFAR</span>
+      <span style="font-size:10.5px;letter-spacing:1.8px;color:var(--color-neutral-600)">MUSIC</span>
+    </div>
+    <nav style="display:flex;align-items:center;gap:var(--space-3)">
+      <button onClick="{{ goHome }}" class="btn btn-ghost">The roster</button>
+      <button onClick="{{ goStudio }}" class="btn btn-primary">Create an artist</button>
+    </nav>
+  </header>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main data-screen-label="Home" style="flex:1">
+    <section style="max-width:1040px;margin:0 auto;padding:76px var(--space-8) 30px;animation:fadeUp .5s ease both">
+      <h1 style="font-family:var(--font-heading);font-weight:400;font-size:60px;line-height:1.04;margin:0 0 var(--space-4);max-width:760px;text-wrap:pretty">Build an AI artist,<br><em>not just a track.</em></h1>
+      <p style="font-size:17px;line-height:1.6;color:var(--color-neutral-700);max-width:600px;margin:0 0 var(--space-6);text-wrap:pretty">On AFAR, songs don't appear out of thin air. You invent an artist — their era, their influences, their obsessions — and the music follows. No music-making experience needed.</p>
+      <button onClick="{{ goStudio }}" class="btn btn-primary" style="font-size:15px">Create an artist</button>
+    </section>
+    <sc-if value="{{ showExplainer }}" hint-placeholder-val="{{ true }}">
+    <section style="max-width:1040px;margin:0 auto;padding:var(--space-6) var(--space-8) 0">
+      <div style="border-top:1px solid var(--color-divider);display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-6);padding-top:var(--space-6)">
+        <sc-for list="{{ steps3 }}" as="s" hint-placeholder-count="3">
+          <div>
+            <div style="font-family:var(--font-heading);font-weight:400;font-size:30px;color:var(--color-accent);font-variant-numeric:tabular-nums;margin-bottom:var(--space-2)">{{ s.n }}</div>
+            <div style="font-family:var(--font-heading);font-weight:600;font-size:20px;margin-bottom:var(--space-1)">{{ s.t }}</div>
+            <div style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-600);text-wrap:pretty">{{ s.d }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+    <section style="max-width:1040px;margin:0 auto;padding:64px var(--space-8) 80px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--color-divider);padding-bottom:var(--space-3);margin-bottom:var(--space-2)">
+        <h2 style="font-family:var(--font-heading);font-weight:600;font-size:34px;margin:0">The roster</h2>
+        <span style="font-size:11px;letter-spacing:1.2px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">{{ rosterCount }} ARTISTS</span>
+      </div>
+      <p style="color:var(--color-neutral-600);font-size:14px;margin:0 0 var(--space-6)">Artists made here, by people like you. Tap one to hear them.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-6)">
+        <sc-for list="{{ roster }}" as="a" hint-placeholder-count="6">
+          <div onClick="{{ a.onOpen }}" style="cursor:pointer;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:transparent;overflow:hidden;transition:box-shadow .18s ease, border-color .18s ease" style-hover="box-shadow:var(--shadow-md);border-color:var(--color-accent)">
+            <div style="padding:var(--space-2)">
+              <div style="{{ a.tileStyle }}">
+                <span style="font-family:var(--font-heading);font-weight:400;font-style:italic;font-size:44px;color:#f3f2f2;text-shadow:0 2px 12px rgba(0,0,0,.3)">{{ a.initials }}</span>
+                <svg viewBox="0 0 100 100" style="position:absolute;right:10px;bottom:10px;width:50px;height:50px;opacity:.95">
+                  <polygon points="{{ a.points }}" fill="rgba(243,242,242,.15)" stroke="#f3f2f2" stroke-width="1.5"></polygon>
+                </svg>
+              </div>
+            </div>
+            <div style="padding:var(--space-2) var(--space-4) var(--space-4)">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-2)">
+                <span style="font-family:var(--font-heading);font-weight:600;font-size:22px">{{ a.name }}</span>
+                <span style="font-size:10px;letter-spacing:1px;color:var(--color-neutral-600);white-space:nowrap;font-variant-numeric:tabular-nums">{{ a.eraLabel }}</span>
+              </div>
+              <div style="font-size:13px;color:var(--color-neutral-600);margin-top:3px">{{ a.tagline }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <p style="font-size:10.5px;letter-spacing:1.2px;color:var(--color-neutral-500);margin-top:var(--space-8);border-top:1px solid var(--color-divider);padding-top:var(--space-4)">EVERY ARTIST AND SONG ON AFAR IS AI-GENERATED, SHAPED BY A HUMAN.</p>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isArtist }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Artist page" style="flex:1;animation:fadeUp .4s ease both">
+    <div style="max-width:1040px;margin:0 auto;padding:var(--space-6) var(--space-8) 80px">
+      <button onClick="{{ goHome }}" class="btn btn-ghost" style="margin-bottom:var(--space-6);padding-left:0">← Back to the roster</button>
+      <div style="display:grid;grid-template-columns:360px 1fr;gap:56px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+          <div style="padding:var(--space-2);border:1px solid var(--color-divider);background:var(--color-surface);border-radius:var(--radius-sm)">
+            <div style="{{ art.portraitStyle }}">
+              <span style="font-family:var(--font-heading);font-weight:400;font-style:italic;font-size:76px;color:#f3f2f2;text-shadow:0 2px 16px rgba(0,0,0,.35)">{{ art.initials }}</span>
+            </div>
+          </div>
+          <div style="border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:var(--space-4)">
+            <div style="font-size:10px;letter-spacing:1.5px;color:var(--color-neutral-600);margin-bottom:var(--space-2)">SONIC SIGNATURE</div>
+            <svg viewBox="0 0 200 190" style="width:100%">
+              <circle cx="100" cy="95" r="70" fill="none" stroke="var(--color-divider)" stroke-width="1"></circle>
+              <circle cx="100" cy="95" r="46" fill="none" stroke="var(--color-divider)" stroke-width="1"></circle>
+              <circle cx="100" cy="95" r="22" fill="none" stroke="var(--color-divider)" stroke-width="1"></circle>
+              <polygon points="{{ art.bigPoints }}" fill="color-mix(in srgb, var(--color-accent) 10%, transparent)" stroke="var(--color-accent)" stroke-width="1.5"></polygon>
+              <sc-for list="{{ art.axisLabels }}" as="l" hint-placeholder-count="7">
+                <text x="{{ l.x }}" y="{{ l.y }}" text-anchor="middle" style="font-family:var(--font-body);font-size:7.5px;letter-spacing:.4px;fill:var(--color-neutral-500)">{{ l.t }}</text>
+              </sc-for>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-3);flex-wrap:wrap">
+            <span class="tag tag-outline" style="font-variant-numeric:tabular-nums">{{ art.eraLabel }}</span>
+            <sc-for list="{{ art.genres }}" as="g" hint-placeholder-count="2">
+              <span class="tag tag-neutral">{{ g }}</span>
+            </sc-for>
+          </div>
+          <h1 style="font-family:var(--font-heading);font-weight:400;font-size:52px;margin:0 0 var(--space-2)">{{ art.name }}</h1>
+          <div style="font-size:10.5px;letter-spacing:1.5px;color:var(--color-accent-700);margin-bottom:var(--space-4)">AI ARTIST · MADE ON AFAR</div>
+          <p style="font-size:15.5px;line-height:1.65;color:var(--color-neutral-800);max-width:560px;margin:0 0 var(--space-8);text-wrap:pretty">{{ art.bio }}</p>
+          <div style="border:1px solid var(--color-accent);border-radius:var(--radius-md);padding:var(--space-4) var(--space-6);margin-bottom:var(--space-3)">
+            <div style="font-size:10px;letter-spacing:1.5px;color:var(--color-accent-700);margin-bottom:var(--space-3)">THE SINGLE — THE TRACK THAT DEFINES THEM</div>
+            <div style="display:flex;align-items:center;gap:var(--space-4)">
+              <button onClick="{{ art.single.onPlay }}" style="width:52px;height:52px;border-radius:50%;border:1px solid var(--color-accent);background:transparent;color:var(--color-accent-700);font-size:17px;cursor:pointer;flex-shrink:0" style-hover="background:var(--color-accent-100)">{{ art.single.icon }}</button>
+              <div style="flex:1">
+                <div style="font-family:var(--font-heading);font-weight:600;font-size:24px;margin-bottom:var(--space-2)">{{ art.single.title }}</div>
+                <div style="height:2px;background:var(--color-divider);position:relative;overflow:hidden">
+                  <div style="{{ art.single.progStyle }}"></div>
+                </div>
+              </div>
+              <span style="font-size:12px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">{{ art.single.time }}</span>
+            </div>
+          </div>
+          <div style="border-top:1px solid var(--color-divider);margin-bottom:var(--space-6)">
+            <sc-for list="{{ art.others }}" as="t" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-1);border-bottom:1px solid var(--color-divider)">
+                <button onClick="{{ t.onPlay }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font-size:12px;cursor:pointer;flex-shrink:0" style-hover="border-color:var(--color-accent);color:var(--color-accent-700)">{{ t.icon }}</button>
+                <span style="flex:1;font-size:14.5px">{{ t.title }}</span>
+                <div style="width:120px;height:2px;background:var(--color-divider);overflow:hidden"><div style="{{ t.progStyle }}"></div></div>
+                <span style="font-size:12px;color:var(--color-neutral-500);font-variant-numeric:tabular-nums">{{ t.time }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:var(--space-4);align-items:center">
+            <div style="padding:var(--space-1);border:1px solid var(--color-divider);background:var(--color-surface);flex-shrink:0">
+              <div style="{{ art.coverStyle }}">
+                <span style="font-family:var(--font-heading);font-style:italic;font-size:15px;color:#f3f2f2;text-align:center;padding:0 12px;text-shadow:0 1px 8px rgba(0,0,0,.4)">{{ art.coverTitle }}</span>
+              </div>
+            </div>
+            <div style="flex:1">
+              <div style="font-size:10px;letter-spacing:1.5px;color:var(--color-neutral-600);margin-bottom:var(--space-1)">DEBUT RECORD</div>
+              <div style="font-family:var(--font-heading);font-weight:600;font-size:23px;margin-bottom:var(--space-1)">{{ art.coverTitle }}</div>
+              <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-600);margin:0;max-width:420px;text-wrap:pretty">{{ art.coverDesc }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isStudio }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Studio" style="flex:1;animation:fadeUp .4s ease both">
+    <div style="max-width:1040px;margin:0 auto;padding:var(--space-8) var(--space-8) 90px">
+      <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-8)">
+        <sc-for list="{{ stepper }}" as="st" hint-placeholder-count="3">
+          <div style="{{ st.wrapStyle }}">
+            <span style="{{ st.numStyle }}">{{ st.n }}</span>
+            <span style="font-size:13.5px">{{ st.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+      <div style="max-width:680px;animation:fadeUp .4s ease both">
+        <h2 style="font-family:var(--font-heading);font-weight:400;font-size:44px;line-height:1.1;margin:0 0 var(--space-3);text-wrap:pretty">Tell me about the artist you want to create.</h2>
+        <p style="color:var(--color-neutral-600);font-size:15px;line-height:1.6;margin:0 0 var(--space-6);text-wrap:pretty">A sentence or two is plenty. Who are they, what do they sound like, what are they about? If you mention a real artist, we'll translate that into a style — we never copy anyone.</p>
+        <textarea value="{{ prompt }}" onChange="{{ setPrompt }}" placeholder="A late-night synth-pop artist who sounds like driving through a city in the rain…" class="input" style="width:100%;box-sizing:border-box;min-height:130px;font-size:15px;line-height:1.6;resize:vertical;font-family:var(--font-body)"></textarea>
+        <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin:var(--space-4) 0 var(--space-6);align-items:center">
+          <span style="font-size:10.5px;letter-spacing:1.5px;color:var(--color-neutral-500)">TRY</span>
+          <sc-for list="{{ examples }}" as="ex" hint-placeholder-count="4">
+            <button onClick="{{ ex.onUse }}" class="tag tag-outline" style="cursor:pointer;background:transparent" style-hover="border-color:var(--color-accent);color:var(--color-accent-700)">{{ ex.short }}</button>
+          </sc-for>
+        </div>
+        <button onClick="{{ onContinue }}" class="btn btn-primary" style="{{ continueStyle }}">Shape their Creative DNA →</button>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:fadeUp .4s ease both">
+        <sc-if value="{{ interpShow }}" hint-placeholder-val="{{ false }}">
+        <div style="border:1px solid var(--color-accent);border-left:3px solid var(--color-accent);border-radius:var(--radius-sm);padding:var(--space-4) var(--space-6);margin-bottom:var(--space-6);background:var(--color-accent-100)">
+          <div style="font-size:10px;letter-spacing:1.5px;color:var(--color-accent-700);margin-bottom:var(--space-2)">HOW WE READ YOUR PROMPT</div>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:var(--color-neutral-800);text-wrap:pretty">{{ interpText }}</p>
+        </div>
+        </sc-if>
+        <p style="font-size:14px;color:var(--color-neutral-600);margin:0 0 var(--space-4);text-wrap:pretty">Everything below is already set from your prompt — you can <strong style="color:var(--color-text)">generate right away</strong>, or fine-tune anything first.</p>
+        <div style="display:grid;grid-template-columns:1fr 300px;gap:var(--space-8);align-items:start">
+          <div style="display:flex;flex-direction:column">
+
+            <div style="border-top:1px solid var(--color-divider)">
+              <button onClick="{{ secEra.onToggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;padding:var(--space-4) var(--space-1);cursor:pointer;text-align:left;color:var(--color-text)">
+                <div><div style="font-family:var(--font-heading);font-weight:600;font-size:19px">Era</div><div style="font-size:12.5px;color:var(--color-neutral-500);margin-top:2px;font-family:var(--font-body)">When does their music live?</div></div>
+                <div style="display:flex;align-items:center;gap:var(--space-2)"><span style="font-size:12.5px;color:var(--color-accent-700)">{{ eraLabel }}</span><span style="{{ secEra.chev }}">▾</span></div>
+              </button>
+              <sc-if value="{{ secEra.open }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:0 var(--space-1) var(--space-6)">
+                <div style="display:flex;align-items:center;gap:var(--space-4)">
+                  <div onPointerDown="{{ eraDown }}" style="position:relative;height:30px;cursor:pointer;flex:1;touch-action:none">
+                    <div style="position:absolute;left:0;right:0;top:14px;height:1px;background:var(--color-neutral-400)"></div>
+                    <div style="{{ eraFill }}"></div>
+                    <div style="{{ eraThumb }}"></div>
+                  </div>
+                  <button onClick="{{ keepEra.onClick }}" style="{{ keepEra.style }}">{{ keepEra.label }}</button>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:1.2px;color:var(--color-neutral-500);margin-top:var(--space-1)"><span>FAR PAST</span><span>FAR FUTURE</span></div>
+              </div>
+              </sc-if>
+            </div>
+
+            <div style="border-top:1px solid var(--color-divider)">
+              <button onClick="{{ secInf.onToggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;padding:var(--space-4) var(--space-1);cursor:pointer;text-align:left;color:var(--color-text)">
+                <div><div style="font-family:var(--font-heading);font-weight:600;font-size:19px">Influences</div><div style="font-size:12.5px;color:var(--color-neutral-500);margin-top:2px;font-family:var(--font-body)">Four genres, weighted — pulled from your prompt</div></div>
+                <div style="display:flex;align-items:center;gap:var(--space-2)"><span style="font-size:12.5px;color:var(--color-accent-700)">{{ infSummary }}</span><span style="{{ secInf.chev }}">▾</span></div>
+              </button>
+              <sc-if value="{{ secInf.open }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:0 var(--space-1) var(--space-6)">
+                <sc-for list="{{ influences }}" as="inf" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-3)">
+                    <span style="font-size:11.5px;letter-spacing:.8px;width:110px;color:var(--color-neutral-700)">{{ inf.name }}</span>
+                    <div onPointerDown="{{ inf.onDown }}" style="position:relative;height:28px;cursor:pointer;flex:1;touch-action:none">
+                      <div style="position:absolute;left:0;right:0;top:13px;height:1px;background:var(--color-neutral-400)"></div>
+                      <div style="{{ inf.fill }}"></div>
+                      <div style="{{ inf.thumb }}"></div>
+                    </div>
+                    <span style="font-size:11.5px;color:var(--color-neutral-500);width:34px;text-align:right;font-variant-numeric:tabular-nums">{{ inf.pct }}</span>
+                  </div>
+                </sc-for>
+                <div style="display:flex;justify-content:flex-end"><button onClick="{{ keepInf.onClick }}" style="{{ keepInf.style }}">{{ keepInf.label }}</button></div>
+              </div>
+              </sc-if>
+            </div>
+
+            <div style="border-top:1px solid var(--color-divider)">
+              <button onClick="{{ secPal.onToggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;padding:var(--space-4) var(--space-1);cursor:pointer;text-align:left;color:var(--color-text)">
+                <div><div style="font-family:var(--font-heading);font-weight:600;font-size:19px">Sonic palette</div><div style="font-size:12.5px;color:var(--color-neutral-500);margin-top:2px;font-family:var(--font-body)">Seven dials between opposites — this is what shapes the sound most</div></div>
+                <div style="display:flex;align-items:center;gap:var(--space-2)"><span style="font-size:12.5px;color:var(--color-accent-700)">{{ palSummary }}</span><span style="{{ secPal.chev }}">▾</span></div>
+              </button>
+              <sc-if value="{{ secPal.open }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:0 var(--space-1) var(--space-6)">
+                <sc-for list="{{ palette }}" as="p" hint-placeholder-count="7">
+                  <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-2)">
+                    <span style="font-size:11.5px;letter-spacing:.4px;width:88px;text-align:right;color:var(--color-neutral-700)">{{ p.left }}</span>
+                    <div onPointerDown="{{ p.onDown }}" style="position:relative;height:28px;cursor:pointer;flex:1;touch-action:none">
+                      <div style="position:absolute;left:0;right:0;top:13px;height:1px;background:var(--color-neutral-400)"></div>
+                      <div style="position:absolute;left:50%;top:9px;width:1px;height:9px;background:var(--color-neutral-400)"></div>
+                      <div style="{{ p.fill }}"></div>
+                      <div style="{{ p.thumb }}"></div>
+                    </div>
+                    <span style="font-size:11.5px;letter-spacing:.4px;width:88px;color:var(--color-neutral-700)">{{ p.right }}</span>
+                    <button onClick="{{ p.onKeep }}" style="{{ p.keepStyle }}">{{ p.keepLabel }}</button>
+                  </div>
+                </sc-for>
+              </div>
+              </sc-if>
+            </div>
+
+            <div style="border-top:1px solid var(--color-divider)">
+              <button onClick="{{ secVoc.onToggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;padding:var(--space-4) var(--space-1);cursor:pointer;text-align:left;color:var(--color-text)">
+                <div><div style="font-family:var(--font-heading);font-weight:600;font-size:19px">Vocal character</div><div style="font-size:12.5px;color:var(--color-neutral-500);margin-top:2px;font-family:var(--font-body)">Drag the dot — how do they sing?</div></div>
+                <div style="display:flex;align-items:center;gap:var(--space-2)"><span style="font-size:12.5px;color:var(--color-accent-700)">{{ vocalDesc }}</span><span style="{{ secVoc.chev }}">▾</span></div>
+              </button>
+              <sc-if value="{{ secVoc.open }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:0 var(--space-1) var(--space-6);display:flex;gap:var(--space-6);align-items:flex-start">
+                <div style="margin-left:60px">
+                  <div style="position:relative">
+                    <div onPointerDown="{{ vocalDown }}" style="position:relative;width:240px;height:200px;border:1px solid var(--color-neutral-400);border-radius:var(--radius-sm);cursor:crosshair;touch-action:none;overflow:hidden;background:transparent">
+                      <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--color-divider)"></div>
+                      <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:var(--color-divider)"></div>
+                      <div style="{{ vocalDot }}"></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:1.2px;color:var(--color-neutral-500);margin-top:var(--space-1)"><span>WHISPERS</span><span>SCREAMS</span></div>
+                    <div style="position:absolute;left:-10px;top:0;height:200px;display:flex;flex-direction:column;justify-content:space-between;transform:translateX(-100%);font-size:9.5px;letter-spacing:1.2px;color:var(--color-neutral-500);padding:4px 0"><span>CLEAN</span><span>DAMAGED</span></div>
+                  </div>
+                </div>
+                <button onClick="{{ keepVoc.onClick }}" style="{{ keepVoc.style }}">{{ keepVoc.label }}</button>
+              </div>
+              </sc-if>
+            </div>
+
+            <div style="border-top:1px solid var(--color-divider)">
+              <button onClick="{{ secObs.onToggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;padding:var(--space-4) var(--space-1);cursor:pointer;text-align:left;color:var(--color-text)">
+                <div><div style="font-family:var(--font-heading);font-weight:600;font-size:19px">Lyrical obsessions</div><div style="font-size:12.5px;color:var(--color-neutral-500);margin-top:2px;font-family:var(--font-body)">What they can't stop writing about</div></div>
+                <div style="display:flex;align-items:center;gap:var(--space-2)"><span style="font-size:12.5px;color:var(--color-accent-700)">{{ obsSummary }}</span><span style="{{ secObs.chev }}">▾</span></div>
+              </button>
+              <sc-if value="{{ secObs.open }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:0 var(--space-1) var(--space-6)">
+                <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-3)">
+                  <sc-for list="{{ obsChips }}" as="c" hint-placeholder-count="4">
+                    <span class="tag tag-accent" style="display:inline-flex;align-items:center;gap:6px">{{ c.t }}<button onClick="{{ c.onRemove }}" style="background:none;border:none;color:inherit;cursor:pointer;font-size:12px;padding:0 2px;opacity:.7" style-hover="opacity:1">✕</button></span>
+                  </sc-for>
+                </div>
+                <div style="display:flex;gap:var(--space-2);align-items:center">
+                  <input value="{{ obsInput }}" onChange="{{ obsOnInput }}" onKeyDown="{{ obsOnKey }}" placeholder="Add an obsession…" class="input" style="flex:1;font-size:13.5px">
+                  <button onClick="{{ obsAdd }}" class="btn btn-secondary">Add</button>
+                  <button onClick="{{ keepObs.onClick }}" style="{{ keepObs.style }}">{{ keepObs.label }}</button>
+                </div>
+              </div>
+              </sc-if>
+            </div>
+
+            <div style="border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider)">
+              <button onClick="{{ secVis.onToggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;padding:var(--space-4) var(--space-1);cursor:pointer;text-align:left;color:var(--color-text)">
+                <div><div style="font-family:var(--font-heading);font-weight:600;font-size:19px">Visual style</div><div style="font-size:12.5px;color:var(--color-neutral-500);margin-top:2px;font-family:var(--font-body)">How they look — drives the portrait and cover</div></div>
+                <div style="display:flex;align-items:center;gap:var(--space-2)"><span style="font-size:12.5px;color:var(--color-accent-700)">{{ visSummary }}</span><span style="{{ secVis.chev }}">▾</span></div>
+              </button>
+              <sc-if value="{{ secVis.open }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:0 var(--space-1) var(--space-6)">
+                <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-3)">
+                  <sc-for list="{{ visChips }}" as="c" hint-placeholder-count="2">
+                    <span class="tag tag-accent" style="display:inline-flex;align-items:center;gap:6px">{{ c.t }}<button onClick="{{ c.onRemove }}" style="background:none;border:none;color:inherit;cursor:pointer;font-size:12px;padding:0 2px;opacity:.7" style-hover="opacity:1">✕</button></span>
+                  </sc-for>
+                </div>
+                <div style="display:flex;gap:var(--space-2);align-items:center">
+                  <input value="{{ visInput }}" onChange="{{ visOnInput }}" onKeyDown="{{ visOnKey }}" placeholder="Add a visual note…" class="input" style="flex:1;font-size:13.5px">
+                  <button onClick="{{ visAdd }}" class="btn btn-secondary">Add</button>
+                  <button onClick="{{ keepVis.onClick }}" style="{{ keepVis.style }}">{{ keepVis.label }}</button>
+                </div>
+              </div>
+              </sc-if>
+            </div>
+
+          </div>
+          <div style="position:sticky;top:92px;display:flex;flex-direction:column;gap:var(--space-4)">
+            <div style="border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:var(--space-4)">
+              <div style="font-size:10px;letter-spacing:1.5px;color:var(--color-neutral-600);margin-bottom:var(--space-2)">SONIC SIGNATURE</div>
+              <svg viewBox="0 0 200 190" style="width:100%">
+                <circle cx="100" cy="95" r="70" fill="none" stroke="var(--color-divider)" stroke-width="1"></circle>
+                <circle cx="100" cy="95" r="46" fill="none" stroke="var(--color-divider)" stroke-width="1"></circle>
+                <circle cx="100" cy="95" r="22" fill="none" stroke="var(--color-divider)" stroke-width="1"></circle>
+                <polygon points="{{ liveRadar }}" fill="color-mix(in srgb, var(--color-accent) 10%, transparent)" stroke="var(--color-accent)" stroke-width="1.5" style="transition:all .5s ease"></polygon>
+                <sc-for list="{{ liveAxisLabels }}" as="l" hint-placeholder-count="7">
+                  <text x="{{ l.x }}" y="{{ l.y }}" text-anchor="middle" style="font-family:var(--font-body);font-size:7.5px;letter-spacing:.4px;fill:var(--color-neutral-500)">{{ l.t }}</text>
+                </sc-for>
+              </svg>
+              <div style="font-size:12px;color:var(--color-neutral-500);text-align:center;margin-top:var(--space-1)">This shape becomes their signature.</div>
+            </div>
+            <div style="border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:var(--space-4)">
+              <div style="font-size:13px;color:var(--color-neutral-700);line-height:1.6;margin-bottom:var(--space-3);text-wrap:pretty"><strong style="font-variant-numeric:tabular-nums">{{ keptCount }}</strong> {{ keptNoun }} marked <em>Keep</em>. Kept fields survive a regenerate — lock in what you love, reroll the rest.</div>
+              <button onClick="{{ onRegenRest }}" class="btn btn-secondary btn-block" style="margin-bottom:var(--space-2)">↻ Regenerate the rest</button>
+              <button onClick="{{ onGenerate }}" class="btn btn-primary btn-block">Generate my artist →</button>
+              <div style="font-size:9.5px;letter-spacing:1.2px;color:var(--color-neutral-500);text-align:center;margin-top:var(--space-3);line-height:1.7">WE'LL WRITE 3 CANDIDATE SINGLES FIRST — YOU PICK THE ONE THAT DEFINES THEM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:fadeUp .4s ease both">
+        <sc-if value="{{ genBusy }}" hint-placeholder-val="{{ false }}">
+        <div style="max-width:520px;margin:60px auto;text-align:center">
+          <div style="display:flex;gap:5px;justify-content:center;height:44px;align-items:flex-end;margin-bottom:var(--space-6)">
+            <div style="width:3px;height:40px;background:var(--color-accent);animation:pulseBar 1s ease-in-out infinite;transform-origin:bottom"></div>
+            <div style="width:3px;height:40px;background:var(--color-accent);animation:pulseBar 1s ease-in-out .15s infinite;transform-origin:bottom"></div>
+            <div style="width:3px;height:40px;background:var(--color-accent);animation:pulseBar 1s ease-in-out .3s infinite;transform-origin:bottom"></div>
+            <div style="width:3px;height:40px;background:var(--color-accent);animation:pulseBar 1s ease-in-out .45s infinite;transform-origin:bottom"></div>
+            <div style="width:3px;height:40px;background:var(--color-accent);animation:pulseBar 1s ease-in-out .6s infinite;transform-origin:bottom"></div>
+          </div>
+          <div style="font-family:var(--font-heading);font-weight:400;font-size:30px;margin-bottom:var(--space-2)">{{ genMsg }}</div>
+          <div style="font-size:13px;color:var(--color-neutral-500)">{{ genSub }}</div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showCandidates }}" hint-placeholder-val="{{ false }}">
+        <div style="max-width:760px;margin:0 auto">
+          <h2 style="font-family:var(--font-heading);font-weight:400;font-size:42px;margin:0 0 var(--space-2);text-wrap:pretty">Three ways this artist could sound.</h2>
+          <p style="color:var(--color-neutral-600);font-size:15px;margin:0 0 var(--space-6);text-wrap:pretty">Play each one. The track you pick becomes their <strong style="color:var(--color-text)">single</strong> — the song that defines them. The other two stay on their page.</p>
+          <div style="border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ candidates }}" as="c" hint-placeholder-count="3">
+              <div style="border-bottom:1px solid var(--color-divider);padding:var(--space-4) var(--space-1);display:flex;align-items:center;gap:var(--space-4)">
+                <button onClick="{{ c.onPlay }}" style="width:48px;height:48px;border-radius:50%;border:1px solid var(--color-accent);background:transparent;color:var(--color-accent-700);font-size:15px;cursor:pointer;flex-shrink:0" style-hover="background:var(--color-accent-100)">{{ c.icon }}</button>
+                <div style="flex:1">
+                  <div style="font-family:var(--font-heading);font-weight:600;font-size:22px;margin-bottom:2px">{{ c.title }}</div>
+                  <div style="font-size:12.5px;color:var(--color-neutral-500);margin-bottom:var(--space-2)">{{ c.note }}</div>
+                  <div style="height:2px;background:var(--color-divider);overflow:hidden"><div style="{{ c.progStyle }}"></div></div>
+                </div>
+                <span style="font-size:12px;color:var(--color-neutral-500);font-variant-numeric:tabular-nums">0:30</span>
+                <button onClick="{{ c.onPick }}" class="btn btn-secondary" style="white-space:nowrap">Make this the single</button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showProfile }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);margin-bottom:var(--space-6)">
+            <div style="display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap">
+              <span style="font-size:10px;letter-spacing:1.5px;color:var(--color-neutral-600);margin-right:var(--space-1)">CREATIVE DNA</span>
+              <sc-for list="{{ provChips }}" as="pc" hint-placeholder-count="6">
+                <span style="{{ pc.style }}">{{ pc.label }}</span>
+              </sc-for>
+              <span style="font-size:12px;color:var(--color-neutral-500);margin-left:auto">Hover anything below to see which DNA drove it.</span>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:320px 1fr;gap:var(--space-8);align-items:start;margin-bottom:var(--space-6)">
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <div onMouseEnter="{{ provPortraitIn }}" onMouseLeave="{{ provOut }}" style="{{ profPortraitWrap }}">
+                <div style="{{ profPortraitStyle }}">
+                  <span style="font-family:var(--font-heading);font-style:italic;font-size:64px;color:#f3f2f2;text-shadow:0 2px 16px rgba(0,0,0,.35)">{{ prof.initials }}</span>
+                </div>
+              </div>
+              <button onClick="{{ regenPortrait }}" class="btn btn-secondary">{{ regenPortraitLabel }}</button>
+              <div onMouseEnter="{{ provCoverIn }}" onMouseLeave="{{ provOut }}" style="{{ profCoverWrap }}">
+                <div style="padding:var(--space-1);border:1px solid var(--color-divider);background:var(--color-surface);flex-shrink:0">
+                  <div style="{{ profCoverStyle }}">
+                    <span style="font-family:var(--font-heading);font-style:italic;font-size:11px;color:#f3f2f2;text-align:center;padding:0 8px">{{ prof.coverTitle }}</span>
+                  </div>
+                </div>
+                <div style="flex:1">
+                  <div style="font-size:9.5px;letter-spacing:1.2px;color:var(--color-neutral-500);margin-bottom:var(--space-1)">DEBUT RECORD</div>
+                  <div style="font-family:var(--font-heading);font-weight:600;font-size:18px;margin-bottom:var(--space-2)">{{ prof.coverTitle }}</div>
+                  <button onClick="{{ regenCover }}" class="btn btn-ghost" style="padding-left:0;font-size:12.5px">{{ regenCoverLabel }}</button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:10.5px;letter-spacing:1.5px;color:var(--color-accent-700);margin-bottom:var(--space-2)">YOUR AI ARTIST · MADE ON AFAR</div>
+              <h2 style="font-family:var(--font-heading);font-weight:400;font-size:48px;margin:0 0 var(--space-4)">{{ prof.name }}</h2>
+              <div onMouseEnter="{{ provBioIn }}" onMouseLeave="{{ provOut }}" style="{{ profBioStyle }}">
+                <p style="font-size:15px;line-height:1.65;color:var(--color-neutral-800);margin:0;text-wrap:pretty">{{ prof.bio }}</p>
+                <button onClick="{{ regenBio }}" class="btn btn-ghost" style="padding-left:0;font-size:12.5px;margin-top:var(--space-2)">{{ regenBioLabel }}</button>
+              </div>
+              <div onMouseEnter="{{ provTracksIn }}" onMouseLeave="{{ provOut }}" style="{{ profTracksStyle }}">
+                <div style="border:1px solid var(--color-accent);border-radius:var(--radius-md);padding:var(--space-4);margin-bottom:var(--space-2)">
+                  <div style="font-size:9.5px;letter-spacing:1.5px;color:var(--color-accent-700);margin-bottom:var(--space-2)">THE SINGLE</div>
+                  <div style="display:flex;align-items:center;gap:var(--space-3)">
+                    <button onClick="{{ profSingle.onPlay }}" style="width:44px;height:44px;border-radius:50%;border:1px solid var(--color-accent);background:transparent;color:var(--color-accent-700);font-size:14px;cursor:pointer;flex-shrink:0" style-hover="background:var(--color-accent-100)">{{ profSingle.icon }}</button>
+                    <div style="flex:1">
+                      <div style="font-family:var(--font-heading);font-weight:600;font-size:20px;margin-bottom:var(--space-1)">{{ profSingle.title }}</div>
+                      <div style="height:2px;background:var(--color-divider);overflow:hidden"><div style="{{ profSingle.progStyle }}"></div></div>
+                    </div>
+                    <span style="font-size:11.5px;color:var(--color-neutral-500);font-variant-numeric:tabular-nums">{{ profSingle.time }}</span>
+                  </div>
+                </div>
+                <sc-for list="{{ profOthers }}" as="t" hint-placeholder-count="2">
+                  <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-1);border-bottom:1px solid var(--color-divider)">
+                    <button onClick="{{ t.onPlay }}" style="width:32px;height:32px;border-radius:50%;border:1px solid var(--color-divider);background:transparent;font-size:11px;cursor:pointer;flex-shrink:0;color:var(--color-text)" style-hover="border-color:var(--color-accent);color:var(--color-accent-700)">{{ t.icon }}</button>
+                    <span style="flex:1;font-size:14px">{{ t.title }}</span>
+                    <button onClick="{{ t.onRegen }}" style="background:none;border:none;font-size:12px;color:var(--color-neutral-500);cursor:pointer;font-family:var(--font-body)" style-hover="color:var(--color-accent-700)">{{ t.regenLabel }}</button>
+                    <span style="font-size:11.5px;color:var(--color-neutral-500);font-variant-numeric:tabular-nums">{{ t.time }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          <div style="border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:var(--space-4) var(--space-6);margin-bottom:var(--space-6)">
+            <div style="font-size:10px;letter-spacing:1.5px;color:var(--color-neutral-600);margin-bottom:var(--space-2)">NUDGE THE WHOLE ARTIST</div>
+            <div style="display:flex;gap:var(--space-2)">
+              <input value="{{ nudgeText }}" onChange="{{ nudgeChange }}" onKeyDown="{{ nudgeKey }}" placeholder="Try “make them meaner”, “move them ten years later”, “less polished”…" class="input" style="flex:1;font-size:14px">
+              <button onClick="{{ nudgeGo }}" class="btn btn-primary">Nudge</button>
+            </div>
+            <sc-if value="{{ nudgeDiffShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-3)">
+              <span style="font-size:12.5px;color:var(--color-neutral-500)">The DNA moved:</span>
+              <sc-for list="{{ nudgeDiff }}" as="d" hint-placeholder-count="2">
+                <span class="tag tag-accent" style="font-variant-numeric:tabular-nums">{{ d }}</span>
+              </sc-for>
+              <button onClick="{{ backToDNA }}" style="background:none;border:none;color:var(--color-accent-700);font-size:12.5px;cursor:pointer;font-family:var(--font-body)" style-hover="text-decoration:underline">See the controls →</button>
+            </div>
+            </sc-if>
+          </div>
+          <div style="display:flex;gap:var(--space-3)">
+            <button onClick="{{ saveArtist }}" class="btn btn-primary">Save to the roster</button>
+            <button onClick="{{ backToDNA }}" class="btn btn-secondary">← Back to the DNA</button>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+    </div>
+  </main>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showExplainer&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Landing&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;home&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;studio&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Flow&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.ERAS=["Far Past","1950s","1960s","1970s","1980s","1990s","2000s","2010s","2020s","2030s","Far Future"];
+    this.AXES=[["Pristine","Lo-fi"],["Sparse","Dense"],["Cold","Warm"],["Improvised","Structured"],["Loud","Quiet"],["Organic","Synthetic"],["Dark","Hopeful"]];
+    this.REFS={"billie eilish":{name:"Billie Eilish",sum:"whisper-close vocals over minimal, bass-heavy pop with a dark intimate edge"},
+      "radiohead":{name:"Radiohead",sum:"textured art-rock that drifts between guitars and cold electronics, restless and melancholic"},
+      "taylor swift":{name:"Taylor Swift",sum:"diaristic pop songwriting with bright hooks and confessional, detail-rich lyrics"},
+      "daft punk":{name:"Daft Punk",sum:"filtered French-house grooves, vocoder vocals and disco samples polished to a shine"},
+      "fleetwood mac":{name:"Fleetwood Mac",sum:"sun-worn 70s soft rock with interlocking voices and bittersweet, breezy melodies"},
+      "frank ocean":{name:"Frank Ocean",sum:"unhurried alternative R&B, blurred textures and quietly devastating storytelling"}};
+    this.GENREPOOL=[["synth",["Synth-pop","Electronic","Dream pop","Disco"]],["folk",["Folk","Americana","Indie folk","Country"]],["rain|night|city|neon",["Synth-pop","Ambient","Downtempo","R&B"]],["r&b|soul",["R&B","Soul","Neo-soul","Jazz"]],["rock|guitar",["Indie rock","Shoegaze","Post-punk","Alt rock"]],["space|future",["Future pop","Electronic","Hyperpop","Ambient"]],["hip|rap",["Hip-hop","Trap","Boom bap","R&B"]]];
+    this.OBSPOOL=["unanswered texts","the drive home","cities at night","leaving home","first loves","rain on windows","growing up","distance","summer endings","what we don't say"];
+    this.VISPOOL=["soft neon","film grain","overexposed light","hand-drawn type","faded polaroid","wet asphalt reflections"];
+    this.TITLES=["Glass Weather","Half the Light","Parallel Hearts","Static Summer","Low Tide","Copper Sky","Everything After","Slow Motion City","Northern Air","Small Hours"];
+    this.NAMEPOOL=["Vera Lune","Hollis Rey","Ivy Meridian","The Slow Parade","Ada Vale","Juno Wilder"];
+    const A=(id,name,tag,era,genres,hues,pal,voc,obs,vis,bio,tracks,cover,coverDesc)=>({id,name,tag,era,genres,hues,pal,voc,obs,vis,bio,tracks,cover,coverDesc});
+    this.SEED=[
+      A("mira","Mira Fontaine","Synth-pop for late drives",8,["Synth-pop","Dream pop"],[264,300],[ -0.5,0.2,0.4,0.3,0.2,0.6,-0.2],{x:-0.3,y:-0.4},["cities at night","unanswered texts"],["soft neon","film grain"],
+        "Mira Fontaine makes synth-pop for the drive home after everyone else has gone to sleep. Her songs are warm on the surface and lonely underneath — neon cities, unanswered texts, and the hum of an empty highway. Every track sounds like watching rain from the passenger seat.",
+        ["Glass Weather","Slow Motion City","Parallel Hearts"],"Night Circuit","Nine songs recorded, in her story, in a parked car between midnight and four. Synths like streetlight through fog."),
+      A("june","June Hollow","Folk songs about leaving home",7,["Indie folk","Americana"],[85,55],[0.6,-0.5,0.5,0.2,0.4,-0.8,0.1],{x:-0.5,y:0.2},["leaving home","low tide","small towns"],["faded polaroid","overexposed light"],
+        "June Hollow grew up — the story goes — in a coastal town small enough to leave. Her folk songs are about exactly that: ferries, kitchens, the people who stay. Just a voice, a guitar, and the sound of the room it was played in.",
+        ["Low Tide","Northern Air","The Ferry Song"],"Saltwater","Ten quiet songs about the town she left and the tide that keeps calling her back."),
+      A("cass","Cass Aurelia","Slow-burning R&B",8,["R&B","Neo-soul"],[28,350],[-0.3,0.4,0.7,0.5,0.5,-0.2,0.3],{x:-0.2,y:-0.6},["what we don't say","late calls"],["warm shadows","gold hour"],
+        "Cass Aurelia sings the conversations people almost have. Her slow-burning R&B lives in warm shadows — brushed drums, low keys, and a voice that never rises above what it needs to. Music for the hour when honesty gets easier.",
+        ["Everything After","Half the Light","Velvet Minute"],"Amber","Eight songs lit like the last hour of the evening — close, warm, unhurried."),
+      A("orbit","Orbit Kid","Pop from ten years ahead",9,["Future pop","Electronic"],[200,150],[-0.6,0.5,-0.2,0.6,-0.3,0.8,0.6],{x:0.2,y:-0.3},["space","first loves"],["chrome","clear skies"],
+        "Orbit Kid writes pop songs like postcards from a decade that hasn't happened yet. Bright synthetic textures, big hopeful hooks, and lyrics about first loves and low orbits. Somehow it all sounds like good news.",
+        ["Copper Sky","Zero Gravity Heart","Signal"],"Postcards From Later","Eleven transmissions from the near future, all of them optimistic."),
+      A("marlowe","Marlowe West","Sunlit indie pop",7,["Indie pop","Alt rock"],[60,25],[0.2,0.1,0.6,-0.2,-0.2,-0.5,0.7],{x:0.1,y:0.1},["summer endings","growing up"],["hand-drawn type","warm film"],
+        "Marlowe West makes indie pop that sounds like the last week of summer. Jangly guitars, harmonies stacked like lawn chairs, and songs about growing up slightly too fast. Loud enough for the car, soft enough for the porch.",
+        ["Static Summer","Porch Light","July, Again"],"The Long Weekend","Twelve songs for the golden hour — every one of them ends a little too soon."),
+      A("bloom","Static Bloom","Walls of soft noise",6,["Shoegaze","Dream pop"],[320,230],[0.8,0.8,-0.1,-0.4,-0.6,0.1,-0.3],{x:-0.6,y:0.6},["distance","rain on windows"],["blurred light","wet asphalt reflections"],
+        "Static Bloom buries small, sad melodies under beautiful walls of noise. Guitars smeared into weather, vocals half-heard like a conversation in the next room. Loud music for quiet people.",
+        ["Small Hours","Dissolve","Petal / Static"],"Hazel","Nine songs recorded loud and remembered soft.")
+    ];
+    this.state={view:(props&&props.startScreen)||"home",artistId:"mira",roster:this.SEED,step:1,prompt:"",interp:null,
+      dna:null,keep:{},open:{era:true,inf:true,pal:true,voc:true,obs:true,vis:true},
+      phase:"idle",candidates:null,picked:-1,prof:null,playing:null,prog:0,
+      obsInput:"",visInput:"",nudgeText:"",nudgeDiff:null,hoverProv:null,regen:{},genMsg:"",genSub:""};
+  }
+  componentWillUnmount(){clearInterval(this.timer);}
+  set(p){this.setState(p);}
+  radar(pal,cx,cy,r){return pal.map((v,i)=>{const a=-Math.PI/2+i*2*Math.PI/7;const rad=r*(0.2+0.4*(v+1));return (cx+Math.cos(a)*rad).toFixed(1)+","+(cy+Math.sin(a)*rad).toFixed(1);}).join(" ");}
+  axisLabels(cx,cy,r){return this.AXES.map((ax,i)=>{const a=-Math.PI/2+i*2*Math.PI/7;return {t:ax[1].toUpperCase(),x:(cx+Math.cos(a)*r).toFixed(0),y:(cy+Math.sin(a)*r+3).toFixed(0)};});}
+  grad(h1,h2){return "linear-gradient(135deg, oklch(0.55 0.07 "+h1+") 0%, oklch(0.36 0.06 "+h2+") 100%)";}
+  initials(n){return n.split(/\s+/).slice(0,2).map(w=>w[0]).join("");}
+  drag(cb){return e=>{e.preventDefault();const r=e.currentTarget.getBoundingClientRect();
+    const go=ev=>cb(Math.min(1,Math.max(0,(ev.clientX-r.left)/r.width)),Math.min(1,Math.max(0,(ev.clientY-r.top)/r.height)));
+    go(e);const mv=ev=>go(ev);const up=()=>{window.removeEventListener("pointermove",mv);window.removeEventListener("pointerup",up);};
+    window.addEventListener("pointermove",mv);window.addEventListener("pointerup",up);};}
+  play(key){clearInterval(this.timer);
+    if(this.state.playing===key){this.set({playing:null});return;}
+    this.set({playing:key,prog:0});
+    this.timer=setInterval(()=>{const p=this.state.prog+0.1/30;
+      if(p>=1){clearInterval(this.timer);this.set({playing:null,prog:0});}else this.set({prog:p});},100);}
+  trackVM(key,title){const on=this.state.playing===key;const pct=on?this.state.prog*100:0;
+    return {title,icon:on?"❚❚":"▶",time:on?("0:"+String(Math.floor(this.state.prog*30)).padStart(2,"0")):"0:30",
+      progStyle:"height:100%;width:"+pct+"%;background:var(--color-accent);transition:width .1s linear",
+      onPlay:()=>this.play(key)};}
+  buildDNA(prompt){const low=prompt.toLowerCase();let interp=null;let cleaned=low;
+    for(const k in this.REFS){if(low.includes(k)){const r=this.REFS[k];
+      interp={text:"You mentioned "+r.name+". We don't copy real artists, so we translated that into a style instead: “"+r.sum+"”. That style now shapes the influences and sonic palette below."};
+      cleaned=low.split(k).join(r.sum);break;}}
+    if(!interp)interp={text:"We read your prompt and pre-set the controls below to match. Everything is adjustable — the sliders are the real steering wheel."};
+    let genres=["Pop","Indie pop","Electronic","R&B"];
+    for(const [pat,g] of this.GENREPOOL){if(new RegExp(pat).test(cleaned)){genres=g;break;}}
+    const pick=(arr,n,off)=>arr.slice(off,off+n);
+    const seedN=cleaned.length;
+    const pal=this.AXES.map((_,i)=>Math.round(((Math.sin(seedN*3+i*1.7)*0.55)+0)*10)/10);
+    if(/warm/.test(cleaned))pal[2]=0.6; if(/hopeful|upbeat|bright/.test(cleaned))pal[6]=0.6;
+    if(/dark|mean/.test(cleaned))pal[6]=-0.6; if(/lo-?fi|raw/.test(cleaned))pal[0]=0.7;
+    if(/rain|night/.test(cleaned)){pal[2]=0.4;pal[6]=-0.3;}
+    const dna={era:/future|space/.test(cleaned)?9:(/folk|town|coastal/.test(cleaned)?7:8),
+      influences:genres.map((g,i)=>({name:g,w:[0.8,0.6,0.45,0.3][i]})),
+      pal,voc:{x:/scream|loud|punk/.test(cleaned)?0.5:-0.3,y:/damaged|raw|grit/.test(cleaned)?0.5:-0.3},
+      obs:pick(this.OBSPOOL,4,seedN%5),vis:pick(this.VISPOOL,2,seedN%4)};
+    return {dna,interp};}
+  wave(msg,sub,ms,then){this.set({phase:"busy",genMsg:msg,genSub:sub});setTimeout(then,ms);}
+  makeCandidates(){const d=this.state.dna;const off=(this.state.prompt.length)%6;
+    const t=i=>this.TITLES[(off+i*3)%this.TITLES.length];
+    const notes=["Leans "+(d.pal[6]>0?"hopeful":"darker")+" — closest to the palette as set","Pushes the "+d.influences[0].name.toLowerCase()+" influence hardest","A slower read — more "+(d.pal[0]>0?"lo-fi and":"spacious and")+" intimate"];
+    return [0,1,2].map(i=>({title:t(i),note:notes[i]}));}
+  makeProfile(){const d=this.state.dna;const name=this.NAMEPOOL[this.state.prompt.length%this.NAMEPOOL.length];
+    const era=this.ERAS[d.era];const inf=d.influences[0].name.toLowerCase()+" and "+d.influences[1].name.toLowerCase();
+    const mood=d.pal[6]>0.15?"quietly hopeful":(d.pal[6]<-0.15?"beautifully bleak":"bittersweet");
+    const bio=name+" makes "+inf+" that belongs to the "+era+" — "+mood+", and obsessed with "+d.obs[0]+" and "+d.obs[1]+". "+
+      (d.pal[0]>0.2?"The production stays rough on purpose; tape hiss is part of the writing. ":"The production is clean and deliberate; every sound earns its place. ")+
+      "Their debut single is the clearest statement of who they are.";
+    const hues=[(this.state.prompt.length*37)%360,((this.state.prompt.length*37)+70)%360];
+    const cands=this.state.candidates;const s=this.state.picked;
+    return {name,initials:this.initials(name),bio,hues,coverTitle:"First Light",
+      coverDesc:"A debut shaped by "+d.vis[0]+" and "+d.vis[1]+".",
+      tracks:[cands[s].title,cands[(s+1)%3].title,cands[(s+2)%3].title]};}
+  toggleKeep(k){const keep={...this.state.keep};keep[k]=!keep[k];this.set({keep});}
+  keepVM(k,small){const on=!!this.state.keep[k];
+    return {label:on?"✓ Kept":"Keep",onClick:()=>this.toggleKeep(k),
+      style:"font-family:var(--font-body);background:"+(on?"var(--color-accent-100)":"transparent")+";color:"+(on?"var(--color-accent-700)":"var(--color-neutral-500)")+";border:1px solid "+(on?"var(--color-accent)":"var(--color-divider)")+";border-radius:999px;padding:"+(small?"3px 10px":"6px 14px")+";font-size:"+(small?"11px":"12.5px")+";cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .15s"};}
+  regenRest(){const d={...this.state.dna};const K=this.state.keep;const R=()=>Math.round((Math.random()*2-1)*10)/10;
+    if(!K.era)d.era=3+Math.floor(Math.random()*7);
+    if(!K.inf)d.influences=d.influences.map(g=>({...g,w:Math.round((0.2+Math.random()*0.7)*100)/100}));
+    d.pal=d.pal.map((v,i)=>K["pal"+i]?v:R());
+    if(!K.voc)d.voc={x:R()*0.7,y:R()*0.7};
+    if(!K.obs)d.obs=[...this.OBSPOOL].sort(()=>Math.random()-0.5).slice(0,4);
+    if(!K.vis)d.vis=[...this.VISPOOL].sort(()=>Math.random()-0.5).slice(0,2);
+    this.set({dna:d});}
+  regenArtifact(k){const r={...this.state.regen,[k]:true};this.set({regen:r});
+    setTimeout(()=>{const prof={...this.state.prof};
+      if(k==="bio"){const alt=prof.bio.includes("clearest statement")?prof.bio.replace("Their debut single is the clearest statement of who they are.","Ask them what the songs are about and they'll just play you one."):prof.bio+" They never explain a lyric twice.";prof.bio=alt;}
+      if(k==="portrait")prof.hues=[(prof.hues[0]+140)%360,(prof.hues[1]+140)%360];
+      if(k==="cover"){prof.coverTitle=prof.coverTitle==="First Light"?"Second Nature":"First Light";}
+      if(k==="t1"||k==="t2"){const i=k==="t1"?1:2;prof.tracks=[...prof.tracks];prof.tracks[i]=this.TITLES[Math.floor(Math.random()*this.TITLES.length)];}
+      this.set({prof,regen:{...this.state.regen,[k]:false}});},900);}
+  nudge(){const t=this.state.nudgeText.toLowerCase();if(!t.trim())return;
+    const d={...this.state.dna,pal:[...this.state.dna.pal]};const diff=[];
+    const push=(i,delta,label)=>{d.pal[i]=Math.max(-1,Math.min(1,d.pal[i]+delta));diff.push(label);};
+    if(/mean|dark|angr/.test(t)){push(6,-0.5,"dark ▲");push(2,-0.3,"cold ▲");d.voc={x:Math.min(1,d.voc.x+0.4),y:Math.min(1,d.voc.y+0.3)};diff.push("vocals: harsher");}
+    if(/hopeful|happier|bright/.test(t)){push(6,0.5,"hopeful ▲");push(2,0.3,"warm ▲");}
+    if(/later|future|forward/.test(t)){d.era=Math.min(10,d.era+1);diff.push("era → "+this.ERAS[d.era]);}
+    if(/earlier|older|back|past/.test(t)){d.era=Math.max(0,d.era-1);diff.push("era → "+this.ERAS[d.era]);}
+    if(/less polish|rough|raw|lo-?fi/.test(t)){push(0,0.5,"lo-fi ▲");}
+    if(/polish|clean/.test(t)&&!/less/.test(t)){push(0,-0.5,"pristine ▲");}
+    if(/quiet|soft/.test(t)){push(4,0.5,"quiet ▲");}
+    if(/loud/.test(t)){push(4,-0.5,"loud ▲");}
+    if(/dense|bigger|fuller/.test(t)){push(1,0.5,"dense ▲");}
+    if(/sparse|strip/.test(t)){push(1,-0.5,"sparse ▲");}
+    if(!diff.length){push(6,0.3,"hopeful ▲");diff.push("(we read that as: a little brighter)");}
+    this.set({dna:d,nudgeDiff:diff,nudgeText:""});}
+  renderVals(){
+    const S=this.state;const P=this.props;
+    const sliderFill=(pct)=>"position:absolute;top:14px;height:1px;background:var(--color-accent);left:0;width:"+pct+"%;transition:width .15s ease";
+    const bipolarFill=(pct)=>{const l=Math.min(50,pct),w=Math.abs(pct-50);return "position:absolute;top:13px;height:1px;background:var(--color-accent);left:"+l+"%;width:"+w+"%;transition:all .15s ease";};
+    const thumb=(pct,top)=>"position:absolute;top:"+(top||7)+"px;left:"+pct+"%;width:15px;height:15px;border-radius:50%;background:var(--color-bg);border:1.5px solid var(--color-accent);box-shadow:var(--shadow-sm);transform:translateX(-50%);transition:left .15s ease;box-sizing:border-box";
+    const nav={goHome:()=>this.set({view:"home"}),goStudio:()=>this.set({view:"studio"})};
+    const vals={...nav,
+      isHome:S.view==="home",isArtist:S.view==="artist",isStudio:S.view==="studio",
+      showExplainer:P.showExplainer??true,
+      steps3:[{n:"01",t:"Describe them",d:"A sentence about who they are. Mention a real artist and we'll translate it into a style — never a copy."},
+              {n:"02",t:"Shape their Creative DNA",d:"Sliders for era, influences and sound. This is real steering — the controls reach the music itself."},
+              {n:"03",t:"Meet your artist",d:"We write three candidate singles. You pick the one that defines them, and the rest of the artist follows."}],
+      rosterCount:S.roster.length,
+      roster:S.roster.map(a=>({name:a.name,tagline:a.tag,eraLabel:this.ERAS[a.era].toUpperCase(),initials:this.initials(a.name),
+        points:this.radar(a.pal,50,50,42),
+        tileStyle:"position:relative;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:"+this.grad(a.hues[0],a.hues[1]),
+        onOpen:()=>this.set({view:"artist",artistId:a.id,playing:null})}))};
+    const a=S.roster.find(x=>x.id===S.artistId)||S.roster[0];
+    vals.art={name:a.name,initials:this.initials(a.name),bio:a.bio,eraLabel:this.ERAS[a.era].toUpperCase(),genres:a.genres.map(g=>g.toUpperCase()),
+      portraitStyle:"position:relative;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:"+this.grad(a.hues[0],a.hues[1]),
+      bigPoints:this.radar(a.pal,100,95,66),axisLabels:this.axisLabels(100,95,86),
+      coverTitle:a.cover,coverDesc:a.coverDesc,
+      coverStyle:"width:120px;height:120px;display:flex;align-items:center;justify-content:center;background:"+this.grad(a.hues[1],a.hues[0]),
+      single:this.trackVM("a-"+a.id+"-0",a.tracks[0]),
+      others:[1,2].map(i=>this.trackVM("a-"+a.id+"-"+i,a.tracks[i]))};
+    const stepN=S.step;
+    vals.isStep1=S.view==="studio"&&stepN===1;
+    vals.isStep2=S.view==="studio"&&stepN===2;
+    vals.isStep3=S.view==="studio"&&stepN===3;
+    vals.stepper=[["Describe",1],["Shape the DNA",2],["Meet your artist",3]].map(([label,n])=>{
+      const active=n===stepN,done=n<stepN;
+      return {n:String(n),label,
+        wrapStyle:"display:flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;border:1px solid "+(active?"var(--color-accent)":"var(--color-divider)")+";color:"+(active?"var(--color-accent-700)":done?"var(--color-text)":"var(--color-neutral-500)")+";background:"+(active?"var(--color-accent-100)":"transparent"),
+        numStyle:"width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-variant-numeric:tabular-nums;border:1px solid "+(active||done?"var(--color-accent)":"var(--color-neutral-400)")+";color:"+(active||done?"var(--color-accent-700)":"var(--color-neutral-500)")};});
+    const EX=[["Late-night synth-pop","A late-night synth-pop artist who sounds like driving through a city in the rain"],
+      ["Like Billie Eilish, but warmer","Something like Billie Eilish but warmer and more hopeful"],
+      ["Coastal folk singer","A folk singer from a small coastal town who writes about leaving home"],
+      ["Space-obsessed pop","An upbeat pop artist obsessed with space and first loves"]];
+    vals.prompt=S.prompt;
+    vals.setPrompt=e=>this.set({prompt:e.target.value});
+    vals.examples=EX.map(([short,full])=>({short,onUse:()=>this.set({prompt:full})}));
+    const can=S.prompt.trim().length>3;
+    vals.continueStyle="opacity:"+(can?"1":".45")+";cursor:"+(can?"pointer":"default");
+    vals.onContinue=()=>{if(!can)return;const {dna,interp}=this.buildDNA(S.prompt);this.set({dna,interp,step:2,keep:{},nudgeDiff:null});};
+    const d=S.dna||{era:8,influences:[{name:"Pop",w:0.8},{name:"Indie pop",w:0.6},{name:"Electronic",w:0.4},{name:"R&B",w:0.3}],pal:[0,0,0,0,0,0,0],voc:{x:0,y:0},obs:[],vis:[]};
+    vals.interpShow=!!S.interp;vals.interpText=S.interp?S.interp.text:"";
+    const sec=k=>({open:S.open[k],onToggle:()=>this.set({open:{...S.open,[k]:!S.open[k]}}),
+      chev:"color:var(--color-neutral-500);font-size:13px;transition:transform .2s;display:inline-block;transform:rotate("+(S.open[k]?"180deg":"0deg")+")"});
+    vals.secEra=sec("era");vals.secInf=sec("inf");vals.secPal=sec("pal");vals.secVoc=sec("voc");vals.secObs=sec("obs");vals.secVis=sec("vis");
+    vals.eraLabel=this.ERAS[d.era];
+    const eraPct=d.era/10*100;
+    vals.eraFill=sliderFill(eraPct);vals.eraThumb=thumb(eraPct,7);
+    vals.eraDown=this.drag(x=>this.set({dna:{...this.state.dna,era:Math.round(x*10)}}));
+    vals.keepEra=this.keepVM("era");
+    vals.influences=d.influences.map((g,i)=>{const pct=g.w*100;
+      return {name:g.name.toUpperCase(),pct:Math.round(pct)+"%",fill:sliderFill(pct),thumb:thumb(pct,6),
+        onDown:this.drag(x=>{const inf=[...this.state.dna.influences];inf[i]={...inf[i],w:Math.round(x*100)/100};this.set({dna:{...this.state.dna,influences:inf}});})};});
+    vals.keepInf=this.keepVM("inf");
+    vals.palette=d.pal.map((v,i)=>{const pct=(v+1)/2*100;const kv=this.keepVM("pal"+i,true);
+      return {left:this.AXES[i][0],right:this.AXES[i][1],fill:bipolarFill(pct),thumb:thumb(pct,6),
+        keepStyle:kv.style,keepLabel:kv.label,onKeep:kv.onClick,
+        onDown:this.drag(x=>{const pal=[...this.state.dna.pal];pal[i]=Math.round((x*2-1)*20)/20;this.set({dna:{...this.state.dna,pal}});})};});
+    const vx=(d.voc.x+1)/2*100,vy=(d.voc.y+1)/2*100;
+    vals.vocalDot="position:absolute;left:"+vx+"%;top:"+vy+"%;width:16px;height:16px;border-radius:50%;background:var(--color-accent);border:2px solid var(--color-bg);box-shadow:var(--shadow-sm);transform:translate(-50%,-50%);transition:all .15s ease;box-sizing:border-box";
+    vals.vocalDown=this.drag((x,y)=>this.set({dna:{...this.state.dna,voc:{x:x*2-1,y:y*2-1}}}));
+    vals.vocalDesc=(d.voc.y>0?"damaged":"clean")+", "+(d.voc.x>0.3?"near a scream":d.voc.x<-0.3?"near a whisper":"mid-voice");
+    vals.keepVoc=this.keepVM("voc");
+    vals.obsChips=d.obs.map((t,i)=>({t,onRemove:()=>{const obs=d.obs.filter((_,j)=>j!==i);this.set({dna:{...this.state.dna,obs}});}}));
+    vals.visChips=d.vis.map((t,i)=>({t,onRemove:()=>{const vis=d.vis.filter((_,j)=>j!==i);this.set({dna:{...this.state.dna,vis}});}}));
+    vals.obsInput=S.obsInput;vals.visInput=S.visInput;
+    vals.obsOnInput=e=>this.set({obsInput:e.target.value});
+    vals.visOnInput=e=>this.set({visInput:e.target.value});
+    const addObs=()=>{const t=this.state.obsInput.trim();if(t)this.set({dna:{...this.state.dna,obs:[...this.state.dna.obs,t]},obsInput:""});};
+    const addVis=()=>{const t=this.state.visInput.trim();if(t)this.set({dna:{...this.state.dna,vis:[...this.state.dna.vis,t]},visInput:""});};
+    vals.obsAdd=addObs;vals.visAdd=addVis;
+    vals.obsOnKey=e=>{if(e.key==="Enter")addObs();};
+    vals.visOnKey=e=>{if(e.key==="Enter")addVis();};
+    vals.keepObs=this.keepVM("obs");vals.keepVis=this.keepVM("vis");
+    vals.infSummary=d.influences.slice(0,2).map(g=>g.name).join(" · ");
+    vals.palSummary=d.pal.map((v,i)=>({v:Math.abs(v),t:this.AXES[i][v>0?1:0]})).sort((x,y)=>y.v-x.v).slice(0,3).map(x=>x.t).join(" · ");
+    vals.obsSummary=d.obs.length+" obsession"+(d.obs.length===1?"":"s");
+    vals.visSummary=d.vis.join(" · ");
+    vals.liveRadar=this.radar(d.pal,100,95,66);
+    vals.liveAxisLabels=this.axisLabels(100,95,86);
+    const kc=Object.values(S.keep).filter(Boolean).length;
+    vals.keptCount=kc;vals.keptNoun=kc===1?"field":"fields";
+    vals.onRegenRest=()=>this.regenRest();
+    vals.onGenerate=()=>{this.set({step:3,candidates:null,picked:-1,prof:null,nudgeDiff:null});
+      this.wave("Writing three candidate singles…","Wave one — your pick decides who they become",1800,()=>this.set({phase:"idle",candidates:this.makeCandidates()}));};
+    vals.genBusy=S.phase==="busy";vals.genMsg=S.genMsg;vals.genSub=S.genSub;
+    vals.showCandidates=S.phase==="idle"&&!!S.candidates&&S.picked<0;
+    vals.showProfile=S.phase==="idle"&&!!S.prof;
+    vals.candidates=(S.candidates||[]).map((c,i)=>{const vm=this.trackVM("c"+i,c.title);
+      return {...vm,note:c.note,onPick:()=>{this.set({picked:i});
+        this.wave("Great choice. Painting their portrait, writing their story…","Wave two — the rest of the artist follows the single",2000,()=>this.set({phase:"idle",prof:this.makeProfile()}));}};});
+    const prof=S.prof;
+    const PROV={portrait:["vis","era"],cover:["vis","pal"],bio:["obs","era","inf"],tracks:["pal","voc","inf","era"]};
+    const hov=S.hoverProv?PROV[S.hoverProv]:null;
+    const chipDefs=[["era","Era: "+this.ERAS[d.era]],["inf","Influences: "+d.influences.map(g=>g.name).join(", ")],
+      ["pal","Sonic palette"],["voc","Vocal: "+vals.vocalDesc],
+      ["obs","Obsessions: "+d.obs.slice(0,2).join(", ")],["vis","Visual: "+d.vis.join(", ")]];
+    vals.provChips=chipDefs.map(([k,label])=>{const active=hov&&hov.includes(k);
+      return {label,style:"font-size:11px;border-radius:999px;padding:4px 11px;transition:all .2s;border:1px solid "+(active?"var(--color-accent)":"var(--color-divider)")+";background:"+(active?"var(--color-accent-100)":"transparent")+";color:"+(active?"var(--color-accent-700)":"var(--color-neutral-600)")};});
+    const hl=k=>S.hoverProv===k?";outline:2px solid color-mix(in srgb, var(--color-accent) 45%, transparent);outline-offset:3px;border-radius:var(--radius-sm)":"";
+    vals.provPortraitIn=()=>this.set({hoverProv:"portrait"});
+    vals.provCoverIn=()=>this.set({hoverProv:"cover"});
+    vals.provBioIn=()=>this.set({hoverProv:"bio"});
+    vals.provTracksIn=()=>this.set({hoverProv:"tracks"});
+    vals.provOut=()=>this.set({hoverProv:null});
+    if(prof){
+      vals.prof=prof;
+      vals.profPortraitWrap="padding:var(--space-2);border:1px solid var(--color-divider);background:var(--color-surface);border-radius:var(--radius-sm)"+hl("portrait");
+      vals.profPortraitStyle="position:relative;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;transition:opacity .3s;background:"+this.grad(prof.hues[0],prof.hues[1])+(S.regen.portrait?";opacity:.4":"");
+      vals.profCoverWrap="display:flex;gap:var(--space-3);align-items:center;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:var(--space-3)"+hl("cover");
+      vals.profCoverStyle="width:84px;height:84px;display:flex;align-items:center;justify-content:center;transition:opacity .3s;background:"+this.grad(prof.hues[1],prof.hues[0])+(S.regen.cover?";opacity:.4":"");
+      vals.profBioStyle="margin-bottom:var(--space-6);transition:opacity .3s;padding:4px"+(S.regen.bio?";opacity:.4":"")+hl("bio");
+      vals.profTracksStyle="padding:4px"+hl("tracks");
+      vals.regenPortrait=()=>this.regenArtifact("portrait");
+      vals.regenCover=()=>this.regenArtifact("cover");
+      vals.regenBio=()=>this.regenArtifact("bio");
+      vals.regenPortraitLabel=S.regen.portrait?"Repainting…":"↻ Regenerate portrait";
+      vals.regenCoverLabel=S.regen.cover?"Redrawing…":"↻ Regenerate cover";
+      vals.regenBioLabel=S.regen.bio?"Rewriting…":"↻ Rewrite the bio";
+      vals.profSingle=this.trackVM("p0",prof.tracks[0]);
+      vals.profOthers=[1,2].map(i=>{const vm=this.trackVM("p"+i,prof.tracks[i]);
+        return {...vm,regenLabel:S.regen["t"+i]?"regenerating…":"↻ regenerate",onRegen:()=>this.regenArtifact("t"+i)};});
+    } else {
+      vals.prof={initials:"",name:"",bio:"",coverTitle:""};
+      vals.profPortraitWrap="";vals.profPortraitStyle="";vals.profCoverWrap="";vals.profCoverStyle="";vals.profBioStyle="";vals.profTracksStyle="";
+      vals.profSingle={title:"",icon:"▶",time:"",progStyle:"",onPlay:()=>{}};vals.profOthers=[];
+      vals.regenPortrait=vals.regenCover=vals.regenBio=()=>{};
+      vals.regenPortraitLabel=vals.regenCoverLabel=vals.regenBioLabel="";
+    }
+    vals.nudgeText=S.nudgeText;
+    vals.nudgeChange=e=>this.set({nudgeText:e.target.value});
+    vals.nudgeKey=e=>{if(e.key==="Enter")this.nudge();};
+    vals.nudgeGo=()=>this.nudge();
+    vals.nudgeDiffShow=!!S.nudgeDiff;
+    vals.nudgeDiff=S.nudgeDiff||[];
+    vals.backToDNA=()=>this.set({step:2});
+    vals.saveArtist=()=>{if(!prof)return;const d2=this.state.dna;
+      const na={id:"u"+Date.now(),name:prof.name,tag:prof.tracks[0]+" — and two more",era:d2.era,
+        genres:d2.influences.slice(0,2).map(g=>g.name),hues:prof.hues,pal:d2.pal,voc:d2.voc,obs:d2.obs,vis:d2.vis,
+        bio:prof.bio,tracks:prof.tracks,cover:prof.coverTitle,coverDesc:prof.coverDesc};
+      this.set({roster:[na,...this.state.roster],view:"artist",artistId:na.id,step:1,prompt:"",dna:null,interp:null,candidates:null,picked:-1,prof:null,keep:{}});};
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

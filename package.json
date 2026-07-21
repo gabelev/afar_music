@@ -2,6 +2,7 @@
   "name": "afar",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,6 +10,8 @@
     "lint": "eslint",
     "test": "vitest run --passWithNoTests",
     "db:migrate": "node --env-file=.env scripts/db-migrate.ts",
+    "generate": "node --env-file=.env --import tsx scripts/generate.ts",
+    "ab-test": "node --env-file=.env --import tsx scripts/ab-test.ts",
     "prepare": "git config core.hooksPath .githooks"
   },
   "dependencies": {
@@ -29,6 +32,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
+    "tsx": "^4.23.1",
     "typescript": "^5",
     "vitest": "^4.1.10"
   }

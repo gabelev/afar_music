@@ -116,6 +116,8 @@ describe("buildCompositionPlan", () => {
     expect(plan.chunks[0]).toEqual({
       text: "rain keeps its own time",
       duration_ms: TRACK_DURATION_MS,
+      positive_styles: [],
+      negative_styles: [],
     });
   });
 
