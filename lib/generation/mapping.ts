@@ -1,6 +1,6 @@
 import type { CreativeDNA, SonicAxis } from "@/lib/dna/schema";
 import { ERAS } from "@/lib/dna/schema";
-import { AXIS_TOKENS, ERA_STYLES, VOCAL_TOKENS } from "./styleTokens";
+import { AXIS_TOKENS, ERA_STYLES, SOLO_PERFORMANCE_COMBO, VOCAL_TOKENS } from "./styleTokens";
 
 /**
  * DNA → ElevenLabs composition plan. Structural levers, not adjectives:
@@ -132,8 +132,14 @@ export function buildCompositionPlan(dna: CreativeDNA, lyricSeed: string): PlanW
   positive.push(`${bpm} BPM`, ...eraStyle.tokens);
   provenance.push("era");
 
+  // The heaviest influence anchors the genre with at least two tokens, so
+  // spread-thin weights can't let palette adjectives outvote it.
+  const leadGenre = dna.influences.reduce((a, b) => (b.weight > a.weight ? b : a));
   for (const influence of dna.influences) {
-    const tokens = influenceTokens(influence.genre, influence.weight);
+    let tokens = influenceTokens(influence.genre, influence.weight);
+    if (influence === leadGenre && tokens.length < 2) {
+      tokens = [influence.genre, `${influence.genre} instrumentation`];
+    }
     if (tokens.length > 0) {
       positive.push(...tokens);
       provenance.push(`influences.${influence.genre}`);
@@ -156,6 +162,16 @@ export function buildCompositionPlan(dna: CreativeDNA, lyricSeed: string): PlanW
       negative.push(...mapped.negative);
       provenance.push(`vocalCharacter.${padAxis}`);
     }
+  }
+
+  const t = SOLO_PERFORMANCE_COMBO.threshold;
+  if (
+    dna.sonicPalette.sparseDense <= -t &&
+    dna.sonicPalette.loudQuiet >= t &&
+    dna.sonicPalette.organicSynthetic <= -t
+  ) {
+    positive.push(...SOLO_PERFORMANCE_COMBO.positive);
+    negative.push(...SOLO_PERFORMANCE_COMBO.negative);
   }
 
   if (lyricSeed.trim().length > 0) provenance.push("lyricalObsessions");
