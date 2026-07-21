@@ -1,55 +1,27 @@
 {
-  "title": "Golden Hour Heartbreak",
-  "lyricSeed": "Fading summer light paints the ocean gold, you're a warm regret but I'm not feeling cold, waves keep on rolling, letting your love go",
+  "title": "Fading Summer Light",
+  "lyricSeed": "The days get shorter, so does us\nBut I'm still smiling, watch me glow\nSunset painting all your leaving\nIn colors I let go\nWarm heartbreak on the boardwalk\nA postcard fading slow\nI loved you like a season\nNow I let the summer close",
   "compositionPlan": {
-    "positive_global_styles": [
-      "120 BPM",
-      "2010s production",
-      "sidechained pads",
-      "trap hi-hats",
-      "indie pop",
-      "surf rock",
-      "tropical house",
-      "synth-pop",
-      "pristine production",
-      "polished",
-      "dense arrangement",
-      "warm tone",
-      "analog warmth",
-      "cozy timbre",
-      "structured songwriting",
-      "tight arrangement",
-      "loud",
-      "hopeful mood",
-      "uplifting",
-      "radiant",
-      "whispered vocals",
-      "clean vocals",
-      "pure vocal tone"
-    ],
-    "negative_global_styles": [
-      "lo-fi",
-      "tape saturation",
-      "sparse arrangement",
-      "cold tone",
-      "icy digital timbre",
-      "detached",
-      "improvised feel",
-      "loose performance",
-      "quiet",
-      "dark mood",
-      "brooding",
-      "ominous undertow",
-      "screamed vocals",
-      "damaged vocal texture",
-      "distorted vocals"
-    ],
     "chunks": [
       {
-        "text": "Fading summer light paints the ocean gold, you're a warm regret but I'm not feeling cold, waves keep on rolling, letting your love go",
+        "text": "The days get shorter, so does us\nBut I'm still smiling, watch me glow\nSunset painting all your leaving\nIn colors I let go\nWarm heartbreak on the boardwalk\nA postcard fading slow\nI loved you like a season\nNow I let the summer close",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "122 BPM",
+          "2010s production",
+          "indie pop",
+          "indie pop instrumentation",
+          "soft intimate vocals",
+          "clean vocals",
+          "warm tone"
+        ],
+        "negative_styles": [
+          "cold tone",
+          "dark mood",
+          "improvised feel",
+          "damaged vocal texture"
+        ],
+        "context_adherence": "high"
       }
     ]
   },
@@ -57,21 +29,15 @@
   "provenance": [
     "era",
     "influences.indie pop",
-    "influences.surf rock",
-    "influences.tropical house",
-    "influences.synth-pop",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.coldWarm",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.darkHopeful",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.coldWarm",
+    "sonicPalette.darkHopeful",
+    "sonicPalette.improvisedStructured",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "f6653029394006f71f0464ec5c67ec25"
+    "x-trace-id": "50c1f2a6650450862e645504028c553f"
   }
 }

@@ -1,52 +1,24 @@
 {
-  "title": "The Hour After",
-  "lyricSeed": "It's the hour after regret, and I still taste your name, taillights bleeding down the ramp, midnight and the same old ache, I sing it soft to no one",
+  "title": "Flicker",
+  "lyricSeed": "Flickering fluorescent love\nOn and off, never enough\nYou blink out then back again\nI wait beneath the concrete rain\nCall your name, it echoes wide\nComes back empty every time\nStill I stay past midnight's line",
   "compositionPlan": {
-    "positive_global_styles": [
-      "120 BPM",
-      "2010s production",
-      "sidechained pads",
-      "trap hi-hats",
-      "alternative R&B",
-      "alternative R&B instrumentation",
-      "neo-soul",
-      "ambient",
-      "trip-hop",
-      "lo-fi",
-      "sparse arrangement",
-      "minimal instrumentation",
-      "cold tone",
-      "improvised feel",
-      "quiet",
-      "hushed dynamics",
-      "synthetic textures",
-      "electronic synthesis",
-      "dark mood",
-      "whispered vocals",
-      "breathy delivery",
-      "damaged vocal texture"
-    ],
-    "negative_global_styles": [
-      "pristine production",
-      "dense arrangement",
-      "layered instrumentation",
-      "warm tone",
-      "structured songwriting",
-      "loud",
-      "aggressive dynamics",
-      "organic instrumentation",
-      "acoustic instruments",
-      "hopeful mood",
-      "screamed vocals",
-      "throat-shredding intensity",
-      "clean vocals"
-    ],
     "chunks": [
       {
-        "text": "It's the hour after regret, and I still taste your name, taillights bleeding down the ramp, midnight and the same old ache, I sing it soft to no one",
+        "text": "Flickering fluorescent love\nOn and off, never enough\nYou blink out then back again\nI wait beneath the concrete rain\nCall your name, it echoes wide\nComes back empty every time\nStill I stay past midnight's line",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "108 BPM",
+          "2010s production",
+          "alternative R&B",
+          "alternative R&B instrumentation",
+          "soft intimate vocals",
+          "raspy weathered vocal texture",
+          "sparse arrangement"
+        ],
+        "negative_styles": [
+          "screamed vocals"
+        ],
+        "context_adherence": "medium"
       }
     ]
   },
@@ -54,22 +26,13 @@
   "provenance": [
     "era",
     "influences.alternative R&B",
-    "influences.neo-soul",
-    "influences.ambient",
-    "influences.trip-hop",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.coldWarm",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.organicSynthetic",
-    "sonicPalette.darkHopeful",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.sparseDense",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "826b99714a448d4430bd0ac05437c548"
+    "x-trace-id": "a8e3187a6eda939e6cb96a686dbf8581"
   }
 }

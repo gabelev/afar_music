@@ -1,76 +1,41 @@
 {
   "title": "Silence Where the Prayer Used to Be",
-  "lyricSeed": "There's a silence in the pew where my prayer used to be, I keep on singin' but the heavens don't answer me, oh Lord, oh Lord, are you still callin' me?",
+  "lyricSeed": "I knelt down but the words won't come\nThere's a silence where my prayer used to be\nI'm calling out to an empty room\nAnd the echo just calls back to me\nMama, I lost the voice you gave\nNow I'm shouting at a sky that stays\nOh, the quiet is so loud tonight\nSave me, somebody, if you can",
   "compositionPlan": {
-    "positive_global_styles": [
-      "105 BPM",
-      "1970s studio production",
-      "analog tape sound",
-      "gospel",
-      "soul",
-      "rhythm and blues",
-      "southern funk",
-      "pristine production",
-      "polished",
-      "dense arrangement",
-      "warm tone",
-      "analog warmth",
-      "cozy timbre",
-      "improvised feel",
-      "loud",
-      "aggressive dynamics",
-      "organic instrumentation",
-      "acoustic instruments",
-      "live drums",
-      "screamed vocals",
-      "throat-shredding intensity",
-      "clean vocals"
-    ],
-    "negative_global_styles": [
-      "lo-fi",
-      "tape saturation",
-      "sparse arrangement",
-      "cold tone",
-      "icy digital timbre",
-      "detached",
-      "structured songwriting",
-      "quiet",
-      "hushed dynamics",
-      "synthetic textures",
-      "electronic synthesis",
-      "drum machines",
-      "whispered vocals",
-      "breathy delivery",
-      "damaged vocal texture"
-    ],
     "chunks": [
       {
-        "text": "There's a silence in the pew where my prayer used to be, I keep on singin' but the heavens don't answer me, oh Lord, oh Lord, are you still callin' me?",
+        "text": "I knelt down but the words won't come\nThere's a silence where my prayer used to be\nI'm calling out to an empty room\nAnd the echo just calls back to me\nMama, I lost the voice you gave\nNow I'm shouting at a sky that stays\nOh, the quiet is so loud tonight\nSave me, somebody, if you can",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "110 BPM",
+          "1970s studio production",
+          "soul",
+          "soul instrumentation",
+          "powerful belted vocals",
+          "clean vocals",
+          "organic instrumentation"
+        ],
+        "negative_styles": [
+          "synthetic textures",
+          "cold tone",
+          "whispered vocals"
+        ],
+        "context_adherence": "medium"
       }
     ]
   },
   "contextAdherence": "medium",
   "provenance": [
     "era",
-    "influences.gospel",
     "influences.soul",
-    "influences.rhythm and blues",
-    "influences.southern funk",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.coldWarm",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.organicSynthetic",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.coldWarm",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "5f4936f14792aeda7bb82bd317c3b848"
+    "x-trace-id": "7aadd449951479990e0311c7067475aa"
   }
 }

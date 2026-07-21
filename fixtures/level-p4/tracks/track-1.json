@@ -1,52 +1,24 @@
 {
   "title": "Concrete Cathedral",
-  "lyricSeed": "Empty concrete cathedral, I'm praying to the dark, every echo comes back hollow, no answer to my heart, just me and these headlights fading slow",
+  "lyricSeed": "Level three and the fluorescents hum\nEcho of your name, but no one comes\nI sing to pillars, cold and gray\nEmpty cathedral where I stay\nMidnight swallows every sound\nJust my whisper going round",
   "compositionPlan": {
-    "positive_global_styles": [
-      "120 BPM",
-      "2010s production",
-      "sidechained pads",
-      "trap hi-hats",
-      "alternative R&B",
-      "alternative R&B instrumentation",
-      "neo-soul",
-      "ambient",
-      "trip-hop",
-      "lo-fi",
-      "sparse arrangement",
-      "minimal instrumentation",
-      "cold tone",
-      "improvised feel",
-      "quiet",
-      "hushed dynamics",
-      "synthetic textures",
-      "electronic synthesis",
-      "dark mood",
-      "whispered vocals",
-      "breathy delivery",
-      "damaged vocal texture"
-    ],
-    "negative_global_styles": [
-      "pristine production",
-      "dense arrangement",
-      "layered instrumentation",
-      "warm tone",
-      "structured songwriting",
-      "loud",
-      "aggressive dynamics",
-      "organic instrumentation",
-      "acoustic instruments",
-      "hopeful mood",
-      "screamed vocals",
-      "throat-shredding intensity",
-      "clean vocals"
-    ],
     "chunks": [
       {
-        "text": "Empty concrete cathedral, I'm praying to the dark, every echo comes back hollow, no answer to my heart, just me and these headlights fading slow",
+        "text": "Level three and the fluorescents hum\nEcho of your name, but no one comes\nI sing to pillars, cold and gray\nEmpty cathedral where I stay\nMidnight swallows every sound\nJust my whisper going round",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "108 BPM",
+          "2010s production",
+          "alternative R&B",
+          "alternative R&B instrumentation",
+          "soft intimate vocals",
+          "raspy weathered vocal texture",
+          "sparse arrangement"
+        ],
+        "negative_styles": [
+          "screamed vocals"
+        ],
+        "context_adherence": "medium"
       }
     ]
   },
@@ -54,22 +26,13 @@
   "provenance": [
     "era",
     "influences.alternative R&B",
-    "influences.neo-soul",
-    "influences.ambient",
-    "influences.trip-hop",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.coldWarm",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.organicSynthetic",
-    "sonicPalette.darkHopeful",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.sparseDense",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "466354245c7d58d3e68306c6045022cf"
+    "x-trace-id": "539c28a2c6d13b365c8bb6d601c6360e"
   }
 }

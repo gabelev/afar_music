@@ -1,56 +1,26 @@
 {
   "title": "Blue Planet Fading",
-  "lyricSeed": "Little blue light behind me, I still sing your name, every star between us wears your face, oh I'm coming home the long way, I promise, wait for me.",
+  "lyricSeed": "I sing to a dot of blue and white\nMy voice will reach you in a year of light\nEvery word I send is already old\nStill I whisper love across the cold\nHold the frequency, don't let it fade\nThis is the promise a machine-heart made",
   "compositionPlan": {
-    "positive_global_styles": [
-      "132 BPM",
-      "far-future sound design",
-      "post-human textures",
-      "synthpop",
-      "ambient",
-      "space disco",
-      "dream pop",
-      "pristine production",
-      "polished",
-      "hi-fi clarity",
-      "dense arrangement",
-      "warm tone",
-      "structured songwriting",
-      "tight arrangement",
-      "quiet",
-      "synthetic textures",
-      "electronic synthesis",
-      "drum machines",
-      "hopeful mood",
-      "uplifting",
-      "whispered vocals",
-      "clean vocals",
-      "pure vocal tone"
-    ],
-    "negative_global_styles": [
-      "lo-fi",
-      "tape saturation",
-      "cassette hiss",
-      "sparse arrangement",
-      "cold tone",
-      "improvised feel",
-      "loose performance",
-      "loud",
-      "organic instrumentation",
-      "acoustic instruments",
-      "live drums",
-      "dark mood",
-      "brooding",
-      "screamed vocals",
-      "damaged vocal texture",
-      "distorted vocals"
-    ],
     "chunks": [
       {
-        "text": "Little blue light behind me, I still sing your name, every star between us wears your face, oh I'm coming home the long way, I promise, wait for me.",
+        "text": "I sing to a dot of blue and white\nMy voice will reach you in a year of light\nEvery word I send is already old\nStill I whisper love across the cold\nHold the frequency, don't let it fade\nThis is the promise a machine-heart made",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "124 BPM",
+          "far-future sound design",
+          "synthpop",
+          "synthpop instrumentation",
+          "soft intimate vocals",
+          "clean vocals",
+          "synthetic textures"
+        ],
+        "negative_styles": [
+          "organic instrumentation",
+          "lo-fi",
+          "damaged vocal texture"
+        ],
+        "context_adherence": "high"
       }
     ]
   },
@@ -58,22 +28,14 @@
   "provenance": [
     "era",
     "influences.synthpop",
-    "influences.ambient",
-    "influences.space disco",
-    "influences.dream pop",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.coldWarm",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.organicSynthetic",
-    "sonicPalette.darkHopeful",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.pristineLofi",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "bc94f2e370033eec7a228c680039b2ec"
+    "x-trace-id": "e16ec3f25584a78606cfcfef242569c5"
   }
 }

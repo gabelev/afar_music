@@ -1,76 +1,41 @@
 {
   "title": "False Salvation",
-  "lyricSeed": "I called your love my savior, laid my burden at your door, but you were never holy, baby, just a man I was prayin' for, and I need more.",
+  "lyricSeed": "You said your love would wash me clean\nSo I mistook your arms for grace\nBut the water dried and I'm still me\nWith the same doubt on my face\nI worshipped you like something holy\nNow I'm on my knees and lonely\nLove ain't the savior I believed\nOh, it left a hollow in its place",
   "compositionPlan": {
-    "positive_global_styles": [
-      "105 BPM",
-      "1970s studio production",
-      "analog tape sound",
-      "gospel",
-      "soul",
-      "rhythm and blues",
-      "southern funk",
-      "pristine production",
-      "polished",
-      "dense arrangement",
-      "warm tone",
-      "analog warmth",
-      "cozy timbre",
-      "improvised feel",
-      "loud",
-      "aggressive dynamics",
-      "organic instrumentation",
-      "acoustic instruments",
-      "live drums",
-      "screamed vocals",
-      "throat-shredding intensity",
-      "clean vocals"
-    ],
-    "negative_global_styles": [
-      "lo-fi",
-      "tape saturation",
-      "sparse arrangement",
-      "cold tone",
-      "icy digital timbre",
-      "detached",
-      "structured songwriting",
-      "quiet",
-      "hushed dynamics",
-      "synthetic textures",
-      "electronic synthesis",
-      "drum machines",
-      "whispered vocals",
-      "breathy delivery",
-      "damaged vocal texture"
-    ],
     "chunks": [
       {
-        "text": "I called your love my savior, laid my burden at your door, but you were never holy, baby, just a man I was prayin' for, and I need more.",
+        "text": "You said your love would wash me clean\nSo I mistook your arms for grace\nBut the water dried and I'm still me\nWith the same doubt on my face\nI worshipped you like something holy\nNow I'm on my knees and lonely\nLove ain't the savior I believed\nOh, it left a hollow in its place",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "110 BPM",
+          "1970s studio production",
+          "soul",
+          "soul instrumentation",
+          "powerful belted vocals",
+          "clean vocals",
+          "organic instrumentation"
+        ],
+        "negative_styles": [
+          "synthetic textures",
+          "cold tone",
+          "whispered vocals"
+        ],
+        "context_adherence": "medium"
       }
     ]
   },
   "contextAdherence": "medium",
   "provenance": [
     "era",
-    "influences.gospel",
     "influences.soul",
-    "influences.rhythm and blues",
-    "influences.southern funk",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.coldWarm",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.organicSynthetic",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.organicSynthetic",
+    "sonicPalette.coldWarm",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "7af5e516d8ff07295b8d288ff7094278"
+    "x-trace-id": "41d521e9e4aa6adcbaf3c63ff8d60b75"
   }
 }

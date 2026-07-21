@@ -1,51 +1,25 @@
 {
   "title": "Read Receipt Blues",
-  "lyricSeed": "Oh, the little word says read, but you don't write, I'm waiting by the blue-lit screen tonight, baby why, why won't you reply, shoo-be-doo, oh my",
+  "lyricSeed": "Blue light on my pillow, the message says you're seen\nBut you don't write me back, oh baby, what's it mean\nThree little dots that flicker then fade\nMy heart in a bubble that never gets saved\nWhoa, the ache of a read receipt\nLeaves me lonely down the empty street",
   "compositionPlan": {
-    "positive_global_styles": [
-      "110 BPM",
-      "1960s analog production",
-      "vintage tube warmth",
-      "1960s girl-group pop",
-      "1960s girl-group pop instrumentation",
-      "Wall of Sound orchestral pop",
-      "doo-wop",
-      "indie retro-soul",
-      "lo-fi",
-      "dense arrangement",
-      "layered instrumentation",
-      "warm tone",
-      "analog warmth",
-      "structured songwriting",
-      "tight arrangement",
-      "precise performance",
-      "loud",
-      "organic instrumentation",
-      "acoustic instruments",
-      "whispered vocals",
-      "clean vocals"
-    ],
-    "negative_global_styles": [
-      "pristine production",
-      "sparse arrangement",
-      "minimal instrumentation",
-      "cold tone",
-      "icy digital timbre",
-      "improvised feel",
-      "loose performance",
-      "jam-like spontaneity",
-      "quiet",
-      "synthetic textures",
-      "electronic synthesis",
-      "screamed vocals",
-      "damaged vocal texture"
-    ],
     "chunks": [
       {
-        "text": "Oh, the little word says read, but you don't write, I'm waiting by the blue-lit screen tonight, baby why, why won't you reply, shoo-be-doo, oh my",
+        "text": "Blue light on my pillow, the message says you're seen\nBut you don't write me back, oh baby, what's it mean\nThree little dots that flicker then fade\nMy heart in a bubble that never gets saved\nWhoa, the ache of a read receipt\nLeaves me lonely down the empty street",
         "duration_ms": 30000,
-        "positive_styles": [],
-        "negative_styles": []
+        "positive_styles": [
+          "112 BPM",
+          "1960s analog production",
+          "1960s girl-group pop",
+          "1960s girl-group pop instrumentation",
+          "soft intimate vocals",
+          "clean vocals",
+          "structured songwriting"
+        ],
+        "negative_styles": [
+          "improvised feel",
+          "cold tone"
+        ],
+        "context_adherence": "high"
       }
     ]
   },
@@ -53,21 +27,14 @@
   "provenance": [
     "era",
     "influences.1960s girl-group pop",
-    "influences.Wall of Sound orchestral pop",
-    "influences.doo-wop",
-    "influences.indie retro-soul",
-    "sonicPalette.pristineLofi",
-    "sonicPalette.sparseDense",
-    "sonicPalette.coldWarm",
-    "sonicPalette.improvisedStructured",
-    "sonicPalette.loudQuiet",
-    "sonicPalette.organicSynthetic",
     "vocalCharacter.whispersScreams",
     "vocalCharacter.cleanDamaged",
+    "sonicPalette.improvisedStructured",
+    "sonicPalette.coldWarm",
     "lyricalObsessions"
   ],
   "metadata": {
     "x-region": "us-central1",
-    "x-trace-id": "d3237ce147e6a39955def0b8af9cee23"
+    "x-trace-id": "fef535a86c656631d461d0337031cc6c"
   }
 }
