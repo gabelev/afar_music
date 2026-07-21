@@ -148,6 +148,46 @@ export async function generateTrackSeed(
   return parsed;
 }
 
+/**
+ * "Regenerate the rest": rebuild the DNA from the seed prompt while holding
+ * the kept fields fixed. Kept fields are passed verbatim and echoed back;
+ * everything else is regenerated coherently around them.
+ */
+export async function regenerateDNA(
+  seedPrompt: string,
+  kept: Partial<Omit<CreativeDNA, "seedPrompt">>,
+): Promise<{ dna: CreativeDNA; referenceNotes: ReferenceNote[] }> {
+  const keptBrief = Object.entries(kept)
+    .map(([field, value]) => `${field}: ${JSON.stringify(value)}`)
+    .join("\n");
+  const response = await client().messages.parse({
+    model: MODEL,
+    max_tokens: 4096,
+    system: [
+      "You translate a listener's free-text description of an imagined musical artist into Creative DNA controls.",
+      "Some fields are KEPT: return them EXACTLY as given, unchanged. Regenerate every other field so the whole DNA stays coherent with the kept fields — they are constraints, not suggestions.",
+      "If the prompt references a real artist or band, do NOT carry the name into any output field; substitute a style summary and record it in referenceNotes.",
+      "Bipolar axes are signed -1..1 (-1 first pole, +1 second pole). Exactly 4 influences (weights ~sum 1), exactly 4 lyricalObsessions, exactly 2 visualStyle tags.",
+    ].join("\n"),
+    messages: [
+      { role: "user", content: `Prompt: ${seedPrompt}\n\nKEPT fields (echo unchanged):\n${keptBrief || "(none)"}` },
+    ],
+    output_config: { format: zodOutputFormat(SeedResponseSchema) },
+  });
+  const parsed = response.parsed_output;
+  if (!parsed) throw new Error("Claude returned an unparseable DNA response");
+  const dna = CreativeDNASchema.parse({
+    seedPrompt,
+    era: kept.era ?? ERAS.indexOf(parsed.era),
+    influences: kept.influences ?? normalizeInfluences(parsed.influences.slice(0, 4)),
+    sonicPalette: kept.sonicPalette ?? parsed.sonicPalette,
+    vocalCharacter: kept.vocalCharacter ?? parsed.vocalCharacter,
+    lyricalObsessions: kept.lyricalObsessions ?? dedupe(parsed.lyricalObsessions).slice(0, 4),
+    visualStyle: kept.visualStyle ?? dedupe(parsed.visualStyle).slice(0, 2),
+  });
+  return { dna, referenceNotes: parsed.referenceNotes };
+}
+
 const TrackSeedsSchema = z.object({ tracks: z.array(TrackSeedSchema) });
 
 /**

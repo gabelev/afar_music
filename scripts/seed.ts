@@ -72,8 +72,11 @@ async function seedArtist(slug: string) {
     blobUrls[label] = `/artists/${slug}/${label}`;
   };
 
+  // Fixtures may carry either extension (early runs wrote PNG, later JPEG).
   copyIf("portrait.png", join(dir, "portrait.png"));
+  copyIf("portrait.jpg", join(dir, "portrait.jpg"));
   copyIf("cover.png", join(dir, "cover.png"));
+  copyIf("cover.jpg", join(dir, "cover.jpg"));
   for (const f of trackFiles) {
     const mp3 = f.replace(/\.json$/, ".mp3");
     copyIf(`tracks/${mp3}`, join(dir, "tracks", mp3));
@@ -123,7 +126,7 @@ async function seedArtist(slug: string) {
     "portrait",
     0,
     identity.portraitPrompt,
-    blobUrls["portrait.png"] ?? "",
+    blobUrls["portrait.png"] ?? blobUrls["portrait.jpg"] ?? "",
     IMAGE_PROVENANCE,
     {},
   );
@@ -131,7 +134,7 @@ async function seedArtist(slug: string) {
     "cover",
     0,
     identity.coverDescription,
-    blobUrls["cover.png"] ?? "",
+    blobUrls["cover.png"] ?? blobUrls["cover.jpg"] ?? "",
     IMAGE_PROVENANCE,
     { title: identity.coverTitle },
   );
